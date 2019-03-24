@@ -11,31 +11,8 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
-# Do not ignore SFML dll-s
-!openal32.dll
-# Release
-!sfml-audio-2.dll
-!sfml-graphics-2.dll
-!sfml-network-2.dll
-!sfml-system-2.dll
-!sfml-window-2.dll
-# Debug
-!sfml-audio-d-2.dll
-!sfml-graphics-d-2.dll
-!sfml-network-d-2.dll
-!sfml-system-d-2.dll
-!sfml-window-d-2.dll
-
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+# bin file has a separate .gitignore file
+[Ii]nt/
 
 # Visual Studio 2015 cache/options directory
 .vs/
