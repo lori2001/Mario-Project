@@ -9,9 +9,10 @@ private:
 	Resources resources;
 
 	Mario mario;
-	Ground ground;
+	Ground ground1;
+	Ground ground2;
 
-	const float gravity = 5; // the global value of the gravity
+	const float gravity = 3500; // the global value of the gravity
 
 	// used at making movement non-time reliant
 	sf::Clock clock;
