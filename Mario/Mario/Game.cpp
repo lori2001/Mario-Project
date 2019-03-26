@@ -2,7 +2,6 @@
 
 void Game::Setup(sf::RenderWindow & window)
 {
-	mario.setTexture(resources.marioT);
 	mario.setScale(2.2f);
 	mario.setPosition({ 200, 500 });
 
@@ -12,7 +11,7 @@ void Game::Setup(sf::RenderWindow & window)
 
 	ground2.sprite.setFillColor(sf::Color::Red);
 	ground2.sprite.setPosition({ 400, (float)HEIGHT - 450 });
-	ground2.sprite.setSize({ (float)WIDTH / 2, 100 });
+	ground2.sprite.setSize({ (float)WIDTH / 2, 50 });
 }
 
 void Game::Update(sf::RenderWindow & window)

@@ -3,7 +3,8 @@
 sf::Texture Resources::loadingscreenT;
 sf::Sprite Resources::loadingscreenS;
 
-sf::Texture Resources::marioT;
+sf::Texture Resources::mario_standT;
+sf::Texture Resources::mario_walkT;
 
 void Resources::loadFiles(sf::RenderWindow & window)
 {
@@ -14,5 +15,6 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	window.draw(loadingscreenS);
 	window.display();
 
-	marioT.loadFromFile("assets/images/mario_front.png");
+	mario_standT.loadFromFile("assets/images/mario_stand.png");
+	mario_walkT.loadFromFile("assets/images/mario_walk.png");
 }

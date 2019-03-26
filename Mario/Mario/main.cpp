@@ -57,7 +57,7 @@ int main()
 				window.close();
 		}
 
-		window.clear();
+		window.clear(sf::Color(100, 100, 250));
 
 		if (game.isActive) {
 			// contains frame-by-frame logic

@@ -1,5 +1,4 @@
 #include "Mario.h"
-#include <iostream>
 
 void Mario::setPosition(const sf::Vector2f & position)
 {
@@ -9,11 +8,6 @@ void Mario::setPosition(const sf::Vector2f & position)
 void Mario::setScale(const sf::Vector2f & scale)
 {
 	sprite.setScale(scale);
-}
-
-void Mario::setTexture(const sf::Texture & texture)
-{
-	sprite.setTexture(texture);
 }
 
 void Mario::controls(const float &dt, const float &gravity) // * dt means pixels/second

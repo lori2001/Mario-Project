@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-// There is still no proper level-based resource managment
+// There is still no proper level-based resource management
 // You should do it someday... :D
 
 // Contains the viewport sizes, but this should not ever change
@@ -14,7 +14,8 @@ private:
 	static sf::Sprite loadingscreenS;
 
 public:
-	static sf::Texture marioT;
+	static sf::Texture mario_standT;
+	static sf::Texture mario_walkT;
 
 	// Load all files and display a loading screen while doing so
 	static void loadFiles(sf::RenderWindow & window);
