@@ -24,6 +24,8 @@ void Game::Update(sf::RenderWindow & window)
 	mario.controls(elapsedTime, gravity);
 	mario.collidesWith(ground1.getGlobalBounds());
 	mario.collidesWith(ground2.getGlobalBounds());
+
+	mario.animate(elapsedTime);
 }
 
 void Game::Compose(sf::RenderWindow & window) const

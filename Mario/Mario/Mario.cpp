@@ -1,4 +1,5 @@
 #include "Mario.h"
+#include <iostream>
 
 void Mario::setPosition(const sf::Vector2f & position)
 {
@@ -14,10 +15,18 @@ void Mario::controls(const float &dt, const float &gravity) // * dt means pixels
 {
 	lastBounds = sprite.getGlobalBounds();
 		
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { sprite.move(-600 * dt, 0); } // left movement
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { sprite.move(600 * dt, 0); } // rgiht movement
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !inAir) { // enables jumping animation
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { // left movement
+		flipOrient = true;
+		sprite.move(-600 * dt, 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // right movement
+		flipOrient = false;
+		sprite.move(600 * dt, 0);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isJumping) { // enables jumping animation
 		jumpVelocity = -1750;
+		isJumping = true;
 	}
 
 	if (jumpVelocity < 0) { // animates jumping
@@ -27,8 +36,6 @@ void Mario::controls(const float &dt, const float &gravity) // * dt means pixels
 		sprite.move({ 0, gForce * dt });
 		gForce += gravity * dt;
 	}
-
-	inAir = true; // suppose that it is in the air
 }
 
 void Mario::collidesWith(const sf::FloatRect & object)
@@ -40,7 +47,7 @@ void Mario::collidesWith(const sf::FloatRect & object)
 			 lastBounds.left + lastBounds.width <= object.left + object.width)) // if mario comes from top
 		{
 			gForce = 0;
-			inAir = false; // negate that it is in the air
+			isJumping = false; // mario can't be jumping if touches the ground
 			sprite.setPosition({sprite.getPosition().x, object.top - sprite.getGlobalBounds().height});
 		}
 		else {
@@ -54,6 +61,37 @@ void Mario::collidesWith(const sf::FloatRect & object)
 				sprite.setPosition({ sprite.getPosition().x, object.top + object.height });
 			}
 		}
+	}
+}
+
+void Mario::animate(const float & dt)
+{ // TODO: Fix textures to avoid chicken head
+	if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
+			animationTimer += dt;
+			if (animationTimer > animationLimit) { // if enough time has passed
+				animationTimer = 0;
+				walkingAnim = !walkingAnim;
+			}
+	} else {
+		walkingAnim = isJumping;
+		animationTimer = 0;
+	}
+
+	if(walkingAnim){
+		sprite.setTexture(Resources::mario_walkT);
+		sprite.setTextureRect({ 0 , 0, (int)Resources::mario_walkT.getSize().x, (int)Resources::mario_walkT.getSize().y });
+	}
+	else {
+		sprite.setTexture(Resources::mario_standT);
+		sprite.setTextureRect({ 0 , 0, (int)Resources::mario_standT.getSize().x, (int)Resources::mario_standT.getSize().y });
+	}
+
+	if(flipOrient) // flip orientation whenever you should
+	{
+		sprite.setTextureRect(
+			sf::IntRect(sprite.getTextureRect().width, 0,
+				-sprite.getTextureRect().width, sprite.getTextureRect().height)
+		);
 	}
 }
 

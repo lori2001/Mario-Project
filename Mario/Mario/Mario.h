@@ -8,9 +8,16 @@ private:
 	
 	sf::FloatRect lastBounds;
 
-	bool inAir = false; // true whenever mario is in the air
+	/* default to true to avoid a bug
+	   signals whenever mario is touching the ground (is flickering all the time due to the nature of the program)*/
+	bool isJumping = true;
 	float jumpVelocity = 0; // the speed ath which mario jumps
 	float gForce = 0; // gravity force applied at a given frame
+
+	bool flipOrient = false; // if true flips texture orientation (true means left, false means right)
+	bool walkingAnim = false; // true whenever wawlking, false whenever standing
+	float animationTimer = 0; // the timer used to measure time passed while running smoothly
+	float animationLimit = 0.15f; // the frequency in seconds at which movement animation works 
 public:
 	Mario() {
 		sprite.setTexture(Resources::mario_standT);
@@ -24,6 +31,8 @@ public:
 	void controls(const float &dt, const float &gravity);
 	// Should always be after controls
 	void collidesWith(const sf::FloatRect &object);
+	// Should always be after collision checks
+	void animate(const float &dt);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
