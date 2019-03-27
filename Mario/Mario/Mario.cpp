@@ -1,14 +1,20 @@
 #include "Mario.h"
 #include <iostream>
 
+sf::Vector2i Mario::animationPlace(const unsigned & index)
+{
+	sf::Vector2i temp = {0,0};
+
+	for (unsigned i = 0; i < index; i++) {
+		temp.x += animation[i].x;
+	}
+
+	return temp;
+}
+
 void Mario::setPosition(const sf::Vector2f & position)
 {
 	sprite.setPosition(position);
-}
-
-void Mario::setScale(const sf::Vector2f & scale)
-{
-	sprite.setScale(scale);
 }
 
 void Mario::controls(const float &dt, const float &gravity) // * dt means pixels/second
@@ -65,32 +71,41 @@ void Mario::collidesWith(const sf::FloatRect & object)
 }
 
 void Mario::animate(const float & dt)
-{ // TODO: Fix textures to avoid chicken head
+{ // TODO: Resolves stcuk animations
 	if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
 			animationTimer += dt;
-			if (animationTimer > animationLimit) { // if enough time has passed
+			if (animationTimer > animationLimit) // if enough time has passed
+			{
 				animationTimer = 0;
-				walkingAnim = !walkingAnim;
+
+				/*Rotate movement animation*/
+				if (animationFrame == 0) animationFrame = 1;
+				else if (animationFrame == 1) animationFrame = 2;
+				else if (animationFrame == 2) animationFrame = 3;
+				else if (animationFrame == 3) animationFrame = 1;
 			}
 	} else {
-		walkingAnim = isJumping;
 		animationTimer = 0;
+
+		if(isJumping) animationFrame = 5; // jumping frame
+		else animationFrame = 0; // idle frame
 	}
 
-	if(walkingAnim){
-		sprite.setTexture(Resources::mario_walkT);
-		sprite.setTextureRect({ 0 , 0, (int)Resources::mario_walkT.getSize().x, (int)Resources::mario_walkT.getSize().y });
-	}
-	else {
-		sprite.setTexture(Resources::mario_standT);
-		sprite.setTextureRect({ 0 , 0, (int)Resources::mario_standT.getSize().x, (int)Resources::mario_standT.getSize().y });
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		animationFrame = 4; // brake frame
 	}
 
-	if(flipOrient) // flip orientation whenever you should
+	sprite.setTexture(Resources::mario_small);
+	sprite.setTextureRect({ animationPlace(animationFrame).x,
+							animationPlace(animationFrame).y,
+							animation[animationFrame].x,
+							animation[animationFrame].y });
+
+	if (flipOrient) // flip orientation whenever you should
 	{
 		sprite.setTextureRect(
-			sf::IntRect(sprite.getTextureRect().width, 0,
-				-sprite.getTextureRect().width, sprite.getTextureRect().height)
+			{sprite.getTextureRect().left + sprite.getTextureRect().width, sprite.getTextureRect().top,
+			 -sprite.getTextureRect().width, sprite.getTextureRect().height}
 		);
 	}
 }

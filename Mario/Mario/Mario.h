@@ -4,28 +4,30 @@
 
 class Mario : public sf::Drawable {
 private:
+	/*DISPLAY*/
 	sf::Sprite sprite;
-	
-	sf::FloatRect lastBounds;
 
-	/* default to true to avoid a bug
-	   signals whenever mario is touching the ground (is flickering all the time due to the nature of the program)*/
-	bool isJumping = true;
+	/*PHYSICS*/
+	sf::FloatRect lastBounds;
+	bool isJumping = true; // doesn't signal jumping reliably enough to be used elswhere than intended
 	float jumpVelocity = 0; // the speed ath which mario jumps
 	float gForce = 0; // gravity force applied at a given frame
 
+	/*ANIMATION*/
 	bool flipOrient = false; // if true flips texture orientation (true means left, false means right)
-	bool walkingAnim = false; // true whenever wawlking, false whenever standing
+	unsigned animationFrame = 1; // 0-idle
 	float animationTimer = 0; // the timer used to measure time passed while running smoothly
-	float animationLimit = 0.15f; // the frequency in seconds at which movement animation works 
+	float animationLimit = 0.12f; // the frequency in seconds at which movement animation works
+	// contains the sizes for each frame of animation
+	sf::Vector2i animation[7] = { {13,16}, {14,16}, {12,16}, {16,16}, {14,16}, {17,16}, {15,14} };
+	sf::Vector2i animationPlace(const unsigned &index); // calculates the place of a texture in file
 public:
 	Mario() {
-		sprite.setTexture(Resources::mario_standT);
+		sprite.setTexture(Resources::mario_small); // default texture used
+		sprite.setScale({ 6,6 }); // scales things to FHD render space
 	}
 
 	void setPosition(const sf::Vector2f& position);
-	void setScale(const sf::Vector2f& scale);
-		void setScale(const float &scale) { this->setScale({ scale,scale }); }
 
 	// ! Should not be put into the events loop
 	void controls(const float &dt, const float &gravity);

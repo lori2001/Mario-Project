@@ -14,8 +14,7 @@ private:
 	static sf::Sprite loadingscreenS;
 
 public:
-	static sf::Texture mario_standT;
-	static sf::Texture mario_walkT;
+	static sf::Texture mario_small;
 
 	// Load all files and display a loading screen while doing so
 	static void loadFiles(sf::RenderWindow & window);

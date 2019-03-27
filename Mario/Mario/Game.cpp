@@ -2,7 +2,6 @@
 
 void Game::Setup(sf::RenderWindow & window)
 {
-	mario.setScale(2.2f);
 	mario.setPosition({ 200, 500 });
 
 	ground1.sprite.setFillColor(sf::Color::Yellow);
