@@ -2,15 +2,10 @@
 
 void Game::Setup(sf::RenderWindow & window)
 {
-	mario.setPosition({ 200, 500 });
+	mario.setPosition({ 110, 300 });
 
-	ground1.sprite.setFillColor(sf::Color::Yellow);
-	ground1.sprite.setPosition({ 100, (float)HEIGHT - 150 });
-	ground1.sprite.setSize({ (float)WIDTH - 150, 50 });
-
-	ground2.sprite.setFillColor(sf::Color::Red);
-	ground2.sprite.setPosition({ 400, (float)HEIGHT - 450 });
-	ground2.sprite.setSize({ (float)WIDTH / 2, 50 });
+	ground1.setPosition({ 100, (float)HEIGHT - 150 });
+	ground2.setPosition({ 400, 0 });
 }
 
 void Game::Update(sf::RenderWindow & window)

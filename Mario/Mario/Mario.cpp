@@ -1,5 +1,4 @@
 #include "Mario.h"
-#include <iostream>
 
 sf::Vector2i Mario::animationPlace(const unsigned & index)
 {
@@ -21,11 +20,11 @@ void Mario::controls(const float &dt, const float &gravity) // * dt means pixels
 {
 	lastBounds = sprite.getGlobalBounds();
 		
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { // left movement
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // left movement
 		flipOrient = true;
 		sprite.move(-600 * dt, 0);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // right movement
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { // right movement
 		flipOrient = false;
 		sprite.move(600 * dt, 0);
 	}
@@ -52,7 +51,7 @@ void Mario::collidesWith(const sf::FloatRect & object)
 			 lastBounds.left + lastBounds.width >= object.left && 
 			 lastBounds.left + lastBounds.width <= object.left + object.width)) // if mario comes from top
 		{
-			gForce = 0;
+			gForce = 0; // stop falling
 			isJumping = false; // mario can't be jumping if touches the ground
 			sprite.setPosition({sprite.getPosition().x, object.top - sprite.getGlobalBounds().height});
 		}
@@ -71,7 +70,7 @@ void Mario::collidesWith(const sf::FloatRect & object)
 }
 
 void Mario::animate(const float & dt)
-{ // TODO: Resolves stcuk animations
+{
 	if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
 			animationTimer += dt;
 			if (animationTimer > animationLimit) // if enough time has passed
@@ -83,6 +82,8 @@ void Mario::animate(const float & dt)
 				else if (animationFrame == 1) animationFrame = 2;
 				else if (animationFrame == 2) animationFrame = 3;
 				else if (animationFrame == 3) animationFrame = 1;
+				else animationFrame = 0; // idle frame
+
 			}
 	} else {
 		animationTimer = 0;
@@ -95,7 +96,7 @@ void Mario::animate(const float & dt)
 		animationFrame = 4; // brake frame
 	}
 
-	sprite.setTexture(Resources::mario_small);
+	// sprite.setTexture(Resources::mario_smallT);
 	sprite.setTextureRect({ animationPlace(animationFrame).x,
 							animationPlace(animationFrame).y,
 							animation[animationFrame].x,

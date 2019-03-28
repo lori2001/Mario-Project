@@ -23,7 +23,7 @@ private:
 	sf::Vector2i animationPlace(const unsigned &index); // calculates the place of a texture in file
 public:
 	Mario() {
-		sprite.setTexture(Resources::mario_small); // default texture used
+		sprite.setTexture(Resources::mario_smallT); // default texture used
 		sprite.setScale({ 6,6 }); // scales things to FHD render space
 	}
 

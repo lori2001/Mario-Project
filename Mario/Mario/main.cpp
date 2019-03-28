@@ -29,7 +29,7 @@ int main()
 
 	// creates and sets window's default sizes and name
 	sf::RenderWindow window(sf::VideoMode(1000, 600), "Mario");
-	// window.setFramerateLimit(24);
+	window.setFramerateLimit(24);
 	
 	sf::View view(sf::FloatRect(0, 0, 1920, 1080));
 	window.setView(view); // Scales down 1920x1080 screen to whatever resolution needed
