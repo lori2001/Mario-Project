@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 
@@ -9,8 +10,9 @@ private:
 
 	/*PHYSICS*/
 	sf::FloatRect lastBounds;
-	bool isJumping = true; // doesn't signal jumping reliably enough to be used elswhere than intended
-	float jumpVelocity = 0; // the speed ath which mario jumps
+	bool jumpToggle = true; // used to disallow jumping in the air
+	bool isJumping = true; // true whenever mario jumps. false when touches ground. used for animation
+	float jumpVelocity = 0; // the speed at which mario jumps
 	float gForce = 0; // gravity force applied at a given frame
 
 	/*ANIMATION*/

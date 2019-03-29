@@ -9,9 +9,10 @@ private:
 	Resources resources;
 
 	Mario mario;
-	Ground ground1{10,1};
+	Ground ground1{ 19,1 };
 //TODO: Fix weird bug when y = 10 here
-	Ground ground2{8,9};
+	//Ground ground2{ 8,1 };
+	Ground ground3{ 8,3 };
 
 	const float gravity = 3500; // the global value of the gravity
 
