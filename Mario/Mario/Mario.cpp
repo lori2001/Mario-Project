@@ -104,7 +104,7 @@ void Mario::animate(const float & dt)
 		else animationFrame = 0; // idle frame
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (!isJumping && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		animationFrame = 4; // brake frame
 	}
 

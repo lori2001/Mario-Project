@@ -10,9 +10,8 @@ private:
 
 	Mario mario;
 	Ground ground1{ 19,1 };
-//TODO: Fix weird bug when y = 10 here
-	//Ground ground2{ 8,1 };
-	Ground ground3{ 8,3 };
+	Ground ground2{ 8,1 };
+	Ground ground3{ 8,1 };
 
 	const float gravity = 3500; // the global value of the gravity
 
@@ -20,8 +19,10 @@ private:
 	sf::Clock clock;
 	float elapsedTime;
 
-public:
 	bool isActive = true;
+public:
+	void setActive(const bool &active) { isActive = active; }
+	bool getActive() const { return isActive; }
 
 	void Setup(sf::RenderWindow &window);
 	// void handleEvents(const sf::Event &event);

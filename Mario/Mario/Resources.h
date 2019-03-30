@@ -1,4 +1,5 @@
 #pragma once
+#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
@@ -16,17 +17,27 @@ private:
 	
 	template <class Loadable>
 	static void loadFile(Loadable &texture, const std::string & from);
+	//static void loadFile(sf::Music & music, const std::string & from);
 public:
 	static sf::Texture mario_smallT;
 	static sf::Texture groundT;
+
+	static sf::Font super_marioF;
 
 	// Load all files and display a loading screen while doing so
 	static void loadFiles(sf::RenderWindow & window);
 };
 
+/* These stay in the .h file as suggested by Visual Studio*/
 template<class Loadable>
 inline void Resources::loadFile(Loadable & loadable, const std::string & from)
 {
 	if (!loadable.loadFromFile(from))
 		std::cout << "error: could not load file from " << from << std::endl;
 }
+/*
+void Resources::loadFile(sf::Music & music, const std::string & from)
+{
+	if (!music.openFromFile(from))
+		std::cout << "error: could not load file from " << from << std::endl;
+}*/

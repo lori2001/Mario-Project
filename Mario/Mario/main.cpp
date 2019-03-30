@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Menu.h"
 #include "Game.h"
 #include "Resources.h"
 
@@ -45,21 +46,31 @@ int main()
 	// setup positions/sizes/etc.
 	game.Setup(window);
 
+	Menu menu;
+	menu.Setup(window);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
 
 		while (window.pollEvent(event))
 		{
-			/*game.handleEvents(event);*/
+			menu.handleEvents(window, event);
 
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 
-		window.clear(sf::Color(100, 100, 250));
+		window.clear(sf::Color(100, 100, 250)); // the background used in-game
 
-		if (game.isActive) {
+		// TODO: Fix this shit!!
+		if (menu.getActive()) {
+			// contains frame-by-frame logic
+			menu.Update(window);
+			// contains drawing commands
+			menu.Compose(window);
+		}
+		else if (game.getActive()) {
 			// contains frame-by-frame logic
 			game.Update(window);
 			// contains drawing commands
