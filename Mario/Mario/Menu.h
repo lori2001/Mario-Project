@@ -10,6 +10,8 @@ private:
 	UI::Button startgame{ Resources::super_marioF, "Start Game", {430, 50} };
 	UI::Button exitgame{ Resources::super_marioF, "Exit", {430, 50}};
 
+	int arrowCount = 1;
+
 	bool isActive = true;
 public:
 	void setActive(const bool &active) { isActive = active; }

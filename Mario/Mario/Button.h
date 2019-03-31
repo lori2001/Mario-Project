@@ -2,6 +2,8 @@
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
 
+#include <iostream>
+
 namespace UI
 {
 	//TODO: Button auto inactive
@@ -15,11 +17,14 @@ namespace UI
 		sf::Vector2f textPos; // the position at which the text should stay
 		sf::Vector2f calcTextPos(); // updates default text position so as to avoid writing so much and make things compact
 
-		bool isPressed = false;
-		bool isSelected = false; // if mouse is hovered over the button this is true
+		bool isPressed = false; // intermediarily active boolean in between isSelected and isActive
+		bool isSelected = false; // if the button is selected by either mouse or keyboard this is true
 		bool isActive = false; // this is true when the button is pressed upon
 
-		unsigned arrowCount = 0;
+		bool useMouse = false; // true whenever mouse selection is used
+		bool useKeyboard = false; // true whenever keyboard selection is used
+
+		bool warningMessage = true; // used to display warning message only once in an endless loop
 	public:
 		Button(const sf::Vector2f &size) {
 			shape.setSize(size);
@@ -38,9 +43,13 @@ namespace UI
 		}
 		Button() : Button(sf::Vector2f{ 430, 50 }) {} // default empty selectable rectangle
 
-		// TODO: Make this happen!
-		//void selectByArrows(const sf::Keyboard &key, const unsigned &numerotation);
-		void selectByMouse(const sf::Event &event, const sf::Vector2f &mouse);
+		/* IMPORTANT! You have to count and modify arrowCount in an outside variable in order for this to work
+		   Also needs handleEvents() to take action*/
+		void selectByKeyboard(const int &numerotation,const int &arrowCount);
+		/* Needs handleEvents() to take action */
+		void selectByMouse(const sf::Vector2f &mouse);
+
+		void handleEvents(const sf::Event &event);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 		// setters

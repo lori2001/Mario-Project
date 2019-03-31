@@ -12,28 +12,44 @@ namespace UI
 		return (sf::Vector2f{ shape.getGlobalBounds().left + shape.getGlobalBounds().width  / 2,
 							  shape.getGlobalBounds().top  + shape.getGlobalBounds().height / 2 });
 	}
-
-	/*void Button::selectByArrows(const sf::Keyboard & key, const unsigned & numerotation)
+	void Button::selectByKeyboard(const int & numerotation, const int & arrowCount)
 	{
-		if (false) {
-			
+		// prioritize mouse over keyboard
+		if (!useMouse)
+		{
+			if (arrowCount == numerotation) {
+				isSelected = true;
+			}
+			else {
+				isSelected = false;
+			}
+
+			useKeyboard = true;
 		}
-	}*/
-	void Button::selectByMouse(const sf::Event & event, const sf::Vector2f & mouse)
+		else if(warningMessage) {
+			std::cout << "WARNING! Buttons can't be contolled by both mouse and keyboard at once! -> Keyboard control DISABLED" << std::endl;
+			warningMessage = false;
+		}
+	}
+	void Button::selectByMouse(const sf::Vector2f & mouse)
 	{
-		//checks if the mouse and the button intersect
-		isSelected = shape.getGlobalBounds().intersects(sf::FloatRect(mouse, {1,1})); // consider mouse to be 1x1 pixels
+		// checks if the mouse and the button intersect
+		isSelected = shape.getGlobalBounds().intersects(sf::FloatRect(mouse, { 1,1 })); // consider mouse to be 1x1 pixels
 
-		//if they do, the outline appears
+		useMouse = true;
+	}
+	void Button::handleEvents(const sf::Event & event)
+	{
+		// if the button is selected outline appears
 		if (isSelected)
 			shape.setOutlineThickness(-2);
-		else //if not the outline disappears
+		else // if not the outline disappears
 			shape.setOutlineThickness(0);
-	
-		// if the mouse intersects with the button and leftmousebutton is enabled
-		if (isSelected && event.mouseButton.button == sf::Mouse::Left)
+
+		// if its selected and the right events are triggered
+		if (isSelected && ((useMouse && event.mouseButton.button == sf::Mouse::Left) || (useKeyboard && event.key.code == sf::Keyboard::Enter)))
 		{
-			if (event.type == sf::Event::MouseButtonPressed)
+			if ((useMouse && event.type == sf::Event::MouseButtonPressed) || (useKeyboard && event.type == sf::Event::KeyPressed))
 			{
 				if (sound.getStatus() != sf::Music::Status::Playing) // play button sound
 					sound.play();
@@ -44,15 +60,15 @@ namespace UI
 				//the button has been pressed / take action when released
 				isPressed = true;
 			}
-			else if (isPressed && event.type == sf::Event::MouseButtonReleased)
+			else if (isPressed && ((useMouse && event.type == sf::Event::MouseButtonReleased) || (useKeyboard && event.type == sf::Event::KeyReleased)))
 			{
 				//take action
 				isActive = true;
 			}
 		}
 
-		// if the mouse looses touch with the button make the button inactive
-		if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased || !isSelected)
+		// make the button inactive whenever needed
+		if ((useMouse && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased) || !isSelected)
 		{
 			shape.setTextureRect(sf::IntRect(0, 0, (int)shape.getSize().x, (int)shape.getSize().y));
 			isPressed = false;
@@ -63,7 +79,6 @@ namespace UI
 			text.setPosition(sf::Vector2f(textPos.x + (3 * shape.getScale().x), textPos.y + (3 * shape.getScale().y))); // move 3px to shape's scale
 		else // else the text gets back its position
 			text.setPosition(textPos);
-
 	}
 	void Button::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
