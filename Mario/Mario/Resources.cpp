@@ -8,14 +8,24 @@ sf::Texture Resources::groundT;
 
 sf::Font Resources::super_marioF;
 
+sf::Image Resources::icon;
+
 void Resources::loadFiles(sf::RenderWindow & window)
 {
+	// loads loadingscreen
 	loadFile(loadingscreenT, "assets/images/loading.jpg");
 	loadingscreenS.setTexture(loadingscreenT);
 
+	// scales loading image to window's size
+	loadingscreenS.setScale(float(window.getSize().x) / float(loadingscreenT.getSize().x), float(window.getSize().y) / float(loadingscreenT.getSize().y));
+
+	// draws loadingscreen
 	window.clear();
 	window.draw(loadingscreenS);
 	window.display();
+
+	// loads all files
+	loadFile(icon, "icon.png");
 
 	loadFile(mario_smallT, "assets/images/mario_small.png");
 

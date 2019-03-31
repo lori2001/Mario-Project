@@ -1,7 +1,6 @@
 #pragma once
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
-#include <iostream>
 
 namespace UI
 {
@@ -32,7 +31,7 @@ namespace UI
 			text.setFont(font);
 			text.setString(txt);
 			text.setCharacterSize(30);
-			text.setFillColor(sf::Color::Yellow);
+			text.setFillColor(sf::Color::White);
 
 			textPos = calcTextPos();
 			text.setPosition(textPos);

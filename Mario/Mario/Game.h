@@ -10,7 +10,6 @@ private:
 
 	Mario mario;
 	Ground ground1{ 19,1 };
-	Ground ground2{ 8,1 };
 	Ground ground3{ 8,1 };
 
 	const float gravity = 3500; // the global value of the gravity
@@ -19,7 +18,7 @@ private:
 	sf::Clock clock;
 	float elapsedTime;
 
-	bool isActive = true;
+	bool isActive = false;
 public:
 	void setActive(const bool &active) { isActive = active; }
 	bool getActive() const { return isActive; }

@@ -19,6 +19,8 @@ private:
 	static void loadFile(Loadable &texture, const std::string & from);
 	//static void loadFile(sf::Music & music, const std::string & from);
 public:
+	static sf::Image icon; // will hold icon file
+
 	static sf::Texture mario_smallT;
 	static sf::Texture groundT;
 

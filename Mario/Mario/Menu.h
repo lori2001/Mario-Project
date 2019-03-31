@@ -2,7 +2,6 @@
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 #include "Button.h"
-#include <iostream>
 
 class Menu {
 private:
