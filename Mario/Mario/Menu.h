@@ -5,12 +5,11 @@
 
 class Menu {
 private:
-	sf::Vector2f mouse; //holds position of the mouse
+	sf::Vector2f mouse; // holds position of the mouse
+	sf::Sprite background{ Resources::menu_bgT }; // sprite for the background duh...
 
-	UI::Button startgame{ Resources::super_marioF, "Start Game", {430, 50} };
-	UI::Button exitgame{ Resources::super_marioF, "Exit", {430, 50}};
-
-	int arrowCount = 1;
+	UI::Button startgame{ Resources::super_marioF, "Start Game", {600, 75} };
+	UI::Button exitgame{ Resources::super_marioF, "Exit", {600, 75}};
 
 	bool isActive = true;
 public:

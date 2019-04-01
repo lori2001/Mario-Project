@@ -3,6 +3,7 @@
 sf::Texture Resources::loadingscreenT;
 sf::Sprite Resources::loadingscreenS;
 
+sf::Texture Resources::menu_bgT;
 sf::Texture Resources::mario_smallT;
 sf::Texture Resources::groundT;
 
@@ -26,6 +27,8 @@ void Resources::loadFiles(sf::RenderWindow & window)
 
 	// loads all files
 	loadFile(icon, "icon.png");
+
+	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
 
 	loadFile(mario_smallT, "assets/images/mario_small.png");
 

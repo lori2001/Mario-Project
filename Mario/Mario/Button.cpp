@@ -42,7 +42,7 @@ namespace UI
 	{
 		// if the button is selected outline appears
 		if (isSelected)
-			shape.setOutlineThickness(-2);
+			shape.setOutlineThickness(-((shape.getSize().x + shape.getSize().y) / 2) / 100);
 		else // if not the outline disappears
 			shape.setOutlineThickness(0);
 
@@ -133,6 +133,15 @@ namespace UI
 		text.setCharacterSize(int(38 * scale.y));
 
 		//centers the newly sized text
+		textPos = calcTextPos();
+		text.setPosition(textPos);
+	}
+	void Button::setCharacterSize(const int & size)
+	{
+		//sets the new string to the text
+		this->text.setCharacterSize(size);
+
+		//centers the string with its new height
 		textPos = calcTextPos();
 		text.setPosition(textPos);
 	}

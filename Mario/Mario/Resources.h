@@ -21,6 +21,8 @@ private:
 public:
 	static sf::Image icon; // will hold icon file
 
+	static sf::Texture menu_bgT;
+
 	static sf::Texture mario_smallT;
 	static sf::Texture groundT;
 

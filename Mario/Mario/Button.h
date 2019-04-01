@@ -28,15 +28,15 @@ namespace UI
 	public:
 		Button(const sf::Vector2f &size) {
 			shape.setSize(size);
-			shape.setFillColor(sf::Color::Red);
-			shape.setOutlineColor(sf::Color::Yellow);
+			shape.setFillColor(sf::Color(57, 179, 0));
+			shape.setOutlineColor(sf::Color(57, 65, 222));
 		}
 		Button(const sf::Font &font, const sf::String &txt, const sf::Vector2f &size) : Button(size)
 		{
 			text.setFont(font);
 			text.setString(txt);
 			text.setCharacterSize(30);
-			text.setFillColor(sf::Color::White);
+			text.setFillColor(sf::Color(57, 65, 222)); // (247, 148, 29)  (57,179,0)  (57, 65, 222)
 
 			textPos = calcTextPos();
 			text.setPosition(textPos);
@@ -61,6 +61,7 @@ namespace UI
 		void setPosition(const sf::Vector2f &position); // position of the button
 		void setSelectColor(const sf::Color &color); // outline's color when selected
 		void setScale(const sf::Vector2f &scale); // scale of the button
+		void setCharacterSize(const int &size); // sets the character size of the text
 
 		// getters
 
