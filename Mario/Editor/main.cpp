@@ -2,9 +2,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "Editor!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(1000, 600), "Mario Map Editor");
 
 	while (window.isOpen())
 	{
@@ -16,7 +14,6 @@ int main()
 		}
 
 		window.clear();
-		window.draw(shape);
 		window.display();
 	}
 
