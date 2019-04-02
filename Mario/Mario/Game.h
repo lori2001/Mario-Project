@@ -3,6 +3,7 @@
 #include "Resources.h"
 #include "Mario.h"
 #include "Ground.h"
+#include "Enemy.h"
 
 class Game {
 private:
@@ -11,6 +12,9 @@ private:
 	Mario mario;
 	Ground ground1{ 19,1 };
 	Ground ground3{ 8,1 };
+
+	Enemy enemy1;
+	Enemy enemy2;
 
 	const float gravity = 3500; // the global value of the gravity
 

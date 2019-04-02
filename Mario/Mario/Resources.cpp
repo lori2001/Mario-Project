@@ -5,6 +5,7 @@ sf::Sprite Resources::loadingscreenS;
 
 sf::Texture Resources::menu_bgT;
 sf::Texture Resources::mario_smallT;
+sf::Texture Resources::enemyT;
 sf::Texture Resources::groundT;
 
 sf::Font Resources::super_marioF;
@@ -31,6 +32,7 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
 
 	loadFile(mario_smallT, "assets/images/mario_small.png");
+	loadFile(enemyT, "assets/images/enemy.png");
 
 	loadFile(groundT, "assets/images/ground.png");
 	groundT.setRepeated(true);
