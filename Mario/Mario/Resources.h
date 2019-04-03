@@ -24,7 +24,7 @@ public:
 	static sf::Texture menu_bgT;
 
 	static sf::Texture mario_smallT;
-	static sf::Texture enemyT;
+	static sf::Texture enemy_mushT;
 	static sf::Texture groundT;
 
 	static sf::Font super_marioF;

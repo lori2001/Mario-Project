@@ -25,22 +25,24 @@ void Game::Update(sf::RenderWindow & window)
 	mario.collidesWith(ground1.getGlobalBounds());
 	mario.collidesWith(ground3.getGlobalBounds());
 
-	enemy1.controls(elapsedTime, gravity);
+	enemy1.movement(elapsedTime, gravity);
+	enemy1.animate(elapsedTime);
 	enemy1.collidesWith(ground1.getGlobalBounds());
 	enemy1.collidesWith(ground3.getGlobalBounds());
-	enemy1.kill(mario.getGlobalBounds(), window);
+	enemy1.killorDie(mario);
 
-	enemy2.controls(elapsedTime, gravity);
+	enemy2.movement(elapsedTime, gravity);
+	enemy2.animate(elapsedTime);
 	enemy2.collidesWith(ground1.getGlobalBounds());
 	enemy2.collidesWith(ground3.getGlobalBounds());
-	enemy2.kill(mario.getGlobalBounds(), window);
+	enemy2.killorDie(mario);
 }
 
 void Game::Compose(sf::RenderWindow & window) const
 {
-	window.draw(mario);
 	window.draw(ground1);
 	window.draw(ground3);
 	window.draw(enemy1);
 	window.draw(enemy2);
+	window.draw(mario); // mario should always be the last
 }

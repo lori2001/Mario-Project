@@ -18,36 +18,44 @@ void Mario::setPosition(const sf::Vector2f & position)
 
 void Mario::controls(const float &dt, const float &gravity) // * dt means pixels/second
 {
-	lastBounds = sprite.getGlobalBounds();
-		
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // left movement
-		flipOrient = true;
-		sprite.move(-600 * dt, 0);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { // right movement
-		flipOrient = false;
-		sprite.move(600 * dt, 0);
-	}
+	if (isAlive) {
+		lastBounds = sprite.getGlobalBounds();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && jumpToggle) { // enables jumping animation
-		jumpVelocity = -1750;
-		jumpToggle = false; // block jumping untile reallowed
-		isJumping = true;
-	}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // left movement
+			flipOrient = true;
+			sprite.move(-600 * dt, 0);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { // right movement
+			flipOrient = false;
+			sprite.move(600 * dt, 0);
+		}
 
-	if (jumpVelocity < 0) { // animates jumping
-		sprite.move({0, jumpVelocity * dt });
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && jumpToggle) { // enables jumping animation
+			jumpVelocity = -1550;
+			jumpToggle = false; // block jumping untile reallowed
+			isJumping = true;
+		}
+
+		/*acts upon mario even if dead*/
+
+		if (jumpVelocity < 0) { // animates jumping
+			sprite.move({0, jumpVelocity * dt });
+			jumpVelocity += gravity * dt;
+		} else { // creates the feeling of gravity
+			sprite.move({ 0, gForce * dt });
+			gForce += gravity * dt;
+			jumpToggle = false; // block jumping until reallowed
+		}
+	}
+	else {
+		sprite.move({ 0, jumpVelocity * dt });
 		jumpVelocity += gravity * dt;
-	} else { // creates the feeling of gravity
-		sprite.move({ 0, gForce * dt });
-		gForce += gravity * dt;
-		jumpToggle = false; // block jumping untile reallowed
 	}
 }
 
 void Mario::collidesWith(const sf::FloatRect & object)
 {
-	if (sprite.getGlobalBounds().intersects(object)) {
+	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
 		// if mario comes from top
 		if (int(lastBounds.top + lastBounds.height) <= int(object.top) &&
 		   ((int(lastBounds.left) > int(object.left) &&
@@ -84,7 +92,8 @@ void Mario::collidesWith(const sf::FloatRect & object)
 
 void Mario::animate(const float & dt)
 {
-	if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
+	if (isAlive) {
+		if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
 			animationTimer += dt;
 			if (animationTimer > animationLimit) // if enough time has passed
 			{
@@ -97,30 +106,52 @@ void Mario::animate(const float & dt)
 				else if (animationFrame == 3) animationFrame = 1;
 				else animationFrame = 0; // idle frame
 			}
-	} else {
-		animationTimer = 0;
+		}
+		else {
+			animationTimer = 0;
 
-		if(isJumping) animationFrame = 5; // jumping frame
-		else animationFrame = 0; // idle frame
+			if (isJumping) animationFrame = 5; // jumping frame
+			else animationFrame = 0; // idle frame
+		}
+
+		if (!isJumping && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			animationFrame = 4; // brake frame
+		}
+
+		sprite.setTextureRect({ animationPlace(animationFrame).x,
+								animationPlace(animationFrame).y,
+								animation[animationFrame].x,
+								animation[animationFrame].y });
+
+		if (flipOrient) // flip orientation whenever you should
+		{
+			sprite.setTextureRect(
+				{ sprite.getTextureRect().left + sprite.getTextureRect().width, sprite.getTextureRect().top,
+				 -sprite.getTextureRect().width, sprite.getTextureRect().height }
+			);
+		}
+
+		if (sprite.getPosition().y > HEIGHT) { // if mario goes off screen
+			isAlive = false; // trigger death animation
+		}
 	}
+	else {
+		if (animationFrame != 6) { // do this only once
+			jumpVelocity = -1750;
+		}
 
-	if (!isJumping && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		animationFrame = 4; // brake frame
+		animationFrame = 6;
+
+		sprite.setTextureRect({ animationPlace(animationFrame).x,
+		animationPlace(animationFrame).y,
+		animation[animationFrame].x,
+		animation[animationFrame].y });
 	}
+}
 
-	// sprite.setTexture(Resources::mario_smallT);
-	sprite.setTextureRect({ animationPlace(animationFrame).x,
-							animationPlace(animationFrame).y,
-							animation[animationFrame].x,
-							animation[animationFrame].y });
-
-	if (flipOrient) // flip orientation whenever you should
-	{
-		sprite.setTextureRect(
-			{sprite.getTextureRect().left + sprite.getTextureRect().width, sprite.getTextureRect().top,
-			 -sprite.getTextureRect().width, sprite.getTextureRect().height}
-		);
-	}
+void Mario::kill()
+{
+	isAlive = false;
 }
 
 void Mario::draw(sf::RenderTarget & target, sf::RenderStates states) const

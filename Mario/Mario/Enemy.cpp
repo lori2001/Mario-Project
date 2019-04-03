@@ -5,35 +5,38 @@ void Enemy::setPosition(const sf::Vector2f & position)
 	sprite.setPosition(position);
 }
 
-void Enemy::controls(const float & dt, const float & gravity)
+void Enemy::movement(const float & dt, const float & gravity)
 {
-	lastBounds = sprite.getGlobalBounds();
+	if (isAlive) {
+		lastBounds = sprite.getGlobalBounds();
 
-	if (direction) { // left movement
-		//flipOrient = true;
-		sprite.move(-200 * dt, 0);
-	}else { // right movement
-		//flipOrient = false;
-		sprite.move(200 * dt, 0);
+		if (direction) { // left movement
+			//flipOrient = true;
+			sprite.move(-200 * dt, 0);
+		}
+		else { // right movement
+		   //flipOrient = false;
+			sprite.move(200 * dt, 0);
+		}
+
+		dirTimer += dt;
+
+		if (dirTimer > dirLimit) {
+			dirTimer = 0;
+
+			if (direction) direction = false;
+			else direction = true;
+		}
+
+		sprite.move({ 0, gForce * dt });
+		gForce += gravity * dt;
 	}
-
-	dirTimer += dt;
-
-	if (dirTimer > dirLimit) {
-		dirTimer = 0;
-
-		if (direction) direction = false;
-		else direction = true;
-	}
-
-	sprite.move({ 0, gForce * dt });
-	gForce += gravity * dt;
 }
 
 void Enemy::collidesWith(const sf::FloatRect & object)
 {
-	if (sprite.getGlobalBounds().intersects(object)) {
-		// if mario comes from top
+	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
+		// if sprite comes from top
 		if (int(lastBounds.top + lastBounds.height) <= int(object.top) &&
 			((int(lastBounds.left) > int(object.left) &&
 				int(lastBounds.left) < int(object.left + object.width)) ||
@@ -43,7 +46,7 @@ void Enemy::collidesWith(const sf::FloatRect & object)
 			gForce = 0; // stop falling
 			sprite.setPosition({ sprite.getPosition().x, object.top - sprite.getGlobalBounds().height });
 		}
-		// if mario comes from bottom
+		// if sprite comes from bottom
 		else if (int(lastBounds.top) >= int(object.top + object.height) &&
 			((int(lastBounds.left) > int(object.left) &&
 				int(lastBounds.left) < int(object.left + object.width)) ||
@@ -64,10 +67,51 @@ void Enemy::collidesWith(const sf::FloatRect & object)
 	}
 }
 
-void Enemy::kill(const sf::FloatRect & object, sf::RenderWindow& tmp)
+void Enemy::animate(const float & dt)
 {
-	if (sprite.getGlobalBounds().intersects(object)) {
-		tmp.close();
+	if (isAlive) {
+		animationTimer += dt;
+
+		if (animationTimer > animationLimit) {
+			animationTimer = 0;
+
+			sprite.setTextureRect(
+				{ sprite.getTextureRect().left + sprite.getTextureRect().width, sprite.getTextureRect().top,
+				 -sprite.getTextureRect().width, sprite.getTextureRect().height }
+			);
+		}
+	}
+	else {
+
+		animationTimer += dt;
+
+		if (animationTimer > deathLimit) {
+			animationTimer = 0;
+
+			sprite.setColor(sf::Color(0,0,0,0));
+		}
+
+		sprite.setTextureRect(
+			{ /*sprite.getTextureRect().left + */std::abs(sprite.getTextureRect().width), sprite.getTextureRect().top,
+			std::abs(sprite.getTextureRect().width), sprite.getTextureRect().height }
+		);
+	}
+
+}
+
+void Enemy::killorDie(Mario& mario)
+{
+	if (sprite.getGlobalBounds().intersects(mario.getGlobalBounds()) && isAlive) {
+		// if mario comes from top
+		if (int(mario.getLastBounds().top + mario.getLastBounds().height) <= int(sprite.getGlobalBounds().top))
+		{
+			isAlive = false;
+			animationTimer = 0; // makes sure animations will be nailed
+		}
+		else // in any other situation
+		{
+			mario.kill();
+		}
 	}
 }
 
