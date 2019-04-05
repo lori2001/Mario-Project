@@ -1,6 +1,6 @@
-#include "Mario.h"
+#include "Character.h"
 
-sf::Vector2i Mario::animationPlace(const unsigned & index)
+sf::Vector2i Character::animationPlace(const unsigned & index)
 {
 	sf::Vector2i temp = {0,0};
 
@@ -11,26 +11,28 @@ sf::Vector2i Mario::animationPlace(const unsigned & index)
 	return temp;
 }
 
-void Mario::setPosition(const sf::Vector2f & position)
+void Character::setPosition(const sf::Vector2f & position)
 {
 	sprite.setPosition(position);
 }
 
-void Mario::controls(const float &dt, const float &gravity) // * dt means pixels/second
+void Character::controls(float dt, float gravity)
 {
+	// * dt (times dt) basically means means pixels/second
+
 	if (isAlive) {
 		lastBounds = sprite.getGlobalBounds();
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { // left movement
+		if (sf::Keyboard::isKeyPressed(left) && !sf::Keyboard::isKeyPressed(right)) { // left movement
 			flipOrient = true;
 			sprite.move(-600 * dt, 0);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { // right movement
+		if (sf::Keyboard::isKeyPressed(right) && !sf::Keyboard::isKeyPressed(left)) { // right movement
 			flipOrient = false;
 			sprite.move(600 * dt, 0);
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && jumpToggle) { // enables jumping animation
+		if (sf::Keyboard::isKeyPressed(up) && jumpToggle) { // enables jumping animation
 			jumpVelocity = -1550;
 			jumpToggle = false; // block jumping untile reallowed
 			isJumping = true;
@@ -53,7 +55,20 @@ void Mario::controls(const float &dt, const float &gravity) // * dt means pixels
 	}
 }
 
-void Mario::collidesWith(const sf::FloatRect & object)
+void Character::changeCntrlKeys(const sf::Keyboard::Key & in_up, const sf::Keyboard::Key & in_down, const sf::Keyboard::Key & in_left, const sf::Keyboard::Key & in_right)
+{
+	up = in_up;
+	down = in_down;
+	left = in_left;
+	right = in_right;
+}
+
+void Character::changeTexture(const sf::Texture & texture)
+{
+	sprite.setTexture(texture);
+}
+
+void Character::collidesWith(const sf::FloatRect & object)
 {
 	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
 		// if mario comes from top
@@ -90,7 +105,7 @@ void Mario::collidesWith(const sf::FloatRect & object)
 	}
 }
 
-void Mario::animate(const float & dt)
+void Character::animate(const float & dt)
 {
 	if (isAlive) {
 		if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
@@ -114,7 +129,7 @@ void Mario::animate(const float & dt)
 			else animationFrame = 0; // idle frame
 		}
 
-		if (!isJumping && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if (!isJumping && sf::Keyboard::isKeyPressed(left) && sf::Keyboard::isKeyPressed(right)) {
 			animationFrame = 4; // brake frame
 		}
 
@@ -149,12 +164,12 @@ void Mario::animate(const float & dt)
 	}
 }
 
-void Mario::kill()
+void Character::kill()
 {
 	isAlive = false;
 }
 
-void Mario::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
 }

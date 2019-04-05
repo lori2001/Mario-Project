@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
-#include "Mario.h"
+#include "Character.h"
 #include "Ground.h"
 #include "Enemy.h"
 
@@ -9,7 +9,8 @@ class Game {
 private:
 	Resources resources;
 
-	Mario mario;
+	Character mario1;
+	Character mario2;
 	Ground ground1{ 19,1 };
 	Ground ground3{ 8,1 };
 

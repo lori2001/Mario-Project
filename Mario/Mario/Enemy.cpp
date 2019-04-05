@@ -99,7 +99,7 @@ void Enemy::animate(const float & dt)
 
 }
 
-void Enemy::killorDie(Mario& mario)
+void Enemy::killorDie(Character& mario)
 {
 	if (sprite.getGlobalBounds().intersects(mario.getGlobalBounds()) && isAlive) {
 		// if mario comes from top

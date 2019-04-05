@@ -4,6 +4,7 @@ sf::Texture Resources::loadingscreenT;
 sf::Sprite Resources::loadingscreenS;
 
 sf::Texture Resources::menu_bgT;
+sf::Texture Resources::luigi_smallT;
 sf::Texture Resources::mario_smallT;
 sf::Texture Resources::enemy_mushT;
 sf::Texture Resources::groundT;
@@ -31,6 +32,7 @@ void Resources::loadFiles(sf::RenderWindow & window)
 
 	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
 
+	loadFile(luigi_smallT, "assets/images/luigi_small.png");
 	loadFile(mario_smallT, "assets/images/mario_small.png");
 	loadFile(enemy_mushT, "assets/images/enemy_mush.png");
 

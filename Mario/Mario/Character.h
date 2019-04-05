@@ -3,7 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 
-class Mario : public sf::Drawable {
+class Character : public sf::Drawable {
 private:
 	/*DISPLAY*/
 	sf::Sprite sprite;
@@ -24,14 +24,31 @@ private:
 	sf::Vector2i animationPlace(const unsigned &index); // calculates the place of a texture in file
 		/*death animation*/
 		bool isAlive = true;
+
+	/*CONTROLS*/
+		sf::Keyboard::Key up = sf::Keyboard::Up; // key used for jumping
+		sf::Keyboard::Key down = sf::Keyboard::Down; // key used for crouching
+		sf::Keyboard::Key left = sf::Keyboard::Left; // key used for moving left
+		sf::Keyboard::Key right = sf::Keyboard::Right; // key used for moving right
 public:
-	Mario() {
+	Character() {
 		sprite.setTexture(Resources::mario_smallT); // default texture used
 		sprite.setScale({ 6,6 }); // scales things to FHD render space
 	}
 
-	// ! Should not be put into the events loop
-	void controls(const float &dt, const float &gravity);
+	/* ! Should not be put into the events loop
+	 Values are: delta time(elapsed time), gravity*/
+	void controls(float dt, float gravity);
+
+	// changes the way the character gets controlled
+	void changeCntrlKeys(const sf::Keyboard::Key& in_up,
+					  const sf::Keyboard::Key& in_down,
+					  const sf::Keyboard::Key& in_left,
+					  const sf::Keyboard::Key& in_right);
+
+	// changes default texture used
+	void changeTexture(const sf::Texture& texture);
+
 	// Should always be after controls
 	void collidesWith(const sf::FloatRect &object);
 	// Should always be after collision checks

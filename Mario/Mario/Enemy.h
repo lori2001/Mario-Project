@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
-#include "Mario.h"
+#include "Character.h"
 #include <math.h>
 
 class Enemy : public sf::Drawable {
@@ -40,7 +40,7 @@ public:
 	// Should always be after collision checks
 	void animate(const float &dt);
 	// check and act upon collision with mario
-	void killorDie(Mario& mario);
+	void killorDie(Character& mario);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
