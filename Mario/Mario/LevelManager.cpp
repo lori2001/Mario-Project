@@ -8,6 +8,9 @@ int LevelManager::run(sf::RenderWindow &window)
 	// window setup
 	window.setIcon(Resources::icon.getSize().x, Resources::icon.getSize().y, Resources::icon.getPixelsPtr()); // sets icon to sfml window
 
+	// for testing
+	// window.setFramerateLimit(20);
+
 	// setup positions/sizes/etc.
 	mainmenu.Setup(window);
 
