@@ -9,7 +9,7 @@ int LevelManager::run(sf::RenderWindow &window)
 	window.setIcon(Resources::icon.getSize().x, Resources::icon.getSize().y, Resources::icon.getPixelsPtr()); // sets icon to sfml window
 
 	// setup positions/sizes/etc.
-	menu.Setup(window);
+	mainmenu.Setup(window);
 
 	while (window.isOpen())
 	{
@@ -17,7 +17,12 @@ int LevelManager::run(sf::RenderWindow &window)
 
 		while (window.pollEvent(event))
 		{
-			menu.handleEvents(window, event);
+			if (mainisActive) {
+				mainmenu.handleEvents(window, event);
+			}
+			else if (endscisActive) {
+
+			}
 
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -25,22 +30,29 @@ int LevelManager::run(sf::RenderWindow &window)
 
 		window.clear(sf::Color(100, 100, 250)); // the background used in-game
 
-		if (menu.getActive()) {
+		if (mainisActive) {
 			// contains frame-by-frame logic
-			menu.Update(window);
+			mainmenu.Update(window, mainisActive);
 			// contains drawing commands
-			menu.Compose(window);
+			mainmenu.Compose(window);
 
-			if (menu.getActive() == false) {
-				game.setActive(true);
+			if (!mainisActive) {
+				gameisActive = true;
 				game.Setup(window);
 			}
 		}
-		else if (game.getActive()) {
+		else if (gameisActive) {
 			// contains frame-by-frame logic
-			game.Update(window);
+			game.Update(window, gameisActive);
 			// contains drawing commands
 			game.Compose(window);
+
+			if (!gameisActive) {
+				mainisActive = true;
+			}
+		}
+		else {
+
 		}
 
 		window.display();

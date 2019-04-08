@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Menu.h"
+#include "MainMenu.h"
 #include "Game.h"
 #include "Resources.h"
 
@@ -11,7 +11,10 @@ private:
 	sf::View view{ sf::FloatRect{0, 0, 1920, 1080} }; // scales sprites to window's size and moves cam when needed
 
 	Game game;
-	Menu menu;
+	bool gameisActive = false;
+	MainMenu mainmenu;
+	bool mainisActive = true;
+	bool endscisActive = false;
 public:
 	// replaces int main()
 	int run(sf::RenderWindow &window);

@@ -25,11 +25,11 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{83da03b6-a429-4c60-8ff7-0e2e7517b852}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Menu">
-      <UniqueIdentifier>{a5a260fd-db88-418b-b0d4-579fdb6ef340}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu">
+    <Filter Include="Source Files\Menus">
       <UniqueIdentifier>{e6cbf97b-57bf-4363-9762-5b78b9d2736f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{a5a260fd-db88-418b-b0d4-579fdb6ef340}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,10 +46,7 @@
       <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Header Files\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Header Files\Menu</Filter>
+      <Filter>Header Files\Menus</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Source Files</Filter>
@@ -59,6 +56,12 @@
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Header Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Endscreen.cpp">
+      <Filter>Header Files\Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,10 +78,7 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Source Files\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Source Files\Menu</Filter>
+      <Filter>Source Files\Menus</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Header Files</Filter>
@@ -88,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Source Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Endscreen.h">
+      <Filter>Source Files\Menus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

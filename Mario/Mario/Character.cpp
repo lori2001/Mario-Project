@@ -11,11 +11,6 @@ sf::Vector2i Character::animationPlace(const unsigned & index)
 	return temp;
 }
 
-void Character::setPosition(const sf::Vector2f & position)
-{
-	sprite.setPosition(position);
-}
-
 void Character::controls(float dt, float gravity)
 {
 	// * dt (times dt) basically means means pixels/second
@@ -38,7 +33,7 @@ void Character::controls(float dt, float gravity)
 			isJumping = true;
 		}
 
-		/*acts upon mario even if dead*/
+		/*acts upon character even if dead*/
 
 		if (jumpVelocity < 0) { // animates jumping
 			sprite.move({0, jumpVelocity * dt });
@@ -63,6 +58,31 @@ void Character::changeCntrlKeys(const sf::Keyboard::Key & in_up, const sf::Keybo
 	right = in_right;
 }
 
+void Character::initializeIn(const sf::Vector2f & position)
+{
+	/*PHYSICS*/
+	jumpToggle = false;
+	isJumping = true;
+	jumpVelocity = 0;
+	gForce = 0;
+
+	/*MOVEMENT ANIMATION*/
+	flipOrient = false;
+	animationTimer = 0;
+	isAlive = true;
+	lifeSignal = true;
+
+	/*PROPERTIES*/
+	lives = 2;
+	isInvulnerable = false;
+	invTimer = 0;
+	invATimer = 0;
+	isVisible = true;
+
+	/*POSITIONING*/
+	sprite.setPosition(position);
+}
+
 void Character::changeTexture(const sf::Texture & texture)
 {
 	sprite.setTexture(texture);
@@ -71,7 +91,7 @@ void Character::changeTexture(const sf::Texture & texture)
 void Character::collidesWith(const sf::FloatRect & object)
 {
 	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
-		// if mario comes from top
+		// if character comes from top
 		if (int(lastBounds.top + lastBounds.height) <= int(object.top) &&
 		   ((int(lastBounds.left) > int(object.left) &&
 			 int(lastBounds.left) < int(object.left + object.width)) ||
@@ -79,11 +99,11 @@ void Character::collidesWith(const sf::FloatRect & object)
 			 int(lastBounds.left) + int(sprite.getGlobalBounds().width) < int(object.left + object.width))))
 		{
 			gForce = 0; // stop falling
-			isJumping = false; // mario can't be jumping if touches the ground
+			isJumping = false; // character can't be jumping if touches the ground
 			jumpToggle = true; // allow jumping again
 			sprite.setPosition({sprite.getPosition().x, object.top - sprite.getGlobalBounds().height});
 		}
-		// if mario comes from bottom
+		// if character comes from bottom
 		else if (int(lastBounds.top) >= int(object.top + object.height) &&
 			((int(lastBounds.left) > int(object.left) &&
 			  int(lastBounds.left) < int(object.left + object.width)) ||
@@ -107,7 +127,8 @@ void Character::collidesWith(const sf::FloatRect & object)
 
 void Character::animate(const float & dt)
 {
-	if (isAlive) {
+	if (isAlive)
+	{
 		if (!isJumping && lastBounds.left != sprite.getGlobalBounds().left) {
 			animationTimer += dt;
 			if (animationTimer > animationLimit) // if enough time has passed
@@ -146,12 +167,35 @@ void Character::animate(const float & dt)
 			);
 		}
 
-		if (sprite.getPosition().y > HEIGHT) { // if mario goes off screen
+		if (isInvulnerable) // if the character is invulnerable
+		{
+			// filckering animation;
+			invATimer += dt;
+			invTimer += dt;
+
+			if (invATimer > invALimit) { // animation
+				invATimer = 0;
+				isVisible = !isVisible;
+			}
+
+			if (invTimer > invALimit * 16) { // after 16 flickers
+				invATimer = 0;
+				invTimer = 0;
+				isVisible = true;
+				isInvulnerable = false;
+			}
+		}
+
+		if (sprite.getPosition().y > HEIGHT) { // if character goes under screen
 			isAlive = false; // trigger death animation
+			gForce = 0; // reset gravity
+			sprite.setPosition({sprite.getPosition().x , (float)HEIGHT}); // level out to make sure everything is ok
 		}
 	}
-	else {
-		if (animationFrame != 6) { // do this only once
+	else /*DEATH ANIMATION*/
+	{
+		// trick to do this only once without additional variables
+		if (animationFrame != 6) {
 			jumpVelocity = -1750;
 		}
 
@@ -161,15 +205,32 @@ void Character::animate(const float & dt)
 		animationPlace(animationFrame).y,
 		animation[animationFrame].x,
 		animation[animationFrame].y });
+
+		if (sprite.getPosition().y > HEIGHT + 100) { // +100 adds a small threshold
+			lifeSignal = false; // signal death after all animations complete
+		}
 	}
 }
 
-void Character::kill()
+void Character::hurt()
 {
-	isAlive = false;
+	if (!isInvulnerable)
+	{
+		lives--;
+
+		if (lives <= 0) {
+			isAlive = false;
+			isInvulnerable = false;
+		}
+		else {
+			isAlive = true;
+			isInvulnerable = true;
+		}
+	}
 }
 
 void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(sprite, states);
+	if(isVisible)
+		target.draw(sprite, states);
 }

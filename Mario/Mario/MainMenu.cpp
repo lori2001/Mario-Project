@@ -1,6 +1,6 @@
-#include "Menu.h"
+#include "MainMenu.h"
 
-void Menu::Setup(sf::RenderWindow & window)
+void MainMenu::Setup(sf::RenderWindow & window)
 {
 	startgame.setPosition({ WIDTH / 2 - startgame.getGlobalBounds().width / 2 , HEIGHT / 2 - 50 });
 	exitgame.setPosition({ WIDTH / 2 - startgame.getGlobalBounds().width / 2 , HEIGHT / 2 + 70 });
@@ -8,7 +8,7 @@ void Menu::Setup(sf::RenderWindow & window)
 	exitgame.setCharacterSize(50);
 }
 
-void Menu::handleEvents(sf::RenderWindow & window, const sf::Event & event)
+void MainMenu::handleEvents(sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
 
@@ -19,7 +19,7 @@ void Menu::handleEvents(sf::RenderWindow & window, const sf::Event & event)
 	exitgame.handleEvents(event);
 }
 
-void Menu::Update(sf::RenderWindow & window)
+void MainMenu::Update(sf::RenderWindow & window, bool& isActive)
 {
 	if (startgame.activated()) {
 		isActive = false;
@@ -29,7 +29,7 @@ void Menu::Update(sf::RenderWindow & window)
 	}
 }
 
-void Menu::Compose(sf::RenderWindow & window)
+void MainMenu::Compose(sf::RenderWindow & window)
 {
 	window.draw(background);
 	window.draw(startgame);

@@ -9,8 +9,8 @@ class Game {
 private:
 	Resources resources;
 
-	Character mario1;
-	Character mario2;
+	Character mario;
+	Character luigi;
 	Ground ground1{ 19,1 };
 	Ground ground3{ 8,1 };
 
@@ -22,14 +22,10 @@ private:
 	// used at making movement non-time reliant
 	sf::Clock clock;
 	float elapsedTime;
-
-	bool isActive = false;
 public:
-	void setActive(const bool &active) { isActive = active; }
-	bool getActive() const { return isActive; }
 
 	void Setup(sf::RenderWindow &window);
 	// void handleEvents(const sf::Event &event);
-	void Update(sf::RenderWindow &window);
+	void Update(sf::RenderWindow &window, bool& isActive);
 	void Compose(sf::RenderWindow &window) const;
 };

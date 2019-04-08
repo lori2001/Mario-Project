@@ -1,8 +1,24 @@
 #include "Enemy.h"
 
-void Enemy::setPosition(const sf::Vector2f & position)
+void Enemy::initializeIn(const sf::Vector2f & position)
 {
+	/*PHYSICS*/
+	gForce = 0;
+
+	/*AI*/
+	direction = false;
+	dirTimer = 0;
+
+	/*ANIMATION*/
+	animationTimer = 0;
+	isAlive = true;
+	isVisible = true;
+
+	/*POSITIONING*/
 	sprite.setPosition(position);
+
+	/*FRAME TYPE*/
+	sprite.setTextureRect({ 0, 0, 16, 16 });
 }
 
 void Enemy::movement(const float & dt, const float & gravity)
@@ -88,7 +104,7 @@ void Enemy::animate(const float & dt)
 		if (animationTimer > deathLimit) {
 			animationTimer = 0;
 
-			sprite.setColor(sf::Color(0,0,0,0));
+			isVisible = false;
 		}
 
 		sprite.setTextureRect(
@@ -110,12 +126,13 @@ void Enemy::killorDie(Character& mario)
 		}
 		else // in any other situation
 		{
-			mario.kill();
+			mario.hurt();
 		}
 	}
 }
 
 void Enemy::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(sprite);
+	if(isVisible)
+		target.draw(sprite);
 }
