@@ -116,18 +116,18 @@ void Enemy::animate(const float & dt)
 
 }
 
-void Enemy::charCol(Character& mario)
+void Enemy::charCol(Character& character)
 {
-	if (sprite.getGlobalBounds().intersects(mario.getGlobalBounds()) && isAlive) {
+	if (sprite.getGlobalBounds().intersects(character.getGlobalBounds()) && isAlive) {
 		// if mario comes from top
-		if (int(mario.getLastBounds().top + mario.getLastBounds().height) <= int(sprite.getGlobalBounds().top))
+		if (int(character.getLastBounds().top + character.getLastBounds().height) <= int(sprite.getGlobalBounds().top))
 		{
 			isAlive = false;
 			animationTimer = 0; // makes sure animations will be nailed
 		}
 		else // in any other situation
 		{
-			mario.hurt();
+			character.hurt();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 
@@ -7,6 +8,9 @@ class Character : public sf::Drawable {
 private:
 	/*DISPLAY*/
 		sf::Sprite sprite;
+		std::vector<sf::Sprite> hearts; // used to display number of lives
+		sf::Vector2f heartspos{20,20}; // the position of the first heart on the string
+		const sf::Vector2f heartoffset{ 40,0 }; // the distance between each heart
 
 	/*PHYSICS*/
 		sf::FloatRect lastBounds; // contains the bounds from one frame before the time taken
@@ -63,6 +67,8 @@ public:
 	void animate(const float &dt);
 	// called whenever enemies collide with character
 	void hurt();
+	// called whenever healers collide with character
+	void heal();
 
 	/*SETTERS*/
 	// sets up (and resets) default values of character and sets its position (usually used in setup)
@@ -74,6 +80,8 @@ public:
 		const sf::Keyboard::Key& in_down,
 		const sf::Keyboard::Key& in_left,
 		const sf::Keyboard::Key& in_right);
+	// changes the place where lives will be displayed
+	void changeHeartsPos(const sf::Vector2f& position);
 
 	/*GETTERS*/
 	// returns the global bounds of the object at a given time

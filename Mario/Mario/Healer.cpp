@@ -12,7 +12,7 @@ void Healer::initializeIn(const sf::Vector2f & position)
 	sprite.setPosition(position);
 
 	/*FRAME TYPE*/
-	sprite.setTextureRect({ 0, 0, 42, 42 });
+	sprite.setTextureRect({ 0, 0, 16, 16 });
 }
 
 void Healer::movement(const float & dt, const float & gravity)
@@ -61,10 +61,11 @@ void Healer::brickCol(const sf::FloatRect & object)
 	}
 }
 
-void Healer::charCol(Character& mario)
+void Healer::charCol(Character& character)
 {
-	if (isAlive && sprite.getGlobalBounds().intersects(mario.getGlobalBounds())) {
+	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds())) {
 		isAlive = false;
+		character.heal();
 	}
 }
 

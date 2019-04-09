@@ -58,6 +58,11 @@ void Character::changeCntrlKeys(const sf::Keyboard::Key & in_up, const sf::Keybo
 	right = in_right;
 }
 
+void Character::changeHeartsPos(const sf::Vector2f & position)
+{
+	heartspos = position;
+}
+
 void Character::initializeIn(const sf::Vector2f & position)
 {
 	/*PHYSICS*/
@@ -81,6 +86,13 @@ void Character::initializeIn(const sf::Vector2f & position)
 
 	/*POSITIONING*/
 	sprite.setPosition(position);
+
+	for (int i = 0; i < lives; i++) {
+		hearts.push_back(sf::Sprite{ Resources::heartT });
+		hearts[i].setPosition(heartspos);
+		hearts[i].move({ float(heartoffset.x * i) , heartoffset.y });
+		hearts[i].setScale({1.8f, 1.8f});
+	}
 }
 
 void Character::changeTexture(const sf::Texture & texture)
@@ -229,8 +241,23 @@ void Character::hurt()
 	}
 }
 
+void Character::heal()
+{
+	lives++;
+
+	if (lives > int(hearts.size())) {
+		hearts.push_back(hearts[hearts.size()-1]); // add one more hearth to vector
+		// remember size auto increments
+		hearts[hearts.size() - 1].move(heartoffset); // move it a bit to not be drawn in the same place
+	}
+}
+
 void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	if(isVisible)
 		target.draw(sprite, states);
+
+	for (int i = 0; i < lives; i++) {
+		target.draw(hearts[i], states);
+	}
 }

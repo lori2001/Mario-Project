@@ -23,6 +23,7 @@ public:
 
 	static sf::Texture menu_bgT;
 
+	static sf::Texture heartT;
 	static sf::Texture mario_smallT;
 	static sf::Texture luigi_smallT;
 	static sf::Texture enemy_mushT;

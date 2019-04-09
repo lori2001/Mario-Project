@@ -19,7 +19,7 @@ private:
 public:
 	Healer() {
 		sprite.setTexture(Resources::good_mushT);
-		sprite.setScale({ 1.8f, 1.8f });
+		sprite.setScale({ 4, 4 });
 	}
 
 	// sets up (and resets) default values of enemy and places it in position
@@ -30,7 +30,7 @@ public:
 	// brick collision logic - Should always be after controls
 	void brickCol (const sf::FloatRect &object);
 	// check and act upon collision with character
-	void charCol(Character& mario);
+	void charCol(Character& character);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

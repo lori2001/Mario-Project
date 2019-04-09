@@ -16,7 +16,7 @@ private:
 	Ground ground3{ 8,1 };
 
 	Enemy enemy1;
-	Healer enemy2;
+	Healer healer;
 
 	const float gravity = 3500; // the global value of the gravity
 

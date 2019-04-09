@@ -42,7 +42,7 @@ public:
 	// Should always be after brick collision checks
 	void animate(const float &dt);
 	// check and act upon collision with character
-	void charCol(Character& mario);
+	void charCol(Character& character);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
