@@ -37,12 +37,12 @@ public:
 	
 	// ! Should not be put into the events loop
 	void movement(const float &dt, const float &gravity);
-	// Should always be after controls
-	void collidesWith(const sf::FloatRect &object);
-	// Should always be after collision checks
+	// brick collision logic - Should always be after controls
+	void brickCol(const sf::FloatRect &object);
+	// Should always be after brick collision checks
 	void animate(const float &dt);
-	// check and act upon collision with mario
-	void killorDie(Character& mario);
+	// check and act upon collision with character
+	void charCol(Character& mario);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

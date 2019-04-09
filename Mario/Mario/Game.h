@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Ground.h"
 #include "Enemy.h"
+#include "Healer.h"
 
 class Game {
 private:
@@ -15,7 +16,7 @@ private:
 	Ground ground3{ 8,1 };
 
 	Enemy enemy1;
-	Enemy enemy2;
+	Healer enemy2;
 
 	const float gravity = 3500; // the global value of the gravity
 

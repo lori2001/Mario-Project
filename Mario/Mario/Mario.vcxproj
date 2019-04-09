@@ -87,6 +87,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Healer.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Healer.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="MainMenu.h" />

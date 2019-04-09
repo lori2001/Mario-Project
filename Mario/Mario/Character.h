@@ -58,7 +58,7 @@ public:
 
 	/*IN-GAME INTERACTIONS*/
 	// Should always be after controls
-	void collidesWith(const sf::FloatRect &object);
+	void brickCol(const sf::FloatRect &object);
 	// Should always be after collision checks
 	void animate(const float &dt);
 	// called whenever enemies collide with character

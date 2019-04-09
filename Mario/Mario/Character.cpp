@@ -88,7 +88,7 @@ void Character::changeTexture(const sf::Texture & texture)
 	sprite.setTexture(texture);
 }
 
-void Character::collidesWith(const sf::FloatRect & object)
+void Character::brickCol(const sf::FloatRect & object)
 {
 	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
 		// if character comes from top

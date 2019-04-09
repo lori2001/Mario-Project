@@ -7,6 +7,7 @@ sf::Texture Resources::menu_bgT;
 sf::Texture Resources::luigi_smallT;
 sf::Texture Resources::mario_smallT;
 sf::Texture Resources::enemy_mushT;
+sf::Texture Resources::good_mushT;
 sf::Texture Resources::groundT;
 
 sf::Font Resources::super_marioF;
@@ -35,6 +36,7 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(luigi_smallT, "assets/images/luigi_small.png");
 	loadFile(mario_smallT, "assets/images/mario_small.png");
 	loadFile(enemy_mushT, "assets/images/enemy_mush.png");
+	loadFile(good_mushT, "assets/images/good_mush.png");
 
 	loadFile(groundT, "assets/images/ground.png");
 	groundT.setRepeated(true);

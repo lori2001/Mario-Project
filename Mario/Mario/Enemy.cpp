@@ -6,7 +6,8 @@ void Enemy::initializeIn(const sf::Vector2f & position)
 	gForce = 0;
 
 	/*AI*/
-	direction = false;
+	srand(unsigned(time(NULL))); // reseeds random number
+	direction = bool(rand() % 2); // starts in random direction
 	dirTimer = 0;
 
 	/*ANIMATION*/
@@ -25,14 +26,14 @@ void Enemy::movement(const float & dt, const float & gravity)
 {
 	if (isAlive) {
 		lastBounds = sprite.getGlobalBounds();
+		int speed = rand() % 25 + 175; // adds a bit of random offset
 
 		if (direction) { // left movement
-			//flipOrient = true;
-			sprite.move(-200 * dt, 0);
+			sprite.move(-speed * dt, 0);
 		}
 		else { // right movement
 		   //flipOrient = false;
-			sprite.move(200 * dt, 0);
+			sprite.move(speed * dt, 0);
 		}
 
 		dirTimer += dt;
@@ -49,7 +50,7 @@ void Enemy::movement(const float & dt, const float & gravity)
 	}
 }
 
-void Enemy::collidesWith(const sf::FloatRect & object)
+void Enemy::brickCol(const sf::FloatRect & object)
 {
 	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
 		// if sprite comes from top
@@ -115,7 +116,7 @@ void Enemy::animate(const float & dt)
 
 }
 
-void Enemy::killorDie(Character& mario)
+void Enemy::charCol(Character& mario)
 {
 	if (sprite.getGlobalBounds().intersects(mario.getGlobalBounds()) && isAlive) {
 		// if mario comes from top

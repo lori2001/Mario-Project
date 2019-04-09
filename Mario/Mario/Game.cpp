@@ -32,24 +32,23 @@ void Game::Update(sf::RenderWindow & window, bool& isActive)
 	luigi.controls(elapsedTime, gravity);
 	luigi.animate(elapsedTime);
 
-	mario.collidesWith(ground1.getGlobalBounds());
-	mario.collidesWith(ground3.getGlobalBounds());
-	luigi.collidesWith(ground1.getGlobalBounds());
-	luigi.collidesWith(ground3.getGlobalBounds());
+	mario.brickCol(ground1.getGlobalBounds());
+	mario.brickCol(ground3.getGlobalBounds());
+	luigi.brickCol(ground1.getGlobalBounds());
+	luigi.brickCol(ground3.getGlobalBounds());
 
 	enemy1.movement(elapsedTime, gravity);
 	enemy1.animate(elapsedTime);
-	enemy1.collidesWith(ground1.getGlobalBounds());
-	enemy1.collidesWith(ground3.getGlobalBounds());
-	enemy1.killorDie(mario);
-	enemy1.killorDie(luigi);
+	enemy1.brickCol(ground1.getGlobalBounds());
+	enemy1.brickCol(ground3.getGlobalBounds());
+	enemy1.charCol(mario);
+	enemy1.charCol(luigi);
 
 	enemy2.movement(elapsedTime, gravity);
-	enemy2.animate(elapsedTime);
-	enemy2.collidesWith(ground1.getGlobalBounds());
-	enemy2.collidesWith(ground3.getGlobalBounds());
-	enemy2.killorDie(mario);
-	enemy2.killorDie(luigi);
+	enemy2.brickCol(ground1.getGlobalBounds());
+	enemy2.brickCol(ground3.getGlobalBounds());
+	enemy2.charCol(mario);
+	enemy2.charCol(luigi);
 
 	if (!mario.getlifeSignal() && !luigi.getlifeSignal()) {
 		isActive = false;
