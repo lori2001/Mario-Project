@@ -64,8 +64,9 @@ void Healer::brickCol(const sf::FloatRect & object)
 void Healer::charCol(Character& character)
 {
 	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds())) {
-		isAlive = false;
-		character.heal();
+		if (character.heal()) { // small bugfix
+			isAlive = false;
+		}
 	}
 }
 

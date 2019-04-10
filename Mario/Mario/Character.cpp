@@ -28,7 +28,7 @@ void Character::controls(float dt, float gravity)
 		}
 
 		if (sf::Keyboard::isKeyPressed(up) && jumpToggle) { // enables jumping animation
-			jumpVelocity = -1550;
+			jumpVelocity = -1550; // the speed at which jumping occurs
 			jumpToggle = false; // block jumping untile reallowed
 			isJumping = true;
 		}
@@ -61,6 +61,14 @@ void Character::changeCntrlKeys(const sf::Keyboard::Key & in_up, const sf::Keybo
 void Character::changeHeartsPos(const sf::Vector2f & position)
 {
 	heartspos = position;
+}
+
+void Character::jump(const unsigned velocity)
+{
+	// converts value to negative because in SFML that means up
+	jumpVelocity = -float(velocity);
+	// make sure gravity doesn't mess up things
+	gForce = 0;
 }
 
 void Character::initializeIn(const sf::Vector2f & position)
@@ -202,6 +210,7 @@ void Character::animate(const float & dt)
 			isAlive = false; // trigger death animation
 			gForce = 0; // reset gravity
 			sprite.setPosition({sprite.getPosition().x , (float)HEIGHT}); // level out to make sure everything is ok
+			lives = 0;
 		}
 	}
 	else /*DEATH ANIMATION*/
@@ -224,7 +233,7 @@ void Character::animate(const float & dt)
 	}
 }
 
-void Character::hurt()
+bool Character::hurt()
 {
 	if (!isInvulnerable)
 	{
@@ -238,18 +247,29 @@ void Character::hurt()
 			isAlive = true;
 			isInvulnerable = true;
 		}
+
+		return true;
 	}
+
+	return false;
 }
 
-void Character::heal()
+bool Character::heal()
 {
-	lives++;
+	if (isAlive)
+	{
+		lives++;
 
-	if (lives > int(hearts.size())) {
-		hearts.push_back(hearts[hearts.size()-1]); // add one more hearth to vector
-		// remember size auto increments
-		hearts[hearts.size() - 1].move(heartoffset); // move it a bit to not be drawn in the same place
-	}
+		if (lives > int(hearts.size())) {
+			hearts.push_back(hearts[hearts.size() - 1]); // add one more hearth to vector
+			// remember size auto increments
+			hearts[hearts.size() - 1].move(heartoffset); // move it a bit to not be drawn in the same place
+		}
+
+		return true;
+	} else 
+
+	return false;
 }
 
 void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const

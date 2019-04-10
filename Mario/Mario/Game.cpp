@@ -2,8 +2,7 @@
 
 void Game::Setup(sf::RenderWindow & window)
 {
-	clock.restart();
-	mario.initializeIn({ 700, 800 });
+	mario.initializeIn({ 1400, 500 });
 
 	luigi.changeCntrlKeys(sf::Keyboard::W,
 		sf::Keyboard::S,
@@ -11,13 +10,16 @@ void Game::Setup(sf::RenderWindow & window)
 		sf::Keyboard::D);
 	luigi.changeTexture(Resources::luigi_smallT);
 	luigi.changeHeartsPos({20,60});
-	luigi.initializeIn({ 1400, 500 });
+	luigi.initializeIn({ 700, 800 });
 
 	ground1.setPosition({ 0, (float)HEIGHT - 150 });
 	ground3.setPosition({ 400, (float)HEIGHT - 400 });
 
 	enemy1.initializeIn({ 400, 400 });
 	healer.initializeIn({ 600, 300});
+
+	// eliminates potential bugs on trashware
+	clock.restart();
 }
 
 void Game::Update(sf::RenderWindow & window, bool& isActive)

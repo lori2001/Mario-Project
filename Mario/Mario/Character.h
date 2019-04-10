@@ -65,10 +65,10 @@ public:
 	void brickCol(const sf::FloatRect &object);
 	// Should always be after collision checks
 	void animate(const float &dt);
-	// called whenever enemies collide with character
-	void hurt();
+	// called whenever enemies should hurt character
+	bool hurt();
 	// called whenever healers collide with character
-	void heal();
+	bool heal();
 
 	/*SETTERS*/
 	// sets up (and resets) default values of character and sets its position (usually used in setup)
@@ -82,6 +82,8 @@ public:
 		const sf::Keyboard::Key& in_right);
 	// changes the place where lives will be displayed
 	void changeHeartsPos(const sf::Vector2f& position);
+	// basically makes mario jump
+	void jump(const unsigned velocity);
 
 	/*GETTERS*/
 	// returns the global bounds of the object at a given time

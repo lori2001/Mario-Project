@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Endscreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="Resources.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brick.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Endscreen.h" />
     <ClInclude Include="Enemy.h" />

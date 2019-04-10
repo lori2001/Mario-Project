@@ -124,6 +124,7 @@ void Enemy::charCol(Character& character)
 		{
 			isAlive = false;
 			animationTimer = 0; // makes sure animations will be nailed
+			character.jump(800);
 		}
 		else // in any other situation
 		{
