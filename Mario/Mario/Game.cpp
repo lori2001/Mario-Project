@@ -12,10 +12,10 @@ void Game::Setup(sf::RenderWindow & window)
 	luigi.changeHeartsPos({20,60});
 	luigi.initializeIn({ 700, 800 });
 
-	ground1.setPosition({ 0, (float)HEIGHT - 150 });
-	ground3.setPosition({ 400, (float)HEIGHT - 400 });
+	ground1.initializeIn(19, { 0, (float)HEIGHT - 150 });
+	brick.initializeIn(8, { 400, (float)HEIGHT - 400 });
 
-	enemy1.initializeIn({ 400, 400 });
+	enemy.initializeIn({ 400, 400 });
 	healer.initializeIn({ 600, 300});
 
 	// eliminates potential bugs on trashware
@@ -35,21 +35,23 @@ void Game::Update(sf::RenderWindow & window, bool& isActive)
 	luigi.controls(elapsedTime, gravity);
 	luigi.animate(elapsedTime);
 
-	mario.brickCol(ground1.getGlobalBounds());
-	mario.brickCol(ground3.getGlobalBounds());
-	luigi.brickCol(ground1.getGlobalBounds());
-	luigi.brickCol(ground3.getGlobalBounds());
+	mario.groundCol(ground1);
+	mario.groundCol(brick);
+	luigi.groundCol(ground1);
+	luigi.groundCol(brick);
 
-	enemy1.movement(elapsedTime, gravity);
-	enemy1.animate(elapsedTime);
-	enemy1.brickCol(ground1.getGlobalBounds());
-	enemy1.brickCol(ground3.getGlobalBounds());
-	enemy1.charCol(mario);
-	enemy1.charCol(luigi);
+	enemy.movement(elapsedTime, gravity);
+	enemy.animate(elapsedTime);
+	enemy.groundCol(ground1);
+	enemy.groundCol(brick);
+	enemy.charCol(mario);
+	enemy.charCol(luigi);
 
+	brick.animate(elapsedTime);
+	
 	healer.movement(elapsedTime, gravity);
-	healer.brickCol(ground1.getGlobalBounds());
-	healer.brickCol(ground3.getGlobalBounds());
+	healer.groundCol(ground1);
+	healer.groundCol(brick);
 	healer.charCol(mario);
 	healer.charCol(luigi);
 
@@ -61,8 +63,8 @@ void Game::Update(sf::RenderWindow & window, bool& isActive)
 void Game::Compose(sf::RenderWindow & window) const
 {
 	window.draw(ground1);
-	window.draw(ground3);
-	window.draw(enemy1);
+	window.draw(brick);
+	window.draw(enemy);
 	window.draw(healer);
 
 	// these should be last

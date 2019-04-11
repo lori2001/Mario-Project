@@ -9,7 +9,7 @@ int LevelManager::run(sf::RenderWindow &window)
 	window.setIcon(Resources::icon.getSize().x, Resources::icon.getSize().y, Resources::icon.getPixelsPtr()); // sets icon to sfml window
 
 	// for testing
-	// window.setFramerateLimit(20);
+	//window.setFramerateLimit(20);
 
 	// setup positions/sizes/etc.
 	mainmenu.Setup(window);
@@ -53,9 +53,6 @@ int LevelManager::run(sf::RenderWindow &window)
 			if (!gameisActive) {
 				mainisActive = true;
 			}
-		}
-		else {
-
 		}
 
 		window.display();

@@ -1,27 +1,43 @@
 #pragma once
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "Resources.h"
 
 class Ground : public sf::Drawable
 {
+protected:
+	std::vector<sf::RectangleShape> shapes;
+	sf::Texture *texture = &Resources::groundT;
+	sf::Vector2f position;
+
+	bool canMove = false; // set this to true to make item moveable
+	bool canBreak = false; // NOT YET IMPLEMENTED set this to true to make item breakable
 private:
-	sf::Sprite sprite;
-	sf::Vector2i size; // size as number of blocks
+	std::vector<bool> isMoving; // bool to signal whether a ground brick is moving or not
+	std::vector<bool> isActive;
+
+	float yPos; // holds the y pos of the shape to be able to reset to it whenever needed
+	std::vector<float> animationTimer; // the timer used to measure time passed while running smoothly
+	const float animationLimit = 0.001f; // the frequency in seconds at which movement animation works
+	std::vector<float> movementOffset; // the offset count per ground brick (-1 means nothing)
+	const float offsetLimit = 15; // the number of pixels a hit ground should offset to
+	std::vector<bool> movingUp; // true whenever moving up, false whenever moving down
 public:
-	Ground(const sf::Vector2i &size) {
-		this->size = size;
-		sprite.setTexture(Resources::groundT);
-		sprite.setTextureRect({ 0, 0,int(size.x * Resources::groundT.getSize().x), int(size.y *Resources::groundT.getSize().y) });
-		sprite.setScale({2, 2});
+	void initializeIn(const int size, const sf::Vector2f &position);
+
+	Ground(const int size, const sf::Vector2f& position) {
+		initializeIn(size, position);
 	}
-	Ground(const int &x, const int &y) : Ground(sf::Vector2i{x,y}) {}
-	Ground() : Ground(1,1) {}
+	Ground(const int size) : Ground(size, { 0,0 }) {}
+	Ground() : Ground(1) {}
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	// setters
-	void setPosition(const sf::Vector2f &position) { sprite.setPosition(position); };
+	void moveIfShould(const int i);
+
+	void animate(const float dt);
 
 	// getters
-	sf::FloatRect getGlobalBounds() { return sprite.getGlobalBounds(); }
+	sf::FloatRect getGlobalBounds(const int i) { return shapes[i].getGlobalBounds(); }
+	int getRowSize() { return int(shapes.size()); }
 };

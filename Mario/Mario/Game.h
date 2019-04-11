@@ -5,6 +5,7 @@
 #include "Ground.h"
 #include "Enemy.h"
 #include "Healer.h"
+#include "Brick.h"
 
 class Game {
 private:
@@ -12,10 +13,10 @@ private:
 
 	Character mario;
 	Character luigi;
-	Ground ground1{ 19,1 };
-	Ground ground3{ 8,1 };
+	Ground ground1;
+	Brick brick;
 
-	Enemy enemy1;
+	Enemy enemy;
 	Healer healer;
 
 	const float gravity = 3500; // the global value of the gravity

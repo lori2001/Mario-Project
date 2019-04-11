@@ -4,6 +4,8 @@
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 
+#include "Ground.h"
+
 class Character : public sf::Drawable {
 private:
 	/*DISPLAY*/
@@ -61,8 +63,9 @@ public:
 	void controls(float dt, float gravity);
 
 	/*IN-GAME INTERACTIONS*/
-	// Should always be after controls
-	void brickCol(const sf::FloatRect &object);
+	/* Should always be after controls
+	   Takes in Ground and its child classes*/
+	void groundCol(Ground& object);
 	// Should always be after collision checks
 	void animate(const float &dt);
 	// called whenever enemies should hurt character

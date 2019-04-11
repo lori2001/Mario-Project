@@ -12,7 +12,8 @@ void Enemy::initializeIn(const sf::Vector2f & position)
 
 	/*ANIMATION*/
 	animationTimer = 0;
-	isAlive = true;
+	isSqueezed = false;
+	isFalling = false;
 	isVisible = true;
 
 	/*POSITIONING*/
@@ -22,71 +23,77 @@ void Enemy::initializeIn(const sf::Vector2f & position)
 	sprite.setTextureRect({ 0, 0, 16, 16 });
 }
 
-void Enemy::movement(const float & dt, const float & gravity)
+void Enemy::movement(const float dt, const float gravity)
 {
-	if (isAlive) {
-		lastBounds = sprite.getGlobalBounds();
-		int speed = rand() % 25 + 175; // adds a bit of random offset
+	if (!isSqueezed) {
+		if(!isFalling)
+		{
+			lastBounds = sprite.getGlobalBounds();
+			int speed = rand() % 25 + 175; // adds a bit of random offset
 
-		if (direction) { // left movement
-			sprite.move(-speed * dt, 0);
+			if (direction) { // left movement
+				sprite.move(-speed * dt, 0);
+			}
+			else { // right movement
+			   //flipOrient = false;
+				sprite.move(speed * dt, 0);
+			}
+
+			dirTimer += dt;
+
+			if (dirTimer > dirLimit) {
+				dirTimer = 0;
+
+				if (direction) direction = false;
+				else direction = true;
+			}
 		}
-		else { // right movement
-		   //flipOrient = false;
-			sprite.move(speed * dt, 0);
-		}
-
-		dirTimer += dt;
-
-		if (dirTimer > dirLimit) {
-			dirTimer = 0;
-
-			if (direction) direction = false;
-			else direction = true;
-		}
-
 		sprite.move({ 0, gForce * dt });
 		gForce += gravity * dt;
 	}
+
+	// if enemy falls under this threshold, there is no sense to calculate movements and do logic
+	if (sprite.getPosition().y > HEIGHT + 100) {
+		isSqueezed = true;
+		isFalling = true;
+	}
 }
 
-void Enemy::brickCol(const sf::FloatRect & object)
+void Enemy::groundCol(Ground & object)
 {
-	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
-		// if sprite comes from top
-		if (int(lastBounds.top + lastBounds.height) <= int(object.top) &&
-			((int(lastBounds.left) > int(object.left) &&
-				int(lastBounds.left) < int(object.left + object.width)) ||
-				(int(lastBounds.left) + int(sprite.getGlobalBounds().width) > int(object.left) &&
-					int(lastBounds.left) + int(sprite.getGlobalBounds().width) < int(object.left + object.width))))
-		{
-			gForce = 0; // stop falling
-			sprite.setPosition({ sprite.getPosition().x, object.top - sprite.getGlobalBounds().height });
-		}
-		// if sprite comes from bottom
-		else if (int(lastBounds.top) >= int(object.top + object.height) &&
-			((int(lastBounds.left) > int(object.left) &&
-				int(lastBounds.left) < int(object.left + object.width)) ||
-				(int(lastBounds.left) + int(sprite.getGlobalBounds().width) > int(object.left) &&
-					int(lastBounds.left) + int(sprite.getGlobalBounds().width) < int(object.left + object.width))))
-		{
-			sprite.setPosition({ sprite.getPosition().x, object.top + object.height });
-		}
-		else if (int(lastBounds.left + lastBounds.width) <= int(object.left)) { // colision with object's left
-			sprite.setPosition({ object.left - sprite.getGlobalBounds().width, sprite.getPosition().y });
-		}
-		else if (int(lastBounds.left) >= int(object.left + object.width)) { // colision with object's right
-			sprite.setPosition({ object.left + object.width, sprite.getPosition().y });
-		}
-		else { // this should never activate but I would like to get warned if it does
-			std::cout << "WARNING: Undiscussed collision situation!" << std::endl;
+	for (int i = 0; i < object.getRowSize(); i++)
+	{
+		if (sprite.getGlobalBounds().intersects(object.getGlobalBounds(i)) && !isFalling) {
+			// if character comes from top
+			if (int(lastBounds.top + lastBounds.height) <= int(object.getGlobalBounds(i).top))
+			{
+				gForce = 0; // stop falling
+				sprite.setPosition({ sprite.getPosition().x, object.getGlobalBounds(i).top - sprite.getGlobalBounds().height });
+			}
+			// if character comes from bottom
+			else if (int(lastBounds.top) >= int(object.getGlobalBounds(i).top + object.getGlobalBounds(i).height))
+			{
+				sprite.setPosition({ sprite.getPosition().x, object.getGlobalBounds(i).top + object.getGlobalBounds(i).height });
+			}
+			// if character comes from left
+			else if (int(lastBounds.left + lastBounds.width) <= int(object.getGlobalBounds(i).left)) {
+				sprite.setPosition({ object.getGlobalBounds(i).left - sprite.getGlobalBounds().width, sprite.getPosition().y });
+			}
+			// if character comes from right
+			else if (int(lastBounds.left) >= int(object.getGlobalBounds(i).left + object.getGlobalBounds(i).width)) {
+				sprite.setPosition({ object.getGlobalBounds(i).left + object.getGlobalBounds(i).width, sprite.getPosition().y });
+			}
+			else {
+				// gets triggered whenever the ground moves below the entity and not vice-versa
+				isFalling = true;
+			}
 		}
 	}
 }
 
-void Enemy::animate(const float & dt)
+void Enemy::animate(const float dt)
 {
-	if (isAlive) {
+	if (!isSqueezed && !isFalling) {
 		animationTimer += dt;
 
 		if (animationTimer > animationLimit) {
@@ -98,7 +105,7 @@ void Enemy::animate(const float & dt)
 			);
 		}
 	}
-	else {
+	else if(isSqueezed) {
 
 		animationTimer += dt;
 
@@ -113,16 +120,15 @@ void Enemy::animate(const float & dt)
 			std::abs(sprite.getTextureRect().width), sprite.getTextureRect().height }
 		);
 	}
-
 }
 
 void Enemy::charCol(Character& character)
 {
-	if (sprite.getGlobalBounds().intersects(character.getGlobalBounds()) && isAlive) {
+	if (sprite.getGlobalBounds().intersects(character.getGlobalBounds()) && !isSqueezed && !isFalling) {
 		// if mario comes from top
 		if (int(character.getLastBounds().top + character.getLastBounds().height) <= int(sprite.getGlobalBounds().top))
 		{
-			isAlive = false;
+			isSqueezed = true;
 			animationTimer = 0; // makes sure animations will be nailed
 			character.jump(800);
 		}

@@ -11,6 +11,7 @@ sf::Texture Resources::mario_smallT;
 sf::Texture Resources::enemy_mushT;
 sf::Texture Resources::good_mushT;
 sf::Texture Resources::groundT;
+sf::Texture Resources::brickT;
 
 sf::Font Resources::super_marioF;
 
@@ -41,8 +42,10 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(enemy_mushT, "assets/images/enemy_mush.png");
 	loadFile(good_mushT, "assets/images/good_mush.png");
 
+	loadFile(brickT, "assets/images/brick.png");
+	// brickT.setRepeated(true);
 	loadFile(groundT, "assets/images/ground.png");
-	groundT.setRepeated(true);
+	// groundT.setRepeated(true);
 
 	loadFile(super_marioF, "assets/fonts/super_mario.ttf");
 }

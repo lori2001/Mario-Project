@@ -27,36 +27,35 @@ void Healer::movement(const float & dt, const float & gravity)
 	}
 }
 
-void Healer::brickCol(const sf::FloatRect & object)
+void Healer::groundCol(Ground & object)
 {
-	if (sprite.getGlobalBounds().intersects(object) && isAlive) {
-		// if sprite comes from top
-		if (int(lastBounds.top + lastBounds.height) <= int(object.top) &&
-			((int(lastBounds.left) > int(object.left) &&
-				int(lastBounds.left) < int(object.left + object.width)) ||
-				(int(lastBounds.left) + int(sprite.getGlobalBounds().width) > int(object.left) &&
-					int(lastBounds.left) + int(sprite.getGlobalBounds().width) < int(object.left + object.width))))
-		{
-			gForce = 0; // stop falling
-			sprite.setPosition({ sprite.getPosition().x, object.top - sprite.getGlobalBounds().height });
-		}
-		// if sprite comes from bottom
-		else if (int(lastBounds.top) >= int(object.top + object.height) &&
-			((int(lastBounds.left) > int(object.left) &&
-				int(lastBounds.left) < int(object.left + object.width)) ||
-				(int(lastBounds.left) + int(sprite.getGlobalBounds().width) > int(object.left) &&
-					int(lastBounds.left) + int(sprite.getGlobalBounds().width) < int(object.left + object.width))))
-		{
-			sprite.setPosition({ sprite.getPosition().x, object.top + object.height });
-		}
-		else if (int(lastBounds.left + lastBounds.width) <= int(object.left)) { // colision with object's left
-			sprite.setPosition({ object.left - sprite.getGlobalBounds().width, sprite.getPosition().y });
-		}
-		else if (int(lastBounds.left) >= int(object.left + object.width)) { // colision with object's right
-			sprite.setPosition({ object.left + object.width, sprite.getPosition().y });
-		}
-		else { // this should never activate but I would like to get warned if it does
-			std::cout << "WARNING: Undiscussed collision situation!" << std::endl;
+	for (int i = 0; i < object.getRowSize(); i++)
+	{
+		if (sprite.getGlobalBounds().intersects(object.getGlobalBounds(i)) && isAlive) {
+			// if character comes from top
+			if (int(lastBounds.top + lastBounds.height) <= int(object.getGlobalBounds(i).top))
+			{
+				gForce = 0; // stop falling
+				sprite.setPosition({ sprite.getPosition().x, object.getGlobalBounds(i).top - sprite.getGlobalBounds().height });
+			}
+			// if character comes from bottom
+			else if (int(lastBounds.top) >= int(object.getGlobalBounds(i).top + object.getGlobalBounds(i).height))
+			{
+				sprite.setPosition({ sprite.getPosition().x, object.getGlobalBounds(i).top + object.getGlobalBounds(i).height });
+			}
+			// if character comes from left
+			else if (int(lastBounds.left + lastBounds.width) <= int(object.getGlobalBounds(i).left)) {
+				sprite.setPosition({ object.getGlobalBounds(i).left - sprite.getGlobalBounds().width, sprite.getPosition().y });
+			}
+			// if character comes from right
+			else if (int(lastBounds.left) >= int(object.getGlobalBounds(i).left + object.getGlobalBounds(i).width)) {
+				sprite.setPosition({ object.getGlobalBounds(i).left + object.getGlobalBounds(i).width, sprite.getPosition().y });
+			}
+			else {
+				// gets triggered whenever the ground moves below the entity and not vice-versa
+				gForce = 0; // stop falling
+				sprite.setPosition({ sprite.getPosition().x, object.getGlobalBounds(i).top - sprite.getGlobalBounds().height });
+			}
 		}
 	}
 }

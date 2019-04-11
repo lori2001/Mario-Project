@@ -29,6 +29,7 @@ public:
 	static sf::Texture enemy_mushT;
 	static sf::Texture good_mushT;
 	static sf::Texture groundT;
+	static sf::Texture brickT;
 
 	static sf::Font super_marioF;
 

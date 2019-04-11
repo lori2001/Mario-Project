@@ -22,7 +22,8 @@ private:
 		float animationTimer; // the timer used to measure time passed while running smoothly
 		const float animationLimit = 0.2f; // the frequency in seconds at which movement animation works
 	/*DEATH ANIMATION*/
-		bool isAlive; // false whenever enemy should get squeezed and erased (disables most functions too)
+		bool isSqueezed; // death condition 1: true whenever enemy should be squeezed
+		bool isFalling; // death condition 2: true whenever enemy should fall
 		bool isVisible; // disables visibility whenever enemy does not exist
 		const float deathLimit = 1.5f; // value in seconds after which the enemy will delete from the screen
 
@@ -36,11 +37,11 @@ public:
 	void initializeIn(const sf::Vector2f& position);
 	
 	// ! Should not be put into the events loop
-	void movement(const float &dt, const float &gravity);
-	// brick collision logic - Should always be after controls
-	void brickCol(const sf::FloatRect &object);
+	void movement(const float dt, const float gravity);
+	// ground collision logic - Should always be after movement
+	void groundCol(Ground& object);
 	// Should always be after brick collision checks
-	void animate(const float &dt);
+	void animate(const float dt);
 	// check and act upon collision with character
 	void charCol(Character& character);
 

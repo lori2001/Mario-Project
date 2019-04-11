@@ -27,8 +27,8 @@ public:
 
 	// ! Should not be put into the events loop
 	void movement(const float &dt, const float &gravity);
-	// brick collision logic - Should always be after controls
-	void brickCol (const sf::FloatRect &object);
+	// ground collision logic - Should always be after movement
+	void groundCol(Ground& object);
 	// check and act upon collision with character
 	void charCol(Character& character);
 
