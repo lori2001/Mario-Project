@@ -38,12 +38,16 @@ public:
 	
 	// ! Should not be put into the events loop
 	void movement(const float dt, const float gravity);
-	// ground collision logic - Should always be after movement
-	void groundCol(Ground& object);
-	// Should always be after brick collision checks
-	void animate(const float dt);
+
+	/*there is nothing in common between these, except for the name to ease map programming*/
+	// ground collision logic
+	void collision(Ground& object);
 	// check and act upon collision with character
-	void charCol(Character& character);
+	void collision(Character& character);
+
+	// animates movement of the enemy
+	void animation(const float dt);
+
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

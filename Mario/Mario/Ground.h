@@ -33,9 +33,9 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	/*triggered by canMove*/
 	void moveIfShould(const int i);
-
-	void animate(const float dt);
+	void animation(const float dt);
 
 	// getters
 	sf::FloatRect getGlobalBounds(const int i) { return shapes[i].getGlobalBounds(); }

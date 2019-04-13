@@ -6,10 +6,12 @@
 #include "Enemy.h"
 #include "Healer.h"
 #include "Brick.h"
+#include "Score.h"
 
 class Game {
 private:
 	Resources resources;
+	Score score;
 
 	Character mario;
 	Character luigi;

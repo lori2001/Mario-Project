@@ -27,7 +27,7 @@ void Healer::movement(const float & dt, const float & gravity)
 	}
 }
 
-void Healer::groundCol(Ground & object)
+void Healer::collision(Ground & object)
 {
 	for (int i = 0; i < object.getRowSize(); i++)
 	{
@@ -60,11 +60,12 @@ void Healer::groundCol(Ground & object)
 	}
 }
 
-void Healer::charCol(Character& character)
+void Healer::collision(Character& character)
 {
 	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds())) {
 		if (character.heal()) { // small bugfix
 			isAlive = false;
+			Score::add(50);
 		}
 	}
 }

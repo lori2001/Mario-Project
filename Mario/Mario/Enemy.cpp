@@ -59,7 +59,7 @@ void Enemy::movement(const float dt, const float gravity)
 	}
 }
 
-void Enemy::groundCol(Ground & object)
+void Enemy::collision(Ground & object)
 {
 	for (int i = 0; i < object.getRowSize(); i++)
 	{
@@ -91,7 +91,7 @@ void Enemy::groundCol(Ground & object)
 	}
 }
 
-void Enemy::animate(const float dt)
+void Enemy::animation(const float dt)
 {
 	if (!isSqueezed && !isFalling) {
 		animationTimer += dt;
@@ -122,7 +122,7 @@ void Enemy::animate(const float dt)
 	}
 }
 
-void Enemy::charCol(Character& character)
+void Enemy::collision(Character& character)
 {
 	if (sprite.getGlobalBounds().intersects(character.getGlobalBounds()) && !isSqueezed && !isFalling) {
 		// if mario comes from top

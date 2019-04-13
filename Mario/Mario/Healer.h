@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 #include "Character.h"
+#include "Score.h"
 #include <math.h>
 
 class Healer : public sf::Drawable {
@@ -27,10 +28,12 @@ public:
 
 	// ! Should not be put into the events loop
 	void movement(const float &dt, const float &gravity);
-	// ground collision logic - Should always be after movement
-	void groundCol(Ground& object);
+
+	/*there is nothing in common between these, except for the name to ease map programming*/
+	// ground collision logic
+	void collision(Ground& object);
 	// check and act upon collision with character
-	void charCol(Character& character);
+	void collision(Character& character);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
