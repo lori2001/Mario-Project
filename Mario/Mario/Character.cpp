@@ -5,13 +5,13 @@ sf::Vector2i Character::animationPlace(const unsigned & index)
 	sf::Vector2i temp = {0,0};
 
 	for (unsigned i = 0; i < index; i++) {
-		temp.x += animation[i].x;
+		temp.x += animationSizes[i].x;
 	}
 
 	return temp;
 }
 
-void Character::controls(float dt, float gravity)
+void Character::movement(float dt, float gravity)
 {
 	// * dt (times dt) basically means means pixels/second
 
@@ -108,7 +108,7 @@ void Character::changeTexture(const sf::Texture & texture)
 	sprite.setTexture(texture);
 }
 
-void Character::groundCol(Ground & object)
+void Character::collision(Ground & object)
 {
 	for (int i = 0; i < object.getRowSize(); i++)
 	{
@@ -151,7 +151,7 @@ void Character::groundCol(Ground & object)
 	}
 }
 
-void Character::animate(const float & dt)
+void Character::animation(const float dt)
 {
 	if (isAlive)
 	{
@@ -182,8 +182,8 @@ void Character::animate(const float & dt)
 
 		sprite.setTextureRect({ animationPlace(animationFrame).x,
 								animationPlace(animationFrame).y,
-								animation[animationFrame].x,
-								animation[animationFrame].y });
+								animationSizes[animationFrame].x,
+								animationSizes[animationFrame].y });
 
 		if (flipOrient) // flip orientation whenever you should
 		{
@@ -230,8 +230,8 @@ void Character::animate(const float & dt)
 
 		sprite.setTextureRect({ animationPlace(animationFrame).x,
 		animationPlace(animationFrame).y,
-		animation[animationFrame].x,
-		animation[animationFrame].y });
+		animationSizes[animationFrame].x,
+		animationSizes[animationFrame].y });
 
 		if (sprite.getPosition().y > HEIGHT + 100) { // +100 adds a small threshold
 			lifeSignal = false; // signal death after all animations complete

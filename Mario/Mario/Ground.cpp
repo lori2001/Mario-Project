@@ -43,7 +43,7 @@ void Ground::moveIfShould(const int i)
 	}
 }
 
-void Ground::animate(const float dt)
+void Ground::animation(const float dt)
 {
 	for (int i = 0; i < int(shapes.size()); i++) {
 		if (isMoving[i]) {

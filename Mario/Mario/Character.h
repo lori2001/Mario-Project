@@ -26,7 +26,7 @@ private:
 		unsigned animationFrame; // 0-idle 1,2,3-running_cycle 4-brake 5-jump 6-death jump
 		float animationTimer; // the timer used to measure time passed while running smoothly
 		const float animationLimit = 0.12f; // the frequency in seconds at which movement animation works
-		const sf::Vector2i animation[7] = { {13,16}, {14,16}, {12,16}, {16,16}, {14,16}, {17,16}, {15,14} }; // contains the sizes for each frame of animation
+		const sf::Vector2i animationSizes[7] = { {13,16}, {14,16}, {12,16}, {16,16}, {14,16}, {17,16}, {15,14} }; // contains the sizes for each frame of animation
 		sf::Vector2i animationPlace(const unsigned &index); // calculates the place of a texture in file
 	/*DEATH ANIMATION*/
 		bool isAlive; // used only for animation]
@@ -60,17 +60,16 @@ public:
 	/*USER INTERACTIONS*/
 	/* ! Should not be put into the events loop
 	 Values are: delta time(elapsed time), gravity*/
-	void controls(float dt, float gravity);
+	void movement(float dt, float gravity);
 
 	/*IN-GAME INTERACTIONS*/
-	/* Should always be after controls
-	   Takes in Ground and its child classes*/
-	void groundCol(Ground& object);
-	// Should always be after collision checks
-	void animate(const float &dt);
+	/*Takes in Ground and its child classes*/
+	void collision(Ground& object);
+	// animates the movement of the character
+	void animation(const float dt);
 	// called whenever enemies should hurt character
 	bool hurt();
-	// called whenever healers collide with character
+	// called whenever healers should heal character
 	bool heal();
 
 	/*SETTERS*/
