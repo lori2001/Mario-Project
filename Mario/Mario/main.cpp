@@ -1,8 +1,9 @@
+#include <SFML/Graphics.hpp>
 #include "Resources.h"
 #include "LevelManager.h"
 
 // in theory this gets disabled on other OS such as linux
-// thus the program should run on all platforms !!! IN THEORY !!!
+// thus the program should compile on all platforms !!! IN THEORY !!!
 #ifdef _WIN32
 	#include <Windows.h>
 #endif

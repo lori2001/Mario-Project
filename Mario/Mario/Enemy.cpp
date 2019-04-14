@@ -128,13 +128,14 @@ void Enemy::collision(Character& character)
 		// if mario comes from top
 		if (int(character.getLastBounds().top + character.getLastBounds().height) <= int(sprite.getGlobalBounds().top))
 		{
-			isSqueezed = true;
 			animationTimer = 0; // makes sure animations will be nailed
-			character.jump(800);
+			isSqueezed = true; // squeezes enemy
+			Score::add(100); // gives score points
+			character.jump(800); // makes character jump
 		}
 		else // in any other situation
 		{
-			character.hurt();
+			character.hurt(); // hurts character
 		}
 	}
 }

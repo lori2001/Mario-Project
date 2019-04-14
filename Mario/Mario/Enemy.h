@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 #include "Character.h"
+#include "Score.h"
 #include <math.h>
 
 class Enemy : public sf::Drawable {

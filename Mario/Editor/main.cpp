@@ -1,22 +1,28 @@
 #include <SFML/Graphics.hpp>
-#include "../vendor/json-develop/nlohmann/json.hpp"
+#include "Editor.h"
+// #include "../vendor/json-develop/nlohmann/json.hpp"
+
+// in theory this gets disabled on other OS such as linux
+// thus the program should compile on all platforms !!! IN THEORY !!!
+#ifdef _WIN32
+	#include <Windows.h>
+#endif
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1000, 600), "Mario Map Editor");
+	// hides console window on windows, release mode
+	#ifdef _WIN32
+		#ifndef _DEBUG
+			HWND hWnd = GetConsoleWindow();
+			ShowWindow(hWnd, SW_HIDE);
+		#endif
+	#endif
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario Map Editor" }; // creates and sets window's default sizes and name
 
-		window.clear();
-		window.display();
-	}
+	//Resources resources;
+	//resources.loadFiles(window);
 
-	return 0;
+	Editor editor;
+	return editor.run(window);
 }
