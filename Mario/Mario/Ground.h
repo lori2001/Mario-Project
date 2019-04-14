@@ -23,12 +23,13 @@ private:
 	const float offsetLimit = 15; // the number of pixels a hit ground should offset to
 	std::vector<bool> movingUp; // true whenever moving up, false whenever moving down
 public:
-	void initializeIn(const int size, const sf::Vector2f &position);
+	// x and y are coordinates while z is the lenght in ground bricks
+	void initializeIn(const sf::Vector3f &pos_size);
 
-	Ground(const int size, const sf::Vector2f& position) {
-		initializeIn(size, position);
+	Ground(const sf::Vector3f& pos_size) {
+		initializeIn(pos_size);
 	}
-	Ground(const int size) : Ground(size, { 0,0 }) {}
+	Ground(const int size) : Ground({0, 0, float(size)}) {}
 	Ground() : Ground(1) {}
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

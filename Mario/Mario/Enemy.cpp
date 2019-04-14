@@ -86,6 +86,7 @@ void Enemy::collision(Ground & object)
 			else {
 				// gets triggered whenever the ground moves below the entity and not vice-versa
 				isFalling = true;
+				Score::add(75); // gives points
 			}
 		}
 	}

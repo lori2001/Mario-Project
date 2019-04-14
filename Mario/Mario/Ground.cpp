@@ -1,11 +1,11 @@
 #include "Ground.h"
 
-void Ground::initializeIn(const int size, const sf::Vector2f & position)
+void Ground::initializeIn(const sf::Vector3f & pos_size)
 {
-	this->position = position;
+	position = { pos_size.x , pos_size.y };
 	yPos = position.y;
 
-	while (size > int(shapes.size())) {
+	while (int(pos_size.z) > int(shapes.size())) {
 		isActive.push_back(true);
 		isMoving.push_back(false);
 		movingUp.push_back(true);
@@ -14,7 +14,7 @@ void Ground::initializeIn(const int size, const sf::Vector2f & position)
 		shapes.push_back(sf::RectangleShape{});
 	}
 
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < int(pos_size.z); i++) {
 		isMoving[i] = false;
 		isActive[i] = true;
 		movingUp[i] = true;

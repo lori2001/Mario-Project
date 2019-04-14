@@ -93,6 +93,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Maps.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Score.cpp" />
   </ItemGroup>
@@ -107,6 +108,7 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Maps.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Score.h" />

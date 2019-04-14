@@ -86,6 +86,8 @@ public:
 	void changeHeartsPos(const sf::Vector2f& position);
 	// basically makes mario jump
 	void jump(const unsigned velocity);
+	// called whenever character is not declared
+	void doNotDisplay();
 
 	/*GETTERS*/
 	// returns the global bounds of the object at a given time

@@ -18,10 +18,13 @@ private:
 		bool isAlive; // false whenever enemy should get squeezed and erased (disables most functions too)
 
 public:
-	Healer() {
+	Healer(const sf::Vector2f& position) {
 		sprite.setTexture(Resources::good_mushT);
 		sprite.setScale({ 4, 4 });
+	
+		initializeIn(position);
 	}
+	Healer() : Healer({0,0}) {}
 
 	// sets up (and resets) default values of enemy and places it in position
 	void initializeIn(const sf::Vector2f& position);

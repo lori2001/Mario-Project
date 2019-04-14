@@ -2,24 +2,44 @@
 
 void Game::Setup(sf::RenderWindow & window)
 {
-	mario.initializeIn({ 1400, 500 });
+	score.setPosition({ 1620,20 }); // set display position
+	score.equal(0); // reset score if needed
+	
+	/* Load in game info into actual game elements*/
 
 	luigi.changeCntrlKeys(sf::Keyboard::W,
 		sf::Keyboard::S,
 		sf::Keyboard::A,
 		sf::Keyboard::D);
 	luigi.changeTexture(Resources::luigi_smallT);
-	luigi.changeHeartsPos({20,60});
-	luigi.initializeIn({ 700, 800 });
+	luigi.changeHeartsPos({ 20,60 });
 
-	ground1.initializeIn(19, { 0, (float)HEIGHT - 150 });
-	brick.initializeIn(8, { 400, (float)HEIGHT - 400 });
+	mario.initializeIn(Maps::getCharacter1());
+	luigi.initializeIn(Maps::getCharacter2());
 
-	enemy.initializeIn({ 400, 400 });
-	healer.initializeIn({ 600, 300});
+	if (Maps::getCharacter1().x == notfound && Maps::getCharacter1().y == notfound) {
+		mario.doNotDisplay();
+	}
+	if (Maps::getCharacter2().x == notfound && Maps::getCharacter2().y == notfound) {
+		luigi.doNotDisplay();
+	}
 
-	score.setPosition({1620,20});
-	score.equal(0);
+	for (int i = 0; i < Maps::getEnemiesNum(); i++) {
+		if (i >= int(enemies.size())) enemies.push_back(Enemy{ Maps::getEnemy(i) });
+		else enemies[i].initializeIn(Maps::getEnemy(i));
+	}
+	for (int i = 0; i < Maps::getHealersNum(); i++) {
+		if (i >= int(healers.size())) healers.push_back(Healer{ Maps::getHealer(i) });
+		else healers[i].initializeIn(Maps::getHealer(i));
+	}
+	for (int i = 0; i < Maps::getBricksNum(); i++) {
+		if (i >= int(bricks.size())) bricks.push_back(Brick{ Maps::getBrick(i) });
+		else bricks[i].initializeIn(Maps::getBrick(i));
+	}
+	for (int i = 0; i < Maps::getGroundsNum(); i++) {
+		if (i >= int(grounds.size())) grounds.push_back(Ground{ Maps::getGround(i) });
+		else grounds[i].initializeIn(Maps::getGround(i));
+	}
 
 	// eliminates potential bugs on trashware
 	clock.restart();
@@ -33,28 +53,46 @@ void Game::Update(sf::RenderWindow & window, bool& isActive)
 
 	mario.movement(elapsedTime, gravity);
 	mario.animation(elapsedTime);
-	mario.collision(ground1);
-	mario.collision(brick);
 
 	luigi.movement(elapsedTime, gravity);
 	luigi.animation(elapsedTime);
-	luigi.collision(ground1);
-	luigi.collision(brick);
 
-	enemy.movement(elapsedTime, gravity);
-	enemy.animation(elapsedTime);
-	enemy.collision(ground1);
-	enemy.collision(brick);
-	enemy.collision(mario);
-	enemy.collision(luigi);
+	for (int i = 0; i < Maps::getGroundsNum(); i++) {
+		mario.collision(grounds[i]);
+		luigi.collision(grounds[i]);
+	}
+	for (int i = 0; i < Maps::getBricksNum(); i++) {
+		mario.collision(bricks[i]);
+		luigi.collision(bricks[i]);
+		bricks[i].animation(elapsedTime);
+	}
 
-	brick.animation(elapsedTime);
-	
-	healer.movement(elapsedTime, gravity);
-	healer.collision(ground1);
-	healer.collision(brick);
-	healer.collision(mario);
-	healer.collision(luigi);
+	for (int i = 0; i < Maps::getEnemiesNum(); i++) {
+		enemies[i].movement(elapsedTime, gravity);
+		enemies[i].animation(elapsedTime);
+		enemies[i].collision(mario);
+		enemies[i].collision(luigi);
+
+		for (int j = 0; j < Maps::getGroundsNum(); j++) {
+			enemies[i].collision(grounds[j]);
+		}
+		for (int j = 0; j < Maps::getBricksNum(); j++) {
+			enemies[i].collision(bricks[j]);
+		}
+	}
+
+	for (int i = 0; i < Maps::getHealersNum(); i++) {
+		healers[i].movement(elapsedTime, gravity);
+		healers[i].collision(mario);
+		healers[i].collision(luigi);
+
+		for (int j = 0; j < Maps::getGroundsNum(); j++) {
+			healers[i].collision(grounds[j]);
+		}
+		for (int j = 0; j < Maps::getBricksNum(); j++) {
+			healers[i].collision(bricks[j]);
+		}
+	}
 
 	if (!mario.getlifeSignal() && !luigi.getlifeSignal()) {
 		isActive = false;
@@ -65,10 +103,18 @@ void Game::Update(sf::RenderWindow & window, bool& isActive)
 
 void Game::Compose(sf::RenderWindow & window) const
 {
-	window.draw(ground1);
-	window.draw(brick);
-	window.draw(enemy);
-	window.draw(healer);
+	for (int i = 0; i < Maps::getGroundsNum(); i++) {
+		window.draw(grounds[i]);
+	}
+	for (int i = 0; i < Maps::getBricksNum(); i++) {
+		window.draw(bricks[i]);
+	}
+	for (int i = 0; i < Maps::getEnemiesNum(); i++) {
+		window.draw(enemies[i]);
+	}
+	for (int i = 0; i < Maps::getHealersNum(); i++) {
+		window.draw(healers[i]);
+	}
 
 	window.draw(mario);
 	window.draw(luigi);

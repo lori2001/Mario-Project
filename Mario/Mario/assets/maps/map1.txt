@@ -1,0 +1,9 @@
+character1 1400 500
+character2 700 800
+healer 600 300
+healer 100 300
+enemy 400 400
+enemy 600 300
+brick 200 280 5
+brick 400 680 15
+ground 0 930 19

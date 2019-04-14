@@ -20,8 +20,7 @@ int main()
 
 	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario" }; // creates and sets window's default sizes and name
 
-	Resources resources;
-	resources.loadFiles(window);
+	Resources::loadFiles(window);
 
 	LevelManager levelManager;
 	return levelManager.run(window);

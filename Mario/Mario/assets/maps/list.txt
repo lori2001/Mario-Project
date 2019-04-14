@@ -1,0 +1,4 @@
+!! These are comments
+!! You can create your own maps in the editor but you have to add their filename to this list
+!! This system was invented by Szoke Lorand for IBSA 2019 :D
+map1.txt

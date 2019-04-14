@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "MainMenu.h"
 #include "Game.h"
+#include "Maps.h"
 #include "Resources.h"
 
 // Program creat pentru IBSA 2019 de Szoke Andras Lorand

@@ -29,10 +29,13 @@ private:
 		const float deathLimit = 1.5f; // value in seconds after which the enemy will delete from the screen
 
 public:
-	Enemy() {
+	Enemy(const sf::Vector2f& position) {
 		sprite.setTexture(Resources::enemy_mushT);
 		sprite.setScale({ 4.5f, 4.5f });
+
+		initializeIn(position);
 	}
+	Enemy() : Enemy({ 0,0 }) {}
 
 	// sets up (and resets) default values of enemy and places it in position
 	void initializeIn(const sf::Vector2f& position);

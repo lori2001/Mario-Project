@@ -14,6 +14,9 @@ int LevelManager::run(sf::RenderWindow &window)
 	// setup positions/sizes/etc.
 	mainmenu.Setup(window);
 
+	Maps::readList();
+	Maps::readMap(0);
+
 	while (window.isOpen())
 	{
 		sf::Event event;

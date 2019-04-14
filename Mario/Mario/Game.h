@@ -1,25 +1,27 @@
 #pragma once
+#include <vector>
 #include "SFML/Graphics.hpp"
+#include "Maps.h"
 #include "Resources.h"
+#include "Score.h"
+
 #include "Character.h"
 #include "Ground.h"
 #include "Enemy.h"
 #include "Healer.h"
 #include "Brick.h"
-#include "Score.h"
 
 class Game {
 private:
-	Resources resources;
 	Score score;
 
 	Character mario;
 	Character luigi;
-	Ground ground1;
-	Brick brick;
 
-	Enemy enemy;
-	Healer healer;
+	std::vector<Ground> grounds;
+	std::vector<Brick> bricks;
+	std::vector<Enemy> enemies;
+	std::vector<Healer> healers;
 
 	const float gravity = 3500; // the global value of the gravity
 

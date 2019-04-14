@@ -4,12 +4,12 @@
 class Brick : public Ground{
 private:
 public:
-	Brick(const int size, const sf::Vector2f& position) {
+	Brick(const sf::Vector3f& pos_size) {
 		texture = &Resources::brickT;
 		canMove = true;
 		canBreak = true; // no logic for this yet
-		initializeIn(size, position);
+		initializeIn(pos_size);
 	}
-	Brick(const int size) : Brick(size, { 0,0 }) {}
+	Brick(const int size) : Brick({ 0, 0, float(size) }) {}
 	Brick() : Brick(1) {}
 };

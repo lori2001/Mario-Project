@@ -71,6 +71,14 @@ void Character::jump(const unsigned velocity)
 	gForce = 0;
 }
 
+void Character::doNotDisplay()
+{
+	lives = 0;
+	isAlive = false;
+	isVisible = false;
+	lifeSignal = false;
+}
+
 void Character::initializeIn(const sf::Vector2f & position)
 {
 	/*PHYSICS*/
