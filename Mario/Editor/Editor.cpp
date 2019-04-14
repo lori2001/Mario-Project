@@ -4,14 +4,6 @@ int Editor::run(sf::RenderWindow &window)
 {
 	// applies view to window
 	window.setView(view);
-	
-	// window setup
-	// window.setIcon(Resources::icon.getSize().x, Resources::icon.getSize().y, Resources::icon.getPixelsPtr()); // sets icon to sfml window
-
-	// for testing
-	//window.setFramerateLimit(20);
-
-	// setup positions/sizes/etc.
 
 	while (window.isOpen())
 	{

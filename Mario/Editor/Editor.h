@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Resources.h"
 
 // Program creat pentru IBSA 2019 de Szoke Andras Lorand
 

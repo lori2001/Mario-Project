@@ -1,27 +1,26 @@
 #include <SFML/Graphics.hpp>
+#include "Paths.h"
+#include "Resources.h"
 #include "Editor.h"
-// #include "../vendor/json-develop/nlohmann/json.hpp"
-
-// in theory this gets disabled on other OS such as linux
-// thus the program should compile on all platforms !!! IN THEORY !!!
-#ifdef _WIN32
-	#include <Windows.h>
-#endif
 
 int main()
 {
-	// hides console window on windows, release mode
-	#ifdef _WIN32
-		#ifndef _DEBUG
-			HWND hWnd = GetConsoleWindow();
-			ShowWindow(hWnd, SW_HIDE);
-		#endif
-	#endif
-
 	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario Map Editor" }; // creates and sets window's default sizes and name
 
-	//Resources resources;
-	//resources.loadFiles(window);
+	// load icon file
+	sf::Image icon;
+	icon.loadFromFile("icon.png");
+
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr()); // sets icon to sfml window
+
+	Paths paths;
+	if (!paths.chooseGamePath()) // close program if no path is selected
+	{
+		return 0;
+	}
+
+	Resources resources;
+	resources.loadFiles(window);
 
 	Editor editor;
 	return editor.run(window);
