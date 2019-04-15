@@ -23,6 +23,9 @@ private:
 	static std::vector<sf::Vector3f> bricks;
 	// x and y are the positions, z is its size
 	static std::vector<sf::Vector3f> grounds;
+
+	// clears variables whenever reading maps
+	static void clearVariables();
 public:
 	// returns the position character1 should be initialized in
 	static sf::Vector2f getCharacter1() { return character1; }

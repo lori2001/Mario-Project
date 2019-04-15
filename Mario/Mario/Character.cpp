@@ -11,7 +11,7 @@ sf::Vector2i Character::animationPlace(const unsigned & index)
 	return temp;
 }
 
-void Character::movement(float dt, float gravity)
+void Character::movement(float dt, float gravity, sf::View& view)
 {
 	// * dt (times dt) basically means means pixels/second
 
@@ -42,6 +42,20 @@ void Character::movement(float dt, float gravity)
 			sprite.move({ 0, gForce * dt });
 			gForce += gravity * dt;
 			jumpToggle = false; // block jumping until reallowed
+		}
+
+		// if character is almost at the end of the screen
+		if (sprite.getPosition().x > view.getCenter().x + view.getSize().x / 2.3) {
+			view.move(650 * dt,0); // move camera away a little faster than the character can move
+		}
+		else if (sprite.getPosition().x <= view.getCenter().x - view.getSize().x / 2) { // else if the character is off screen in the leftmost part
+			sprite.setPosition(view.getCenter().x - view.getSize().x / 2 + 1, sprite.getPosition().y); // block character from going off
+		}
+
+		// update hears position each frame based on current view
+		for (int i = 0; i < int(hearts.size()); i++) {
+			hearts[i].setPosition(view.getCenter().x - view.getSize().x / 2 + heartspos.x, view.getCenter().y - view.getSize().y / 2 + heartspos.y);
+			hearts[i].move({ float(heartoffset.x * i) , heartoffset.y });
 		}
 	}
 	else {

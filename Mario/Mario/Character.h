@@ -59,8 +59,8 @@ public:
 
 	/*USER INTERACTIONS*/
 	/* ! Should not be put into the events loop
-	 Values are: delta time(elapsed time), gravity*/
-	void movement(float dt, float gravity);
+	 Values are: delta time(elapsed time), gravity, view-positions*/
+	void movement(float dt, float gravity, sf::View& view);
 
 	/*IN-GAME INTERACTIONS*/
 	/*Takes in Ground and its child classes*/

@@ -4,7 +4,7 @@ int LevelManager::run(sf::RenderWindow &window)
 {
 	// applies view to window
 	window.setView(view);
-	
+
 	// window setup
 	window.setIcon(Resources::icon.getSize().x, Resources::icon.getSize().y, Resources::icon.getPixelsPtr()); // sets icon to sfml window
 
@@ -17,17 +17,18 @@ int LevelManager::run(sf::RenderWindow &window)
 	Maps::readList();
 	Maps::readMap(0);
 
+	// initially go to menu and disable game
+	mainmenu.setisActive(true);
+	game.setisActive(false);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
 
 		while (window.pollEvent(event))
 		{
-			if (mainisActive) {
+			if (mainmenu.getisActive()) {
 				mainmenu.handleEvents(window, event);
-			}
-			else if (endscisActive) {
-
 			}
 
 			if (event.type == sf::Event::Closed)
@@ -36,25 +37,32 @@ int LevelManager::run(sf::RenderWindow &window)
 
 		window.clear(sf::Color(100, 100, 250)); // the background used in-game
 
-		if (mainisActive) {
+		if (mainmenu.getisActive()) {
 			// contains frame-by-frame logic
-			mainmenu.Update(window, mainisActive);
+			mainmenu.Update(window);
 			// contains drawing commands
 			mainmenu.Compose(window);
 
-			if (!mainisActive) {
-				gameisActive = true;
+			if (!mainmenu.getisActive()) {
+				game.setisActive(true);
 				game.Setup(window);
 			}
 		}
-		else if (gameisActive) {
+		else if (game.getisActive()) {
 			// contains frame-by-frame logic
-			game.Update(window, gameisActive);
+			game.Update(window, view);
 			// contains drawing commands
 			game.Compose(window);
 
-			if (!gameisActive) {
-				mainisActive = true;
+			// move viewport whenever needed
+			window.setView(view);
+
+			if (!game.getisActive()) {
+				mainmenu.setisActive(true);
+
+				// reset viewport position
+				view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
+				window.setView(view);
 			}
 		}
 

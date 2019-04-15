@@ -8,6 +8,16 @@ std::vector<sf::Vector2f> Maps::healers;
 std::vector<sf::Vector3f> Maps::bricks;
 std::vector<sf::Vector3f> Maps::grounds;
 
+void Maps::clearVariables()
+{
+	character1 = { notfound, notfound };
+	character2 = { notfound, notfound };
+	enemies.clear();
+	healers.clear();
+	bricks.clear();
+	grounds.clear();
+}
+
 void Maps::readList()
 {
 	std::ifstream in("assets/maps/list.txt");
@@ -56,6 +66,8 @@ void Maps::readMap(int mapnumber)
 {
 	std::ifstream in("assets/maps/" + maps[mapnumber]);
 	std::string input;
+
+	clearVariables();
 
 	/* organizes information in dedicated vectors */
 	while (in >> input) {

@@ -8,7 +8,7 @@ void MainMenu::Setup(sf::RenderWindow & window)
 	exitgame.setCharacterSize(50);
 }
 
-void MainMenu::handleEvents(sf::RenderWindow & window, const sf::Event & event)
+void MainMenu::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
 
@@ -19,7 +19,7 @@ void MainMenu::handleEvents(sf::RenderWindow & window, const sf::Event & event)
 	exitgame.handleEvents(event);
 }
 
-void MainMenu::Update(sf::RenderWindow & window, bool& isActive)
+void MainMenu::Update(sf::RenderWindow & window)
 {
 	if (startgame.activated()) {
 		isActive = false;

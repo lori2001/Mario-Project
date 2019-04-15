@@ -28,10 +28,14 @@ private:
 	// used at making movement non-time reliant
 	sf::Clock clock;
 	float elapsedTime;
+
+	bool isActive;
 public:
+	bool getisActive() const { return isActive; }
+	void setisActive(bool value) { isActive = value; }
 
 	void Setup(sf::RenderWindow &window);
 	// void handleEvents(const sf::Event &event);
-	void Update(sf::RenderWindow &window, bool& isActive);
+	void Update(const sf::RenderWindow &window, sf::View &view);
 	void Compose(sf::RenderWindow &window) const;
 };
