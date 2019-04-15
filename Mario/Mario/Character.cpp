@@ -117,6 +117,7 @@ void Character::initializeIn(const sf::Vector2f & position)
 	/*POSITIONING*/
 	sprite.setPosition(position);
 
+	hearts.clear();
 	for (int i = 0; i < lives; i++) {
 		hearts.push_back(sf::Sprite{ Resources::heartT });
 		hearts[i].setPosition(heartspos);

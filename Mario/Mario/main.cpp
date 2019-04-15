@@ -18,7 +18,8 @@ int main()
 		#endif
 	#endif
 
-	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario" }; // creates and sets window's default sizes and name
+	// creates and sets window's default sizes and name
+	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario", sf::Style::Titlebar | sf::Style::Close };
 
 	Resources::loadFiles(window);
 
