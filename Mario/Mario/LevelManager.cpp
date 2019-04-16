@@ -30,6 +30,9 @@ int LevelManager::run(sf::RenderWindow &window)
 			if (mainmenu.getisActive()) {
 				mainmenu.handleEvents(window, event);
 			}
+			else if (endscreen.getisActive()) {
+				endscreen.handleEvents(window, event);
+			}
 
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -58,11 +61,23 @@ int LevelManager::run(sf::RenderWindow &window)
 			window.setView(view);
 
 			if (!game.getisActive()) {
-				mainmenu.setisActive(true);
+				endscreen.setisActive(true);
+				endscreen.Setup(window);
 
 				// reset viewport position
 				view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
 				window.setView(view);
+			}
+		}
+		else if(endscreen.getisActive()) {
+			// contains frame-by-frame logic
+			endscreen.Update(window);
+			// contains drawing commands
+			endscreen.Compose(window);
+
+			if (!endscreen.getisActive()) {
+				mainmenu.setisActive(true);
+				mainmenu.Setup(window);
 			}
 		}
 

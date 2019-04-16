@@ -98,6 +98,10 @@ namespace UI
 		textPos = calcTextPos();
 		text.setPosition(textPos);
 	}
+	void Button::setTextColor(const sf::Color & color)
+	{
+		text.setFillColor(color);
+	}
 	void Button::setTexture(const sf::Texture & texture)
 	{
 		// sets sprite texture

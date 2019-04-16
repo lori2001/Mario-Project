@@ -55,6 +55,7 @@ namespace UI
 		// setters
 		void setSoundFX(const sf::Sound &pressbutton); // sound the button makes when pressed
 		void setFont(const sf::Font &font); // font of the button
+		void setTextColor(const sf::Color& color); // sets the color of the text on the button
 		void setString(const sf::String &txt); // string the button uses
 		void setTexture(const sf::Texture &texture); // texture of the button
 		void setFillColor(const sf::Color &color); // changes the default color of the button

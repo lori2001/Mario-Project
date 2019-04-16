@@ -1,9 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Resources.h"
 #include "MainMenu.h"
 #include "Game.h"
 #include "Maps.h"
-#include "Resources.h"
+#include "Endscreen.h"
 
 // Program creat pentru IBSA 2019 de Szoke Andras Lorand
 
@@ -13,6 +14,7 @@ private:
 
 	Game game;
 	MainMenu mainmenu;
+	Endscreen endscreen;
 public:
 	// replaces int main()
 	int run(sf::RenderWindow &window);

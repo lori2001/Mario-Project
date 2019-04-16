@@ -22,6 +22,7 @@ public:
 	static sf::Image icon; // will hold icon file
 
 	static sf::Texture menu_bgT;
+	static sf::Texture gameoverT;
 
 	static sf::Texture heartT;
 	static sf::Texture mario_smallT;
@@ -30,6 +31,8 @@ public:
 	static sf::Texture good_mushT;
 	static sf::Texture groundT;
 	static sf::Texture brickT;
+
+	static sf::Music themesongM;
 
 	static sf::Font super_marioF;
 

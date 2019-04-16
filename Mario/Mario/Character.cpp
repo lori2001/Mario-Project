@@ -29,7 +29,7 @@ void Character::movement(float dt, float gravity, sf::View& view)
 
 		if (sf::Keyboard::isKeyPressed(up) && jumpToggle) { // enables jumping animation
 			jumpVelocity = -1550; // the speed at which jumping occurs
-			jumpToggle = false; // block jumping untile reallowed
+			jumpToggle = false; // block jumping until reallowed
 			isJumping = true;
 		}
 

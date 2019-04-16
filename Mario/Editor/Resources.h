@@ -18,7 +18,6 @@ private:
 	
 	template <class Loadable>
 	static void loadFile(Loadable &texture, const std::string & from);
-	//static void loadFile(sf::Music & music, const std::string & from);
 public:
 
 	static sf::Texture menu_bgT;
@@ -44,9 +43,3 @@ inline void Resources::loadFile(Loadable & loadable, const std::string & from)
 	if (!loadable.loadFromFile(from))
 		std::cout << "error: could not load file from " << from << std::endl;
 }
-/*
-void Resources::loadFile(sf::Music & music, const std::string & from)
-{
-	if (!music.openFromFile(from))
-		std::cout << "error: could not load file from " << from << std::endl;
-}*/

@@ -4,6 +4,7 @@ sf::Texture Resources::loadingscreenT;
 sf::Sprite Resources::loadingscreenS;
 
 sf::Texture Resources::menu_bgT;
+sf::Texture Resources::gameoverT;
 
 sf::Texture Resources::heartT;
 sf::Texture Resources::luigi_smallT;
@@ -12,6 +13,8 @@ sf::Texture Resources::enemy_mushT;
 sf::Texture Resources::good_mushT;
 sf::Texture Resources::groundT;
 sf::Texture Resources::brickT;
+
+sf::Music Resources::themesongM;
 
 sf::Font Resources::super_marioF;
 
@@ -35,12 +38,18 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(icon, "icon.png");
 
 	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
+	loadFile(gameoverT, "assets/images/game_over.jpg");
 
 	loadFile(heartT, "assets/images/heart.png");
 	loadFile(luigi_smallT, "assets/images/luigi_small.png");
 	loadFile(mario_smallT, "assets/images/mario_small.png");
 	loadFile(enemy_mushT, "assets/images/enemy_mush.png");
 	loadFile(good_mushT, "assets/images/good_mush.png");
+
+	// music files need another type of loading
+	if (!themesongM.openFromFile("assets/audio/theme.wav")) {
+		std::cout << "error: could not load file from assets/audio/theme.wav" << std::endl;
+	}
 
 	loadFile(brickT, "assets/images/brick.png");
 	// brickT.setRepeated(true);
