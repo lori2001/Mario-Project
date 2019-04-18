@@ -38,7 +38,7 @@ int LevelManager::run(sf::RenderWindow &window)
 				window.close();
 		}
 
-		window.clear(sf::Color(100, 100, 250)); // the background used in-game
+		window.clear(sf::Color(92, 148, 252)); // the background used in-game
 
 		if (mainmenu.getisActive()) {
 			// contains frame-by-frame logic
