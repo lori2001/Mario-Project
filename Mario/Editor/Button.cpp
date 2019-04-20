@@ -42,7 +42,7 @@ namespace UI
 	{
 		// if the button is selected outline appears
 		if (isSelected)
-			shape.setOutlineThickness((((shape.getSize().x * shape.getScale().x + shape.getSize().y * shape.getScale().y) / 2) / (shape.getScale().x + shape.getScale().y / 2)) / 50);
+			shape.setOutlineThickness((((shape.getSize().x * shape.getScale().x + shape.getSize().y * shape.getScale().y) / 2) / (shape.getScale().x + shape.getScale().y / 2)) / 10);
 		else // if not the outline disappears
 			shape.setOutlineThickness(0);
 
@@ -55,7 +55,7 @@ namespace UI
 					sound.play();
 
 				//create the "pressed in" visual effect
-				shape.setTextureRect(sf::IntRect((int)shape.getSize().x, 0, (int)shape.getSize().x, (int)shape.getSize().y));
+				shape.move(5,5);
 
 				//the button has been pressed / take action when released
 				isPressed = true;
@@ -71,6 +71,7 @@ namespace UI
 		if ((useMouse && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased) || !isSelected)
 		{
 			shape.setTextureRect(sf::IntRect(0, 0, (int)shape.getSize().x, (int)shape.getSize().y));
+			shape.setPosition(shapePos);
 			isPressed = false;
 		}
 
@@ -118,6 +119,7 @@ namespace UI
 	{
 		//sets position of the sprite
 		shape.setPosition(position);
+		shapePos = position;
 
 		// update the position of the text based on shape's position
 		textPos = calcTextPos();

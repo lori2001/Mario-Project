@@ -81,16 +81,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="Program.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Paths.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="Program.h" />
     <ClInclude Include="Paths.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor.rc" />

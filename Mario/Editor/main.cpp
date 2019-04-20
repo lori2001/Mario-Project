@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Paths.h"
 #include "Resources.h"
-#include "Editor.h"
+#include "Program.h"
 
 int main()
 {
@@ -22,6 +22,6 @@ int main()
 	Resources resources;
 	resources.loadFiles(window);
 
-	Editor editor;
-	return editor.run(window);
+	Program program;
+	return program.run(window);
 }

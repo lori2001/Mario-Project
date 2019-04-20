@@ -3,7 +3,8 @@
 sf::Texture Resources::loadingscreenT;
 sf::Sprite Resources::loadingscreenS;
 
-sf::Texture Resources::menu_bgT;
+sf::Texture Resources::open_iconT;
+sf::Texture Resources::save_iconT;
 
 sf::Texture Resources::heartT;
 sf::Texture Resources::luigi_smallT;
@@ -17,6 +18,8 @@ sf::Font Resources::super_marioF;
 
 void Resources::loadFiles(sf::RenderWindow & window)
 {
+	std::cout << "Loading Files..." << std::endl;
+
 	// loads loadingscreen
 	loadFile(loadingscreenT, Paths::getGamePath() + "\\assets\\images\\loading.jpg");
 	loadingscreenS.setTexture(loadingscreenT);
@@ -29,7 +32,8 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	window.draw(loadingscreenS);
 	window.display();
 
-	loadFile(menu_bgT, Paths::getGamePath() + "\\assets\\images\\menu_bg.jpg");
+	loadFile(open_iconT, "assets\\images\\open_icon.png");
+	loadFile(save_iconT, "assets\\images\\save_icon.png");
 
 	loadFile(heartT, Paths::getGamePath() + "\\assets\\images\\heart.png");
 	loadFile(luigi_smallT, Paths::getGamePath() + "\\assets\\images\\luigi_small.png");
@@ -41,4 +45,6 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(groundT, Paths::getGamePath() + "\\assets\\images\\ground.png");
 
 	loadFile(super_marioF, Paths::getGamePath() + "\\assets\\fonts\\super_mario.ttf");
+
+	std::cout << "All Files Loaded!" << std::endl;
 }

@@ -1,23 +1,20 @@
 #include "Editor.h"
 
-int Editor::run(sf::RenderWindow &window)
+void Editor::Setup(sf::RenderWindow & window)
 {
-	// applies view to window
-	window.setView(view);
+}
 
-	while (window.isOpen())
-	{
-		sf::Event event;
+void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
+{
+	mouse.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+}
 
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+void Editor::Update(sf::RenderWindow & window)
+{
+	mouse.updateObject();
+}
 
-		window.clear(sf::Color(100, 100, 250)); // the background used in-game
-		window.display();
-	}
-
-	return 0;
+void Editor::Compose(sf::RenderWindow & window)
+{
+	window.draw(mouse);
 }

@@ -4,7 +4,6 @@ sf::Texture Resources::loadingscreenT;
 sf::Sprite Resources::loadingscreenS;
 
 sf::Texture Resources::menu_bgT;
-sf::Texture Resources::gameoverT;
 
 sf::Texture Resources::heartT;
 sf::Texture Resources::luigi_smallT;
@@ -38,7 +37,6 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(icon, "icon.png");
 
 	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
-	loadFile(gameoverT, "assets/images/game_over.jpg");
 
 	loadFile(heartT, "assets/images/heart.png");
 	loadFile(luigi_smallT, "assets/images/luigi_small.png");

@@ -13,6 +13,8 @@ void Endscreen::Setup(sf::RenderWindow & window)
 	score.updateString();
 	score.setCharacterSize(100);
 	score.setPosition(WIDTH / 2 - score.getGlobalBounds().width / 2, 500);
+
+	gameover.setPosition(WIDTH / 2 - gameover.getGlobalBounds().width / 2, 175);
 }
 
 void Endscreen::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
@@ -38,7 +40,7 @@ void Endscreen::Update(sf::RenderWindow & window)
 
 void Endscreen::Compose(sf::RenderWindow & window)
 {
-	window.draw(background);
+	window.draw(gameover);
 	window.draw(goback);
 	window.draw(exit);
 	window.draw(score);

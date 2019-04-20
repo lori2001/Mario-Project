@@ -9,6 +9,7 @@ namespace UI
 	class Button : public sf::Drawable
 	{
 	private:
+		sf::Vector2f shapePos;
 		sf::RectangleShape shape; // creates a shape for the button
 		sf::Text text; // a text to be on the button
 		sf::Sound sound; // sound to play when button activated
@@ -27,8 +28,7 @@ namespace UI
 	public:
 		Button(const sf::Vector2f &size) {
 			shape.setSize(size);
-			shape.setFillColor(sf::Color(57, 179, 0));
-			shape.setOutlineColor(sf::Color(57, 65, 222));
+			shape.setOutlineColor(sf::Color(76, 76, 76));
 		}
 		Button(const sf::Font &font, const sf::String &txt, const sf::Vector2f &size) : Button(size)
 		{

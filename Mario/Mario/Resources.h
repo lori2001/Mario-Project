@@ -22,7 +22,6 @@ public:
 	static sf::Image icon; // will hold icon file
 
 	static sf::Texture menu_bgT;
-	static sf::Texture gameoverT;
 
 	static sf::Texture heartT;
 	static sf::Texture mario_smallT;

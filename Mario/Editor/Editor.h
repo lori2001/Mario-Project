@@ -1,13 +1,13 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "Resources.h"
-
-// Program creat pentru IBSA 2019 de Szoke Andras Lorand
+#include "SFML/Graphics.hpp"
+#include "Mouse.h"
 
 class Editor {
-private:
-	sf::View view{ sf::FloatRect{0, 0, 1920, 1080} }; // scales sprites to window's size and moves cam when needed
 public:
-	// replaces int main()
-	int run(sf::RenderWindow &window);
+	void Setup(sf::RenderWindow &window);
+	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);
+	void Update(sf::RenderWindow &window);
+	void Compose(sf::RenderWindow &window);
+private:
+	Mouse mouse;
 };

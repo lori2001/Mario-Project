@@ -6,4 +6,4 @@ enemy 400 400
 enemy 800 300
 brick 200 280 5
 brick 400 680 15
-ground 0 930 30
+ground 0 930 14

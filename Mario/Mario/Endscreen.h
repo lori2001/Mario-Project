@@ -7,7 +7,7 @@
 class Endscreen {
 private:
 	sf::Vector2f mouse; // holds position of the mouse
-	sf::Sprite background{ Resources::gameoverT };
+	sf::Text gameover{"GAME OVER", Resources::super_marioF, 200};
 
 	UI::Button goback{ Resources::super_marioF, "Back to Menu", {500, 65} };
 	UI::Button exit{ Resources::super_marioF, "Exit", {500, 65} };
