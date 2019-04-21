@@ -18,9 +18,9 @@ private:
 		bool isAlive; // false whenever enemy should get squeezed and erased (disables most functions too)
 
 public:
-	Healer(const sf::Vector2f& position) {
+	Healer(const sf::Vector2f& position, const float scale = 4) {
 		sprite.setTexture(Resources::good_mushT);
-		sprite.setScale({ 4, 4 });
+		sprite.setScale({ scale, scale });
 	
 		initializeIn(position);
 	}

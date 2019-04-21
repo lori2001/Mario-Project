@@ -24,12 +24,12 @@ private:
 	std::vector<bool> movingUp; // true whenever moving up, false whenever moving down
 public:
 	// x and y are coordinates while z is the lenght in ground bricks
-	void initializeIn(const sf::Vector3f &pos_size);
+	void initializeIn(const sf::Vector2f &pos, const float scale, const int size);
 
-	Ground(const sf::Vector3f& pos_size) {
-		initializeIn(pos_size);
+	Ground(const sf::Vector2f& pos, const float scale, const int size) {
+		initializeIn(pos, scale, size);
 	}
-	Ground(const int size) : Ground({0, 0, float(size)}) {}
+	Ground(const int size) : Ground({ 0, 0 }, 4.5f , size) {}
 	Ground() : Ground(1) {}
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

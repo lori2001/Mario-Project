@@ -10,45 +10,62 @@
    to find out if one of the characters was not declared */
 static constexpr float notfound = -9999.99f;
 
+struct inputObject {
+	inputObject(const sf::Vector2f& in_pos, const float in_scale, const int in_size = 0) {
+		pos = in_pos;
+		scale = in_scale;
+		size = in_size;
+	}
+
+	sf::Vector2f pos; // the top-left position of the object
+	float scale; // the scale of the object
+
+	int size; // the width (in nr of entities) of the object / only for brick and grounds
+};
+
 class Maps
 {
 private:
 	static std::vector<std::string> maps;
-	static sf::Vector2f character1;
-	static sf::Vector2f character2;
-	static std::vector<sf::Vector2f> enemies;
-	static std::vector<sf::Vector2f> healers;
+	static inputObject character1;
+	static inputObject character2;
+	static std::vector<inputObject> enemies;
+	static std::vector<inputObject> healers;
 
 	// x and y are the positions, z is its size
-	static std::vector<sf::Vector3f> bricks;
+	static std::vector<inputObject> bricks;
 	// x and y are the positions, z is its size
-	static std::vector<sf::Vector3f> grounds;
+	static std::vector<inputObject> grounds;
 
-	// clears variables whenever reading maps
-	static void clearVariables();
+	// resets variables whenever reading maps
+	static void resetVariables();
+	/* clears input from comments, empty lines and unnecessary spaces
+	   returns 1 if all is ok, 0 if something is wrong, any other number if nothing has to happen */
+	static int clearInput(std::string &input);
+
 public:
 	// returns the position character1 should be initialized in
-	static sf::Vector2f getCharacter1() { return character1; }
+	static inputObject getCharacter1() { return character1; }
 	// returns the position character2 should be initialized in
-	static sf::Vector2f getCharacter2() { return character2; }
+	static inputObject getCharacter2() { return character2; }
 
 	// returns the position of an enemy at a given index
-	static sf::Vector2f getEnemy(int i) { return enemies[i]; }
+	static inputObject getEnemy(int i) { return enemies[i]; }
 	// returns the number of enemies
 	static int getEnemiesNum() { return int(enemies.size()); }
 
 	// returns the position of a healer at a given index
-	static sf::Vector2f getHealer(int i) { return healers[i]; }
+	static inputObject getHealer(int i) { return healers[i]; }
 	// returns the number of healers
 	static int getHealersNum() { return int(healers.size()); }
 
 	// returns the position of a brick at a given index (x,y - positions; z-size)
-	static sf::Vector3f getBrick(int i) { return bricks[i]; }
+	static inputObject getBrick(int i) { return bricks[i]; }
 	// returns the number of bricks
 	static int getBricksNum() { return int(bricks.size()); }
 
 	// returns the position of a ground at a given index (x,y - positions; z-size)
-	static sf::Vector3f getGround(int i) { return grounds[i]; }
+	static inputObject getGround(int i) { return grounds[i]; }
 	// returns the number of grounds
 	static int getGroundsNum() { return int(grounds.size()); }
 

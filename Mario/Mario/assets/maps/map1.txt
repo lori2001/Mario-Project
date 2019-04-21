@@ -1,9 +1,11 @@
-character1 1400 500
-character2 700 800
-healer 600 300
-healer 100 300
-enemy 400 400
-enemy 800 300
-brick 200 280 5
-brick 400 680 15
-ground 0 930 14
+!! type posx posy scale
+character1 1400 500 6
+character2 700 800 6
+healer 600 300 4
+healer 100 300 4
+enemy 400 400 4.5
+enemy 800 300 4.5
+!! type posx posy scale width
+brick 200 280 2 5
+brick 400 680 2 15
+ground 0 930 2 14

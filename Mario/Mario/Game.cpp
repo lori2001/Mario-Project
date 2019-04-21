@@ -13,31 +13,31 @@ void Game::Setup(sf::RenderWindow & window)
 	luigi.changeTexture(Resources::luigi_smallT);
 	luigi.changeHeartsPos({ 20,60 });
 
-	mario.initializeIn(Maps::getCharacter1());
-	luigi.initializeIn(Maps::getCharacter2());
+	mario.initializeIn(Maps::getCharacter1().pos, Maps::getCharacter1().scale);
+	luigi.initializeIn(Maps::getCharacter2().pos, Maps::getCharacter2().scale);
 
-	if (Maps::getCharacter1().x == notfound && Maps::getCharacter1().y == notfound) {
+	if (Maps::getCharacter1().pos.x == notfound && Maps::getCharacter1().pos.y == notfound) {
 		mario.doNotDisplay();
 	}
-	if (Maps::getCharacter2().x == notfound && Maps::getCharacter2().y == notfound) {
+	if (Maps::getCharacter2().pos.x == notfound && Maps::getCharacter2().pos.y == notfound) {
 		luigi.doNotDisplay();
 	}
 
 	enemies.clear();
 	for (int i = 0; i < Maps::getEnemiesNum(); i++) {
-		enemies.push_back(Enemy{ Maps::getEnemy(i) });
+		enemies.push_back(Enemy{ Maps::getEnemy(i).pos, Maps::getEnemy(i).scale });
 	}
 	healers.clear();
 	for (int i = 0; i < Maps::getHealersNum(); i++) {
-		healers.push_back(Healer{ Maps::getHealer(i) });
+		healers.push_back(Healer{ Maps::getHealer(i).pos, Maps::getHealer(i).scale });
 	}
 	bricks.clear();
 	for (int i = 0; i < Maps::getBricksNum(); i++) {
-		bricks.push_back(Brick{ Maps::getBrick(i) });
+		bricks.push_back(Brick{ Maps::getBrick(i).pos, Maps::getBrick(i).scale, Maps::getBrick(i).size });
 	}
 	grounds.clear();
 	for (int i = 0; i < Maps::getGroundsNum(); i++) {
-		grounds.push_back(Ground{ Maps::getGround(i) });
+		grounds.push_back(Ground{ Maps::getGround(i).pos, Maps::getGround(i).scale, Maps::getGround(i).size });
 	}
 
 	// eliminates potential bugs on trashware

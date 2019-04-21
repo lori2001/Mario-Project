@@ -93,7 +93,7 @@ void Character::doNotDisplay()
 	lifeSignal = false;
 }
 
-void Character::initializeIn(const sf::Vector2f & position)
+void Character::initializeIn(const sf::Vector2f & position, const float scale)
 {
 	/*PHYSICS*/
 	jumpToggle = false;
@@ -116,6 +116,7 @@ void Character::initializeIn(const sf::Vector2f & position)
 
 	/*POSITIONING*/
 	sprite.setPosition(position);
+	sprite.setScale({ scale,scale });
 
 	hearts.clear();
 	for (int i = 0; i < lives; i++) {

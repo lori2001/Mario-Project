@@ -49,9 +49,9 @@ private:
 
 	/* ALL IMPORTANT BOOLS GET INITIALIZED IN void setDefaultValues()*/
 public:
-	Character() {
+	Character(float scale = 6) {
 		sprite.setTexture(Resources::mario_smallT); // default texture used
-		sprite.setScale({ 6,6 }); // scales things to FHD render space
+		sprite.setScale({ scale,scale }); // scales things to FHD render space
 	}
 
 	/*DRAWING*/
@@ -74,7 +74,7 @@ public:
 
 	/*SETTERS*/
 	// sets up (and resets) default values of character and sets its position (usually used in setup)
-	void initializeIn(const sf::Vector2f& position);
+	void initializeIn(const sf::Vector2f& position, const float scale);
 	// changes default texture used
 	void changeTexture(const sf::Texture& texture);
 	// changes the way the character gets controlled
