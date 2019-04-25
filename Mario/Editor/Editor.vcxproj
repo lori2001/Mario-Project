@@ -89,6 +89,7 @@
     <ClCompile Include="Paths.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="UserInterface.cpp" />
+    <ClCompile Include="ReadWrite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="UserInterface.h" />
+    <ClInclude Include="ReadWrite.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor.rc" />

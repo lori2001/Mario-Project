@@ -10,6 +10,7 @@ public:
 	static constexpr int healerID = 3;
 	static constexpr int marioID = 4;
 	static constexpr int luigiID = 5;
+	static constexpr int eraserID = 6;
 
 	static void setSelected(int param) { selected = param; }
 	static int getSelected() { return selected; }

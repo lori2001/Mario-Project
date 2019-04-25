@@ -11,7 +11,6 @@ void UserInterface::Setup(sf::RenderWindow & window)
 	save.setPosition({ 85, 10 });
 	background.setFillColor(sf::Color(70,140,226));
 
-	// TODO: Keep the same scale as in-game
 	ground.setTexture(Resources::groundT);
 	ground.setScale({ 1.4f,1.4f });
 	ground.setPosition({ 800, 10 });
@@ -35,6 +34,9 @@ void UserInterface::Setup(sf::RenderWindow & window)
 	luigi.setTexture(Resources::luigi_smallT);
 	luigi.setScale({ 3.7f,3.7f });
 	luigi.setPosition({ 1300, 10 });
+
+	eraser.setPosition({ 1400, 10 });
+	eraser.setFillColor(sf::Color::Red);
 }
 
 void UserInterface::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
@@ -64,15 +66,20 @@ void UserInterface::handleEvents(const sf::RenderWindow & window, const sf::Even
 
 	luigi.selectByMouse(mouse);
 	luigi.handleEvents(event);
+
+	eraser.selectByMouse(mouse);
+	eraser.handleEvents(event);
 }
 
 void UserInterface::Update(sf::RenderWindow & window)
 {
 	if (open.activated()) {
-
+		Paths::openFilePath();
+		opening = true;
 	}
 	else if (save.activated()) {
-
+		Paths::saveFilePath();
+		saveing = true;
 	}
 	else if (ground.activated()) {
 		Mouse::setSelected(Mouse::groundID);
@@ -92,6 +99,9 @@ void UserInterface::Update(sf::RenderWindow & window)
 	else if (luigi.activated()) {
 		Mouse::setSelected(Mouse::luigiID);
 	}
+	else if (eraser.activated()) {
+		Mouse::setSelected(Mouse::eraserID);
+	}
 }
 
 void UserInterface::Compose(sf::RenderWindow & window)
@@ -105,4 +115,5 @@ void UserInterface::Compose(sf::RenderWindow & window)
 	window.draw(healer);
 	window.draw(mario);
 	window.draw(luigi);
+	window.draw(eraser);
 }

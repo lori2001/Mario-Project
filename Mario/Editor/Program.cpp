@@ -6,7 +6,7 @@ int Program::run(sf::RenderWindow &window)
 	window.setView(view);
 
 	userInterface.Setup(window);
-	editor.Setup(window);
+	// editor.Setup(window);
 
 	while (window.isOpen())
 	{
@@ -22,10 +22,23 @@ int Program::run(sf::RenderWindow &window)
 		}
 
 		window.clear(sf::Color(100, 100, 250)); // the background used in-game
+
 		userInterface.Update(window);
 		userInterface.Compose(window);
+
+		if (userInterface.opening)
+		{
+			editor.loadMap();
+			userInterface.opening = false;
+		}
+		else if (userInterface.saveing) {
+			editor.saveMap();
+			userInterface.saveing = false;
+		}
+
 		editor.Update(window);
 		editor.Compose(window);
+
 		window.display();
 	}
 

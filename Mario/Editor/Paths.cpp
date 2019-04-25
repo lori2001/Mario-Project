@@ -28,7 +28,7 @@ bool Paths::chooseGamePath()
 bool Paths::saveFilePath()
 {
 	path = NULL;
-	dialog = NFD_SaveDialog("map", NULL, &path);
+	dialog = NFD_SaveDialog("txt", NULL, &path);
 
 	if (dialog == NFD_OKAY)
 	{
@@ -50,7 +50,7 @@ bool Paths::openFilePath()
 {
 
 	path = NULL;
-	dialog = NFD_OpenDialog("map,unit,json", NULL, &path);
+	dialog = NFD_OpenDialog("txt", NULL, &path);
 
 	if (dialog == NFD_OKAY)
 	{

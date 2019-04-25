@@ -120,7 +120,7 @@ void Maps::readMap(int mapnumber)
 				in >> xtemp >> ytemp >> scaletemp >> size;
 				grounds.push_back({ {xtemp, ytemp}, scaletemp , size });
 			}
-			else if (input == "healer") {
+			else if (input == "healer") { /* this might change in the future */
 				float xtemp, ytemp, scaletemp;
 
 				in >> xtemp >> ytemp >> scaletemp;

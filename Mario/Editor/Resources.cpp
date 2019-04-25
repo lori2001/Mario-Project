@@ -43,6 +43,8 @@ void Resources::loadFiles(sf::RenderWindow & window)
 
 	loadFile(brickT, Paths::getGamePath() + "\\assets\\images\\brick.png");
 	loadFile(groundT, Paths::getGamePath() + "\\assets\\images\\ground.png");
+	brickT.setRepeated(true);
+	groundT.setRepeated(true);
 
 	loadFile(super_marioF, Paths::getGamePath() + "\\assets\\fonts\\super_mario.ttf");
 

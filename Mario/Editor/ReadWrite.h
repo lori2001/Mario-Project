@@ -1,16 +1,17 @@
 #pragma once
-#include "SFML/System.hpp"
+#include "SFML/Graphics.hpp"
+#include "Paths.h"
+#include "Mouse.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include <assert.h>
 
-/* this is an impossible position value which can be checked against 
+/* this is an impossible position value which can be checked against
    to find out if one of the characters was not declared */
 static constexpr float notfound = -9999.99f;
 
-struct inputObject {
-	inputObject(const sf::Vector2f& in_pos, const float in_scale, const int in_size = 0) {
+struct inOutObj {
+	inOutObj(const sf::Vector2f& in_pos, const float in_scale, const int in_size = 0) {
 		pos = in_pos;
 		scale = in_scale;
 		size = in_size;
@@ -22,16 +23,15 @@ struct inputObject {
 	int size; // the width (in nr of entities) of the object / only for brick and grounds
 };
 
-class Maps
+class ReadWrite
 {
 private:
-	static std::vector<std::string> maps;
-	static inputObject character1;
-	static inputObject character2;
-	static std::vector<inputObject> enemies;
-	static std::vector<inputObject> healers;
-	static std::vector<inputObject> bricks;
-	static std::vector<inputObject> grounds;
+	static inOutObj character1;
+	static inOutObj character2;
+	static std::vector<inOutObj> enemies;
+	static std::vector<inOutObj> healers;
+	static std::vector<inOutObj> bricks;
+	static std::vector<inOutObj> grounds;
 
 	// resets variables whenever reading maps
 	static void resetVariables();
@@ -41,30 +41,37 @@ private:
 
 public:
 	// returns the position character1 should be initialized in
-	static inputObject getCharacter1() { return character1; }
+	static inOutObj getCharacter1() { return character1; }
+	static void setCharacter1(const inOutObj& param) { character1 = param; }
 	// returns the position character2 should be initialized in
-	static inputObject getCharacter2() { return character2; }
+	static inOutObj getCharacter2() { return character2; }
+	static void setCharacter2(const inOutObj& param) { character2 = param; }
 
 	// returns the position of an enemy at a given index
-	static inputObject getEnemy(int i) { return enemies[i]; }
+	static inOutObj getEnemy(int i) { return enemies[i]; }
 	// returns the number of enemies
 	static int getEnemiesNum() { return int(enemies.size()); }
+	static void addEnemy(const inOutObj& param) { enemies.push_back(param); }
 
 	// returns the position of a healer at a given index
-	static inputObject getHealer(int i) { return healers[i]; }
+	static inOutObj getHealer(int i) { return healers[i]; }
 	// returns the number of healers
 	static int getHealersNum() { return int(healers.size()); }
+	static void addHealer(const inOutObj& param) { healers.push_back(param); }
 
 	// returns the position of a brick at a given index (x,y - positions; z-size)
-	static inputObject getBrick(int i) { return bricks[i]; }
+	static inOutObj getBrick(int i) { return bricks[i]; }
 	// returns the number of bricks
 	static int getBricksNum() { return int(bricks.size()); }
+	static void addBrick(const inOutObj& param) { bricks.push_back(param); }
 
 	// returns the position of a ground at a given index (x,y - positions; z-size)
-	static inputObject getGround(int i) { return grounds[i]; }
+	static inOutObj getGround(int i) { return grounds[i]; }
 	// returns the number of grounds
 	static int getGroundsNum() { return int(grounds.size()); }
+	static void addGround(const inOutObj& param) { grounds.push_back(param); }
 
-	static void readList();
-	static void readMap(int mapnumber);
+	static void readMap();
+	static void saveMap();
+	static void uploadObj(const std::vector<sf::RectangleShape> &obj, const std::vector<int> &objType);
 };

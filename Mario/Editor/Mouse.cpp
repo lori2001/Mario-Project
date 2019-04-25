@@ -6,6 +6,9 @@ void Mouse::updateObject()
 {
 	if (selected != lastSelected)
 	{
+		RectangleShape::setFillColor(sf::Color::White); // reset eraser
+		RectangleShape::setTexture(NULL);
+
 		if (selected == groundID) {
 			RectangleShape::setTexture(&Resources::groundT);
 			RectangleShape::setSize(sf::Vector2f{ Resources::groundT.getSize() });
@@ -41,6 +44,11 @@ void Mouse::updateObject()
 			RectangleShape::setSize(sf::Vector2f{ 13, 16 });
 			RectangleShape::setTextureRect({ 0, 0, 13, 16 });
 			scale = 6.0f;
+		}
+		else if (selected == eraserID) {
+			RectangleShape::setFillColor(sf::Color::Red);
+			RectangleShape::setSize(sf::Vector2f{ 70, 70 });
+			scale = 1.0f;
 		}
 
 		RectangleShape::setScale(sf::Vector2f{scale, scale});

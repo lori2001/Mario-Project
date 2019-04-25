@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Editor">
       <UniqueIdentifier>{7df5fb7c-c8df-43d5-b58a-de5c02fca80e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ReadWrite">
+      <UniqueIdentifier>{f30e28fb-0de1-47c3-b76d-67480dff19c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ReadWrite">
+      <UniqueIdentifier>{ebd83c24-6b0b-476d-aff6-62f8675e4baf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +63,9 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="ReadWrite.cpp">
+      <Filter>Source Files\ReadWrite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources.h">
@@ -82,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadWrite.h">
+      <Filter>Header Files\ReadWrite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
