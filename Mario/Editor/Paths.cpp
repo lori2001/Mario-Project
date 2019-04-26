@@ -7,7 +7,7 @@ nfdresult_t Paths::dialog;
 
 bool Paths::chooseGamePath()
 {
-	std::cout << "Please choose the location of the Mario game folder!" << std::endl;
+	std::cout << "Game not found! Please choose mario game folder location manually!" << std::endl;
 
 	path = NULL;
 	dialog = NFD_PickFolder(NULL, &path);
@@ -22,6 +22,8 @@ bool Paths::chooseGamePath()
 	else {
 		std::cout << "Error: " << NFD_GetError() << std::endl;
 	}
+
+	gamePath.append("\\");
 
 	return true;
 }

@@ -3,6 +3,7 @@
 #include "Paths.h"
 #include "Mouse.h"
 #include <vector>
+#include <string>
 #include <fstream>
 #include <iostream>
 

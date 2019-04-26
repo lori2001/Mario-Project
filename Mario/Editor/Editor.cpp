@@ -4,6 +4,7 @@ void Editor::loadMap()
 {
 	ReadWrite::readMap();
 	objects.clear();
+	objectsType.clear();
 
 	if (ReadWrite::getCharacter1().pos.x != notfound && ReadWrite::getCharacter1().pos.y != notfound) {
 		sf::RectangleShape temp;
@@ -82,8 +83,6 @@ void Editor::saveMap()
 
 void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
 {
-	mouse.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
-
 	if (mouse.getPosition().y > 80) { // Eliminate UI from calculations
 		if (event.type == event.MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 
@@ -157,6 +156,7 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 
 void Editor::Update(sf::RenderWindow & window)
 {
+	mouse.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 	mouse.updateObject();
 }
 

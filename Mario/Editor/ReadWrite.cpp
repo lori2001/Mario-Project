@@ -108,7 +108,15 @@ void ReadWrite::readMap()
 
 void ReadWrite::saveMap()
 {
-	std::ofstream out(Paths::getFilePath() + ".txt");
+	std::string path = Paths::getFilePath();
+	/*Erases unnecessary path extensions*/
+	size_t found = path.find(".txt");
+	while (found != std::string::npos) {
+		path.erase(found, 4);
+		found = path.find(".txt");
+	}
+
+	std::ofstream out(path + ".txt");
 
 	out << "!! type posx posy scale" << std::endl; // these are comments for easier manual troubleshooting
 

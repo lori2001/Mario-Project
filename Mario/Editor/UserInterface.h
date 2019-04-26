@@ -7,14 +7,16 @@
 class UserInterface
 {
 public:
-	void Setup(sf::RenderWindow &window);
+	void Setup();
 	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);
-	void Update(sf::RenderWindow &window);
+	void Update(sf::View& view);
 	void Compose(sf::RenderWindow &window);
 
 	bool opening = false;
 	bool saveing = false;
 private:
+	void updatePos(const sf::Vector2f& relativePos); 
+
 	sf::Vector2f mouse;
 
 	UI::Button save{ sf::Vector2f{Resources::save_iconT.getSize()} };

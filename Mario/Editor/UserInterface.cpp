@@ -1,42 +1,35 @@
 #include "UserInterface.h"
 
-void UserInterface::Setup(sf::RenderWindow & window)
+void UserInterface::Setup()
 {
+	background.setFillColor(sf::Color(70, 140, 226));
+
 	open.setTexture(Resources::open_iconT);
 	open.setScale({ 0.13f, 0.13f });
-	open.setPosition({ 10, 10 });
 
 	save.setTexture(Resources::save_iconT);
 	save.setScale({ 0.1f,0.1f });
-	save.setPosition({ 85, 10 });
-	background.setFillColor(sf::Color(70,140,226));
 
 	ground.setTexture(Resources::groundT);
 	ground.setScale({ 1.4f,1.4f });
-	ground.setPosition({ 800, 10 });
 
 	brick.setTexture(Resources::brickT);
 	brick.setScale({ 1.4f,1.4f });
-	brick.setPosition({ 900, 10 });
 
 	enemy.setTexture(Resources::enemy_mushT);
 	enemy.setScale({ 3.5f,3.5f });
-	enemy.setPosition({ 1000, 10 });
 
 	healer.setTexture(Resources::good_mushT);
 	healer.setScale({ 3.5f,3.5f });
-	healer.setPosition({ 1100, 10 });
 
 	mario.setTexture(Resources::mario_smallT);
 	mario.setScale({ 3.7f,3.7f });
-	mario.setPosition({ 1200, 10 });
 
 	luigi.setTexture(Resources::luigi_smallT);
 	luigi.setScale({ 3.7f,3.7f });
-	luigi.setPosition({ 1300, 10 });
 
-	eraser.setPosition({ 1400, 10 });
 	eraser.setFillColor(sf::Color::Red);
+	updatePos({ 0,0 });
 }
 
 void UserInterface::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
@@ -71,14 +64,14 @@ void UserInterface::handleEvents(const sf::RenderWindow & window, const sf::Even
 	eraser.handleEvents(event);
 }
 
-void UserInterface::Update(sf::RenderWindow & window)
+void UserInterface::Update(sf::View& view)
 {
-	if (open.activated()) {
-		Paths::openFilePath();
+	updatePos({ view.getCenter().x - view.getSize().x / 2, view.getCenter().y - view.getSize().y / 2 });
+
+	if (open.activated() && Paths::openFilePath()) {
 		opening = true;
 	}
-	else if (save.activated()) {
-		Paths::saveFilePath();
+	else if (save.activated() && Paths::saveFilePath()) {
 		saveing = true;
 	}
 	else if (ground.activated()) {
@@ -116,4 +109,18 @@ void UserInterface::Compose(sf::RenderWindow & window)
 	window.draw(mario);
 	window.draw(luigi);
 	window.draw(eraser);
+}
+
+void UserInterface::updatePos(const sf::Vector2f & relativePos)
+{
+	background.setPosition(relativePos);
+	open.setPosition({ relativePos.x + 10, relativePos.y + 10 });
+	save.setPosition({ relativePos.x + 85, relativePos.y + 10 });
+	ground.setPosition({ relativePos.x + 800, relativePos.y + 10 });
+	brick.setPosition({ relativePos.x + 900, relativePos.y + 10 });
+	enemy.setPosition({ relativePos.x + 1000, relativePos.y + 10 });
+	healer.setPosition({ relativePos.x + 1100, relativePos.y + 10 });
+	mario.setPosition({ relativePos.x + 1200, relativePos.y + 10 });
+	luigi.setPosition({ relativePos.x + 1300, relativePos.y + 10 });
+	eraser.setPosition({ relativePos.x + 1400, relativePos.y + 10 });
 }

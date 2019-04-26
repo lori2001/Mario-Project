@@ -34,13 +34,14 @@ public:
 	static sf::Font super_marioF;
 
 	// Load all files and display a loading screen while doing so
-	static void loadFiles(sf::RenderWindow & window);
+	static bool loadFiles(sf::RenderWindow & window);
 };
 
 /* These stay in the .h file as suggested by Visual Studio*/
 template<class Loadable>
 inline void Resources::loadFile(Loadable & loadable, const std::string & from)
 {
-	if (!loadable.loadFromFile(from))
+	if (!loadable.loadFromFile(from)) {
 		std::cout << "error: could not load file from " << from << std::endl;
+	}
 }

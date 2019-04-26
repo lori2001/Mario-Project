@@ -9,18 +9,22 @@ int main()
 
 	// load icon file
 	sf::Image icon;
-	icon.loadFromFile("icon.png");
+	icon.loadFromFile("edicon.png");
 
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr()); // sets icon to sfml window
 
-	Paths paths;
-	if (!paths.chooseGamePath()) // close program if no path is selected
-	{
-		return 0;
-	}
-
 	Resources resources;
-	resources.loadFiles(window);
+	Paths paths;
+
+	// try to load files in the current directory
+	paths.setGamePath("");
+	if (!resources.loadFiles(window)) { // if fail -> open using file dialog
+		if (!paths.chooseGamePath()) // close program if no path is selected
+		{
+			return 0;
+		}
+		resources.loadFiles(window);
+	}
 
 	Program program;
 	return program.run(window);

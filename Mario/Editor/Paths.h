@@ -17,4 +17,5 @@ public:
 	//getters
 	static std::string getFilePath() { return filePath; }
 	static std::string getGamePath() { return gamePath; }
+	static void setGamePath(const std::string& param) { gamePath = param; }
 };
