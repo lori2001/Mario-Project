@@ -1,12 +1,16 @@
 !! type posx posy scale
-character1 147.84 871.2 6
-character2 430.08 527.4 6
-enemy 796.8 844.2 4.5
-enemy 631.68 871.2 4.5
-healer 1019.6 540 4
-healer 1395.92 309.6 4
+maplength 4822.8
+character1 339.84 889.2 6
+character2 211.2 867.6 6
+enemy 1293.96 880.2 4.5
+enemy 702.6 880.2 4.5
+enemy 2791.32 842.4 4.5
+enemy 3675.36 511.2 4.5
+healer 822.96 610.2 4
+healer 986.16 622.8 4
 !! type posx posy scale width
-ground 360.96 675 2 10
-ground 1319.28 433.8 2 8
-ground 1727.68 871.2 2 10
-ground 24.96 981 2 11
+brick 741.12 736.2 2 8
+ground 1.91998 993.6 2 23
+ground 2367.72 990 2 10
+ground 3276.72 648 2 9
+ground 4234.8 990 2 7

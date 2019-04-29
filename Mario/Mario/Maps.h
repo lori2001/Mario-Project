@@ -25,6 +25,7 @@ struct inputObject {
 class Maps
 {
 private:
+	static float mapLength;
 	static std::vector<std::string> maps;
 	static inputObject character1;
 	static inputObject character2;
@@ -40,6 +41,9 @@ private:
 	static int clearInput(std::string &input);
 
 public:
+	// returns the length of the map
+	static float getMapLength() { return mapLength;  }
+
 	// returns the position character1 should be initialized in
 	static inputObject getCharacter1() { return character1; }
 	// returns the position character2 should be initialized in

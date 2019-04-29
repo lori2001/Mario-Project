@@ -6,6 +6,7 @@ void Editor::loadMap()
 	objects.clear();
 	objectsType.clear();
 
+	/* turns all loaded text in sprites on screen*/
 	if (ReadWrite::getCharacter1().pos.x != notfound && ReadWrite::getCharacter1().pos.y != notfound) {
 		sf::RectangleShape temp;
 		temp.setTexture(&Resources::mario_smallT);
@@ -90,6 +91,7 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 			if (mouse.getSelected() == Mouse::groundID || mouse.getSelected() == Mouse::brickID) {
 				canLock = true;
 				mouseLock = sf::Mouse::getPosition();
+				viewPos = window.getView().getCenter().x;
 			}
 
 			for (unsigned i = 0; i < objects.size(); i++) {
@@ -118,38 +120,35 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 
 		// multi ground and brick placing when holding mouse button
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && canLock) {
-			sf::Mouse::setPosition({ sf::Mouse::getPosition().x, mouseLock.y });
+			sf::Mouse::setPosition({ sf::Mouse::getPosition().x, mouseLock.y }); // locks mouse in the y axis
 
-			float newXSize = float(sf::Mouse::getPosition().x - mouseLock.x);
-			unsigned objPos = objects.size() - 1;
+			const unsigned objPos = objects.size() - 1; // holds the position of the object in vector that is going to be modified
 
-			if (mouse.getSelected() == Mouse::groundID) {
+			float viewOffset = (window.getView().getCenter().x - viewPos) / objects[objPos].getScale().x; // if the view gets move while placing that adds up to the size
+			float newXSize = viewOffset + float(sf::Mouse::getPosition().x - mouseLock.x);
+
+			// applies calculations 
+			if (mouse.getSelected() == Mouse::groundID || mouse.getSelected() == Mouse::brickID) {
 				if (objects[objPos].getSize().x < newXSize) {
-
-					newXSize = float(int(newXSize / Resources::groundT.getSize().x + 1) * Resources::groundT.getSize().x);
+					newXSize = float(int(newXSize / Resources::groundT.getSize().x + 1) * objects[objPos].getTexture()->getSize().x);
 
 					objects[objPos].setSize({ newXSize, objects[objPos].getSize().y });
 					objects[objPos].setTextureRect({ 0,0,int(objects[objPos].getSize().x), int(objects[objPos].getSize().y) });
-				}
-				else if (mouse.getPosition().x < objects[objPos].getPosition().x) {
-					sf::Mouse::setPosition(mouseLock);
-				}
-			}
-			else if (mouse.getSelected() == Mouse::brickID) {
-				if (objects[objPos].getSize().x < newXSize) {
-
-					newXSize = float(int(newXSize / Resources::brickT.getSize().x + 1) * Resources::brickT.getSize().x);
-
-					objects[objPos].setSize({ newXSize, objects[objPos].getSize().y });
-					objects[objPos].setTextureRect({ 0,0,int(objects[objPos].getSize().x), int(objects[objPos].getSize().y) });
-				}
-				else if (mouse.getPosition().x < objects[objPos].getPosition().x) {
-					sf::Mouse::setPosition(mouseLock);
 				}
 			}
 		}
 		else {
 			canLock = false;
+		}
+
+		if (event.type == event.MouseButtonReleased && mouse.getSelected() != Mouse::eraserID) {
+			float objRight = objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width;
+
+			// if the last object placed is beyond the limits of the map, move the limits
+			if (objRight > ReadWrite::getMapLength()) {
+				ReadWrite::setMapLength(objRight);
+				lengthMark.setPosition({ ReadWrite::getMapLength(), 0 });
+			}
 		}
 	}
 }
@@ -162,6 +161,7 @@ void Editor::Update(sf::RenderWindow & window)
 
 void Editor::Compose(sf::RenderWindow & window)
 {
+	window.draw(lengthMark);
 	for (unsigned i = 0; i < objects.size(); i++) {
 		window.draw(objects[i]);
 	}

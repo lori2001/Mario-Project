@@ -10,7 +10,7 @@
 
 class LevelManager {
 private:
-	sf::View view{ sf::FloatRect{0, 0, 1920, 1080} }; // scales sprites to window's size and moves cam when needed
+	sf::View view{ sf::FloatRect{0, 0, WIDTH, HEIGHT} }; // scales sprites to window's size and moves cam when needed
 
 	Game game;
 	MainMenu mainmenu;

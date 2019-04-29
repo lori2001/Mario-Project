@@ -1,5 +1,6 @@
 #include "ReadWrite.h"
 
+float ReadWrite::mapLength = WIDTH;
 inOutObj ReadWrite::character1 = { {notfound, notfound} , 0 ,0 };
 inOutObj ReadWrite::character2 = { {notfound, notfound} , 0 ,0 };
 std::vector<inOutObj> ReadWrite::enemies;
@@ -53,6 +54,8 @@ void ReadWrite::readMap()
 {
 	std::ifstream in(Paths::getFilePath());
 	std::string input;
+
+	// used only for displaying the line error messages are found on
 	int iterator = 1;
 
 	resetVariables();
@@ -65,6 +68,9 @@ void ReadWrite::readMap()
 
 		if (respMessage == 1) // if response == good proceed
 		{
+			if (input == "maplength") {
+				in >> mapLength;
+			}
 			if (input == "character1") {
 				in >> character1.pos.x >> character1.pos.y >> character1.scale;
 			}
@@ -97,9 +103,11 @@ void ReadWrite::readMap()
 				in >> xtemp >> ytemp >> scaletemp;
 				healers.push_back({ {xtemp, ytemp}, scaletemp });
 			}
+			else respMessage = 0;
 		}
-		else if (respMessage == 0) { // if response == error, warn
-			std::cout << "WARNING! assets/maps/list.txt line: " << iterator << " could not be read." << std::endl;
+		else if (respMessage == 0) { // if response == error then warn
+			std::cout << "WARNING! path: " << Paths::getFilePath() <<" line: " << iterator << " contains WRONG input." << std::endl;
+			// the line is only correctly displayed here if spaces aren't messed up
 		}
 
 		iterator++;
@@ -119,6 +127,10 @@ void ReadWrite::saveMap()
 	std::ofstream out(path + ".txt");
 
 	out << "!! type posx posy scale" << std::endl; // these are comments for easier manual troubleshooting
+
+	// save the length of the map
+	out << "maplenght " << mapLength << std::endl;
+	std::cout << "maplenght " << mapLength << std::endl;
 
 	if (character1.pos.x != notfound && character1.pos.y != notfound) {
 		out << "character1 " << character1.pos.x << " " << character1.pos.y << " " << character1.scale << std::endl;

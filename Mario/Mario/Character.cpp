@@ -44,12 +44,16 @@ void Character::movement(float dt, float gravity, sf::View& view)
 			jumpToggle = false; // block jumping until reallowed
 		}
 
-		// if character is almost at the end of the screen
-		if (sprite.getPosition().x > view.getCenter().x + view.getSize().x / 2.3) {
+		// if character is almost at the end of the screen and view does not exceed the length of map
+		if (sprite.getPosition().x > view.getCenter().x + view.getSize().x / 8 &&
+			view.getCenter().x + view.getSize().x / 2 < Maps::getMapLength()) {
 			view.move(650 * dt,0); // move camera away a little faster than the character can move
 		}
 		else if (sprite.getPosition().x <= view.getCenter().x - view.getSize().x / 2) { // else if the character is off screen in the leftmost part
 			sprite.setPosition(view.getCenter().x - view.getSize().x / 2 + 1, sprite.getPosition().y); // block character from going off
+		}
+		else if (sprite.getPosition().x + sprite.getGlobalBounds().width > Maps::getMapLength()) { // else if the character goes off screen in the rightmost part
+			sprite.setPosition(view.getCenter().x + view.getSize().x / 2 - sprite.getGlobalBounds().width, sprite.getPosition().y); // block character from going off
 		}
 
 		// update hears position each frame based on current view

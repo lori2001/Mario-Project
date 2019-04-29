@@ -5,7 +5,8 @@
 
 int main()
 {
-	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario Map Editor" }; // creates and sets window's default sizes and name
+	// creates and sets window's default sizes and name
+	sf::RenderWindow window{ sf::VideoMode{1000, 600 }, "Mario Map Editor", sf::Style::Titlebar | sf::Style::Close };
 
 	// load icon file
 	sf::Image icon;

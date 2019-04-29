@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "SFML/Graphics.hpp"
+#include "Maps.h"
 #include "Resources.h"
 
 #include "Ground.h"

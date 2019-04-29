@@ -8,8 +8,8 @@
 // You should do it someday... :D
 
 // Contains the viewport sizes, but this should not ever change
-constexpr int WIDTH = 1920;
-constexpr int HEIGHT = 1080;
+constexpr float WIDTH = 1920;
+constexpr float HEIGHT = 1080;
 
 class Resources {
 private:

@@ -26,7 +26,13 @@ struct inOutObj {
 
 class ReadWrite
 {
+public:
+	static void readMap();
+	static void saveMap();
+	static void uploadObj(const std::vector<sf::RectangleShape> &obj, const std::vector<int> &objType);
+
 private:
+	static float mapLength;
 	static inOutObj character1;
 	static inOutObj character2;
 	static std::vector<inOutObj> enemies;
@@ -41,38 +47,31 @@ private:
 	static int clearInput(std::string &input);
 
 public:
-	// returns the position character1 should be initialized in
+	// getters and setters for the length of the map
+	static float getMapLength() { return mapLength; };
+	static void setMapLength(float param) { mapLength = param; };
+
 	static inOutObj getCharacter1() { return character1; }
-	static void setCharacter1(const inOutObj& param) { character1 = param; }
 	// returns the position character2 should be initialized in
 	static inOutObj getCharacter2() { return character2; }
-	static void setCharacter2(const inOutObj& param) { character2 = param; }
 
 	// returns the position of an enemy at a given index
 	static inOutObj getEnemy(int i) { return enemies[i]; }
 	// returns the number of enemies
 	static int getEnemiesNum() { return int(enemies.size()); }
-	static void addEnemy(const inOutObj& param) { enemies.push_back(param); }
 
 	// returns the position of a healer at a given index
 	static inOutObj getHealer(int i) { return healers[i]; }
 	// returns the number of healers
 	static int getHealersNum() { return int(healers.size()); }
-	static void addHealer(const inOutObj& param) { healers.push_back(param); }
 
 	// returns the position of a brick at a given index (x,y - positions; z-size)
 	static inOutObj getBrick(int i) { return bricks[i]; }
 	// returns the number of bricks
 	static int getBricksNum() { return int(bricks.size()); }
-	static void addBrick(const inOutObj& param) { bricks.push_back(param); }
 
 	// returns the position of a ground at a given index (x,y - positions; z-size)
 	static inOutObj getGround(int i) { return grounds[i]; }
 	// returns the number of grounds
 	static int getGroundsNum() { return int(grounds.size()); }
-	static void addGround(const inOutObj& param) { grounds.push_back(param); }
-
-	static void readMap();
-	static void saveMap();
-	static void uploadObj(const std::vector<sf::RectangleShape> &obj, const std::vector<int> &objType);
 };

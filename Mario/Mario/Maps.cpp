@@ -1,5 +1,6 @@
 #include "Maps.h"
 
+float Maps::mapLength;
 std::vector<std::string> Maps::maps;
 inputObject Maps::character1 = { {notfound, notfound} , 0 ,0 };
 inputObject Maps::character2 = { {notfound, notfound} , 0 ,0 };
@@ -10,6 +11,7 @@ std::vector<inputObject> Maps::grounds;
 
 void Maps::resetVariables()
 {
+	mapLength = 0;
 	character1 = { {notfound, notfound} , 0 ,0 };
 	character2 = { {notfound, notfound} , 0 ,0 };
 	enemies.clear();
@@ -94,7 +96,10 @@ void Maps::readMap(int mapnumber)
 
 		if (respMessage == 1) // if response == good proceed
 		{
-			if (input == "character1") {
+			if (input == "maplength") {
+				in >> mapLength;
+			}
+			else if (input == "character1") {
 				in >> character1.pos.x >> character1.pos.y >> character1.scale;
 			}
 			else if (input == "character2") {
@@ -126,10 +131,13 @@ void Maps::readMap(int mapnumber)
 				in >> xtemp >> ytemp >> scaletemp;
 				healers.push_back({ {xtemp, ytemp}, scaletemp });
 			}
+			else respMessage = 0;
 		}
 		else if (respMessage == 0) { // if response == error, warn
-			std::cout << "WARNING! assets/maps/list.txt line: " << iterator << " could not be read." << std::endl;
+			std::cout << "WARNING! path: assets/maps/" + maps[mapnumber] << " line: " << iterator << " contains WRONG input." << std::endl;
+			// iterator expects spaces wherever the editor does
 		}
+
 
 		iterator++;
 	}

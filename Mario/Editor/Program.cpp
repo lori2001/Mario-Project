@@ -23,7 +23,7 @@ int Program::run(sf::RenderWindow &window)
 		window.clear(sf::Color(100, 100, 250)); // the background used in-game
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && view.getCenter().x > view.getSize().x / 2) {
-			view.move(-5,0);
+			view.move(-3,0);
 
 			// block view at the leftmost side
 			if (view.getCenter().x < view.getSize().x / 2) {
@@ -32,12 +32,11 @@ int Program::run(sf::RenderWindow &window)
 			window.setView(view);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			view.move(5, 0);
+			view.move(3, 0);
 			window.setView(view);
 		}
 
 		userInterface.Update(view);
-		userInterface.Compose(window);
 
 		if (userInterface.opening)
 		{
@@ -50,7 +49,9 @@ int Program::run(sf::RenderWindow &window)
 		}
 
 		editor.Update(window);
+
 		editor.Compose(window);
+		userInterface.Compose(window);
 
 		window.display();
 	}
