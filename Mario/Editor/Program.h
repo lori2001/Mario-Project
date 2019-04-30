@@ -12,6 +12,10 @@ private:
 	Editor editor;
 
 	sf::View view{ sf::FloatRect{0, 0, WIDTH, HEIGHT} }; // scales sprites to window's size and moves cam when needed
+
+	// makes movement non-time reliant
+	sf::Clock clock;
+	float elapsedTime;
 public:
 	// replaces int main()
 	int run(sf::RenderWindow &window);

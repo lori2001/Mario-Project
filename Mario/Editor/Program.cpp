@@ -7,6 +7,8 @@ int Program::run(sf::RenderWindow &window)
 
 	userInterface.Setup();
 
+	clock.restart();
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -20,10 +22,12 @@ int Program::run(sf::RenderWindow &window)
 			editor.handleEvents(window, event);
 		}
 
-		window.clear(sf::Color(100, 100, 250)); // the background used in-game
+		elapsedTime = clock.getElapsedTime().asSeconds();
+		clock.restart();
+
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && view.getCenter().x > view.getSize().x / 2) {
-			view.move(-3,0);
+			view.move(-1500 * elapsedTime,0);
 
 			// block view at the leftmost side
 			if (view.getCenter().x < view.getSize().x / 2) {
@@ -32,7 +36,7 @@ int Program::run(sf::RenderWindow &window)
 			window.setView(view);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			view.move(3, 0);
+			view.move(1500 * elapsedTime, 0);
 			window.setView(view);
 		}
 
@@ -47,9 +51,11 @@ int Program::run(sf::RenderWindow &window)
 		}
 
 		editor.Update(window);
-		editor.Compose(window);
-		
 		userInterface.Update(view);
+
+		window.clear(sf::Color(100, 100, 250)); // the background used in-game
+
+		editor.Compose(window);
 		userInterface.Compose(window);
 
 		window.display();

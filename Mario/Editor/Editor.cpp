@@ -122,8 +122,22 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 				// eraser logic
 				if (mouse.getGlobalBounds().intersects(objects[i].getGlobalBounds())) {
 					if (mouse.getSelected() == Mouse::eraserID) {
+						// erase object
 						objects.erase(objects.begin() + i);
 						objectsType.erase(objectsType.begin() + i);
+						
+						// move map length mark back to the last furthest object
+						float furthestRight = WIDTH;
+
+						for (int i = 0; i < int(objects.size()); i++) {
+							float objRight = objects[i].getGlobalBounds().left + objects[i].getGlobalBounds().width;
+							if (furthestRight < objRight) {
+								furthestRight = objRight;
+							}
+						}
+
+						ReadWrite::setMapLength(furthestRight);
+						lengthMark.setPosition({ ReadWrite::getMapLength(), 0 });
 					}
 				}
 			}
