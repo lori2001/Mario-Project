@@ -4,6 +4,7 @@ void Ground::initializeIn(const sf::Vector2f& pos, const float scale,const int s
 {
 	position = { pos.x , pos.y };
 	yPos = position.y;
+	playBump = true;
 
 	while (int(size) > int(shapes.size())) {
 		isActive.push_back(true);
@@ -51,9 +52,15 @@ void Ground::animation(const float dt)
 
 			if (animationTimer[i] > animationLimit) {
 
+				if (playBump && bumpSound.getStatus() != sf::Music::Status::Playing) {
+					bumpSound.play();
+					playBump = false;
+				}
+
 				if (movingUp[i] == true) {
 					shapes[i].move(0, -150 * dt);
 					movementOffset[i] += 150 * dt;
+					playBump = true;
 					if (movementOffset[i] >= offsetLimit) {
 						movingUp[i] = false;
 					}

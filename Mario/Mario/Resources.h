@@ -32,7 +32,14 @@ public:
 
 	static sf::Font super_marioF;
 
+	static sf::SoundBuffer coinSB;
+	static sf::SoundBuffer jumpSB;
+	static sf::SoundBuffer bumpSB;
+	static sf::SoundBuffer stompSB;
+	static sf::SoundBuffer kickSB;
+
 	static sf::Music themesongM;
+	static sf::Music gameoverM;
 };
 
 /* These stay in the .h file as suggested by Visual Studio*/

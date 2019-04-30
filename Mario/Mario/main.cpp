@@ -29,10 +29,6 @@ int main()
 	// load the rest of the files
 	Resources::loadFiles(window);
 
-	// play the themesong
-	Resources::themesongM.setLoop(true);
-	Resources::themesongM.play();
-
 	// start the game
 	LevelManager levelManager;
 	return levelManager.run(window);

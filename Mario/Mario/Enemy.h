@@ -1,4 +1,5 @@
 #pragma once
+#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 #include "Character.h"
@@ -25,11 +26,18 @@ private:
 	/*DEATH ANIMATION*/
 		bool isSqueezed; // death condition 1: true whenever enemy should be squeezed
 		bool isFalling; // death condition 2: true whenever enemy should fall
-		bool isVisible; // disables visibility whenever enemy does not exist
+		bool isAlive; // disables visibility and signals death when false
 		const float deathLimit = 1.5f; // value in seconds after which the enemy will delete from the screen
 
+	/*DEATH SOUNDS*/
+		sf::Sound stompSound; // sound played whenever enemy gets stomped by character
+		sf::Sound kickSound; // sound played whenever enemy starts falling from a oving ground obj
+		bool playSound; // boolean to play one of the sounds only once
 public:
 	Enemy(const sf::Vector2f& position, const float scale = 4.5f) {
+		kickSound.setBuffer(Resources::kickSB);
+		stompSound.setBuffer(Resources::stompSB);
+
 		sprite.setTexture(Resources::enemy_mushT);
 		sprite.setScale({ scale, scale });
 

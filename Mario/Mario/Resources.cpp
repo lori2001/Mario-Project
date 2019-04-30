@@ -14,7 +14,14 @@ sf::Texture Resources::brickT;
 
 sf::Font Resources::super_marioF;
 
+sf::SoundBuffer Resources::coinSB;
+sf::SoundBuffer Resources::jumpSB;
+sf::SoundBuffer Resources::bumpSB;
+sf::SoundBuffer Resources::stompSB;
+sf::SoundBuffer Resources::kickSB;
+
 sf::Music Resources::themesongM;
+sf::Music Resources::gameoverM;
 
 void Resources::loadFiles(sf::RenderWindow & window)
 {
@@ -48,8 +55,19 @@ void Resources::loadFiles(sf::RenderWindow & window)
 
 	loadFile(super_marioF, "assets/fonts/super_mario.ttf");
 
+	loadFile(coinSB, "assets/audio/coin.wav");
+	loadFile(jumpSB, "assets/audio/jump.wav");
+	loadFile(bumpSB, "assets/audio/bump.wav");
+	loadFile(stompSB, "assets/audio/stomp.wav");
+	loadFile(kickSB, "assets/audio/kick.wav");
+
 	// music files need another type of loading
 	if (!themesongM.openFromFile("assets/audio/theme.wav")) {
 		std::cout << "error: could not load file from assets/audio/theme.wav" << std::endl;
+	}
+	themesongM.setLoop(true);
+
+	if (!gameoverM.openFromFile("assets/audio/gameover.wav")) {
+		std::cout << "error: could not load file from assets/audio/gameover.wav" << std::endl;
 	}
 }

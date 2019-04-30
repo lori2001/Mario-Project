@@ -1,13 +1,20 @@
 !! type posx posy scale
 maplength 1920
-character1 783.36 846 6
-character2 933.12 822.6 6
-enemy 249.6 712.8 4.5
-enemy 670.08 498.6 4.5
-enemy 1340.16 491.4 4.5
-coin 823.68 486 4
-coin 969.6 495 4
-healer 345.6 747 4
+character1 226.56 858.6 6
+character2 124.8 851.4 6
+enemy 791.04 549 4.5
+enemy 986.88 550.8 4.5
+enemy 1169.28 547.2 4.5
+coin 399.36 889.2 4
+coin 554.88 887.4 4
+coin 695.04 885.6 4
+coin 806.4 889.2 4
+coin 938.88 889.2 4
+coin 1105.92 774 4
+coin 1246.08 781.2 4
+coin 1382.4 790.2 4
+healer 71.04 286.2 4
+healer 153.6 214.2 4
 !! type posx posy scale width
-brick 581.76 646.2 2 11
-ground 30.72 952.2 2 18
+brick 441.6 676.8 2 13
+ground 15.36 979.2 2 20

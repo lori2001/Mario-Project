@@ -28,9 +28,12 @@ void Character::movement(float dt, float gravity, sf::View& view)
 		}
 
 		if (sf::Keyboard::isKeyPressed(up) && jumpToggle) { // enables jumping animation
+			// play sound
+			jumpSound.play();
+			
 			jumpVelocity = -1550; // the speed at which jumping occurs
 			jumpToggle = false; // block jumping until reallowed
-			isJumping = true;
+			isJumping = true; // signal that character is jumping
 		}
 
 		/*acts upon character even if dead*/
@@ -148,6 +151,7 @@ void Character::collision(Ground & object)
 				gForce = 0; // stop falling
 				isJumping = false; // character can't be jumping if touches the ground
 				jumpToggle = true; // allow jumping again
+
 				sprite.setPosition({ sprite.getPosition().x, object.getGlobalBounds(i).top - sprite.getGlobalBounds().height });
 			}
 			// if character comes from bottom

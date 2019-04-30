@@ -55,6 +55,8 @@ void Coin::animation(const float dt)
 void Coin::collision(Character& character)
 {
 	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds())) {
+		sound.play();
+
 		isAlive = false;
 		Score::add(50);
 	}

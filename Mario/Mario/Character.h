@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
 #include <vector>
+
+#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
+
 #include "Maps.h"
 #include "Resources.h"
-
 #include "Ground.h"
 
 class Character : public sf::Drawable {
@@ -48,9 +50,14 @@ private:
 		bool isInvulnerable; // true whenever mario is unkillable
 		float invTimer; // invulnerability availability timer
 
+	/*SOUND*/
+		sf::Sound jumpSound; // the sound played whenever jumping
+
 	/* ALL IMPORTANT BOOLS GET INITIALIZED IN void setDefaultValues()*/
 public:
 	Character(float scale = 6) {
+		jumpSound.setBuffer(Resources::jumpSB);
+
 		sprite.setTexture(Resources::mario_smallT); // default texture used
 		sprite.setScale({ scale,scale }); // scales things to FHD render space
 	}

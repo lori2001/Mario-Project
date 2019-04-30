@@ -1,4 +1,5 @@
 #pragma once
+#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "Resources.h"
 #include "Character.h"
@@ -19,8 +20,12 @@ private:
 	float animationTimer; // the timer used to measure time passed while running smoothly
 	float animationLimit; // the frequency in seconds at which rotation animation works
 
+	/*SOUND*/
+	sf::Sound sound; // the sound played when coin is taken
 public:
 	Coin(const sf::Vector2f& position, const float scale = 4) {
+		sound.setBuffer(Resources::coinSB);
+
 		sprite.setTexture(Resources::coinT);
 		// i don't like the original proportions :D
 		sprite.setScale({ scale * 1.2f, scale });

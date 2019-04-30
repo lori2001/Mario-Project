@@ -15,6 +15,10 @@ void Endscreen::Setup(sf::RenderWindow & window)
 	score.setPosition(WIDTH / 2 - score.getGlobalBounds().width / 2, 500);
 
 	gameover.setPosition(WIDTH / 2 - gameover.getGlobalBounds().width / 2, 175);
+
+	// play gameover (stop other songs)
+	Resources::themesongM.stop();
+	Resources::gameoverM.play();
 }
 
 void Endscreen::handleEvents(const sf::RenderWindow & window, const sf::Event & event)

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Resources.h"
 
 class Ground : public sf::Drawable
@@ -22,11 +23,16 @@ private:
 	std::vector<float> movementOffset; // the offset count per ground brick (-1 means nothing)
 	const float offsetLimit = 15; // the number of pixels a hit ground should offset to
 	std::vector<bool> movingUp; // true whenever moving up, false whenever moving down
+
+	sf::Sound bumpSound; // the sound that has to be played when character bumping into moveable ground subclass
+	bool playBump; // a trigger used to play bump only once
 public:
 	// x and y are coordinates while z is the lenght in ground bricks
 	void initializeIn(const sf::Vector2f &pos, const float scale, const int size);
 
 	Ground(const sf::Vector2f& pos, const float scale, const int size) {
+		bumpSound.setBuffer(Resources::bumpSB);
+
 		initializeIn(pos, scale, size);
 	}
 	Ground(const int size) : Ground({ 0, 0 }, 4.5f , size) {}
