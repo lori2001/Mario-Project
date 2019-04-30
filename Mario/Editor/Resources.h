@@ -12,10 +12,10 @@ constexpr float WIDTH = 1920;
 constexpr float HEIGHT = 1080;
 
 class Resources {
+public:
+	// Load all files and display a loading screen while doing so
+	static bool loadFiles(sf::RenderWindow & window);
 private:
-	static sf::Texture loadingscreenT;
-	static sf::Sprite loadingscreenS;
-	
 	template <class Loadable>
 	static void loadFile(Loadable &texture, const std::string & from);
 public:
@@ -28,13 +28,12 @@ public:
 	static sf::Texture luigi_smallT;
 	static sf::Texture enemy_mushT;
 	static sf::Texture good_mushT;
+	static sf::Texture coinT;
+
 	static sf::Texture groundT;
 	static sf::Texture brickT;
 
 	static sf::Font super_marioF;
-
-	// Load all files and display a loading screen while doing so
-	static bool loadFiles(sf::RenderWindow & window);
 };
 
 /* These stay in the .h file as suggested by Visual Studio*/

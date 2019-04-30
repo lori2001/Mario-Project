@@ -5,7 +5,6 @@ void Game::Setup(sf::RenderWindow & window)
 	score.equal(0); // reset score if needed
 	
 	/* Load in game info into actual game elements*/
-
 	luigi.changeCntrlKeys(sf::Keyboard::W,
 		sf::Keyboard::S,
 		sf::Keyboard::A,
@@ -30,6 +29,10 @@ void Game::Setup(sf::RenderWindow & window)
 	healers.clear();
 	for (int i = 0; i < Maps::getHealersNum(); i++) {
 		healers.push_back(Healer{ Maps::getHealer(i).pos, Maps::getHealer(i).scale });
+	}
+	coins.clear();
+	for (int i = 0; i < Maps::getCoinsNum(); i++) {
+		coins.push_back(Coin{ Maps::getCoin(i).pos, Maps::getCoin(i).scale });
 	}
 	bricks.clear();
 	for (int i = 0; i < Maps::getBricksNum(); i++) {
@@ -94,6 +97,12 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 		}
 	}
 
+	for (int i = 0; i < int(coins.size()); i++) {
+		coins[i].animation(elapsedTime);
+		coins[i].collision(mario);
+		coins[i].collision(luigi);
+	}
+
 	// check if mario and luigi are still alive and deactivate game if they are not
 	if (!mario.getlifeSignal() && !luigi.getlifeSignal()) {
 		isActive = false;
@@ -116,6 +125,9 @@ void Game::Compose(sf::RenderWindow & window) const
 	}
 	for (int i = 0; i < int(healers.size()); i++) {
 		window.draw(healers[i]);
+	}
+	for (int i = 0; i < int(coins.size()); i++) {
+		window.draw(coins[i]);
 	}
 
 	window.draw(mario);

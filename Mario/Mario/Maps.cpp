@@ -8,6 +8,7 @@ std::vector<inputObject> Maps::enemies;
 std::vector<inputObject> Maps::healers;
 std::vector<inputObject> Maps::bricks;
 std::vector<inputObject> Maps::grounds;
+std::vector<inputObject> Maps::coins;
 
 void Maps::resetVariables()
 {
@@ -18,6 +19,7 @@ void Maps::resetVariables()
 	healers.clear();
 	bricks.clear();
 	grounds.clear();
+	coins.clear();
 }
 
 int Maps::clearInput(std::string & input)
@@ -125,6 +127,12 @@ void Maps::readMap(int mapnumber)
 				in >> xtemp >> ytemp >> scaletemp >> size;
 				grounds.push_back({ {xtemp, ytemp}, scaletemp , size });
 			}
+			else if (input == "coin" ) { /* this might change in the future */
+				float xtemp, ytemp, scaletemp;
+
+				in >> xtemp >> ytemp >> scaletemp;
+				coins.push_back({ {xtemp, ytemp}, scaletemp });
+			}
 			else if (input == "healer") { /* this might change in the future */
 				float xtemp, ytemp, scaletemp;
 
@@ -137,7 +145,6 @@ void Maps::readMap(int mapnumber)
 			std::cout << "WARNING! path: assets/maps/" + maps[mapnumber] << " line: " << iterator << " contains WRONG input." << std::endl;
 			// iterator expects spaces wherever the editor does
 		}
-
 
 		iterator++;
 	}

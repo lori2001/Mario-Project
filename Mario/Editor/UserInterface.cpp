@@ -26,7 +26,10 @@ void UserInterface::Setup()
 	mario.setScale({ 3.7f,3.7f });
 
 	luigi.setTexture(Resources::luigi_smallT);
-	luigi.setScale({ 3.7f,3.7f });
+	luigi.setScale({ 3.7f,3.7f });	
+
+	coin.setTexture(Resources::coinT);
+	coin.setScale({ 4.0f,3.7f });
 
 	eraser.setFillColor(sf::Color::Red);
 	updatePos({ 0,0 });
@@ -60,6 +63,9 @@ void UserInterface::handleEvents(const sf::RenderWindow & window, const sf::Even
 	luigi.selectByMouse(mouse);
 	luigi.handleEvents(event);
 
+	coin.selectByMouse(mouse);
+	coin.handleEvents(event);
+
 	eraser.selectByMouse(mouse);
 	eraser.handleEvents(event);
 }
@@ -92,6 +98,9 @@ void UserInterface::Update(sf::View& view)
 	else if (luigi.activated()) {
 		Mouse::setSelected(Mouse::luigiID);
 	}
+	else if (coin.activated()) {
+		Mouse::setSelected(Mouse::coinID);
+	}
 	else if (eraser.activated()) {
 		Mouse::setSelected(Mouse::eraserID);
 	}
@@ -108,6 +117,7 @@ void UserInterface::Compose(sf::RenderWindow & window)
 	window.draw(healer);
 	window.draw(mario);
 	window.draw(luigi);
+	window.draw(coin);
 	window.draw(eraser);
 }
 
@@ -122,5 +132,6 @@ void UserInterface::updatePos(const sf::Vector2f & relativePos)
 	healer.setPosition({ relativePos.x + 1100, relativePos.y + 10 });
 	mario.setPosition({ relativePos.x + 1200, relativePos.y + 10 });
 	luigi.setPosition({ relativePos.x + 1300, relativePos.y + 10 });
-	eraser.setPosition({ relativePos.x + 1400, relativePos.y + 10 });
+	coin.setPosition({ relativePos.x + 1400, relativePos.y + 10 });
+	eraser.setPosition({ relativePos.x + 1500, relativePos.y + 10 });
 }

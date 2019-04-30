@@ -7,6 +7,7 @@ std::vector<inOutObj> ReadWrite::enemies;
 std::vector<inOutObj> ReadWrite::healers;
 std::vector<inOutObj> ReadWrite::bricks;
 std::vector<inOutObj> ReadWrite::grounds;
+std::vector<inOutObj> ReadWrite::coins;
 
 void ReadWrite::resetVariables()
 {
@@ -16,6 +17,7 @@ void ReadWrite::resetVariables()
 	healers.clear();
 	bricks.clear();
 	grounds.clear();
+	coins.clear();
 }
 
 int ReadWrite::clearInput(std::string & input)
@@ -97,6 +99,12 @@ void ReadWrite::readMap()
 				in >> xtemp >> ytemp >> scaletemp >> size;
 				grounds.push_back({ {xtemp, ytemp}, scaletemp , size });
 			}
+			else if (input == "coin") {
+				float xtemp, ytemp, scaletemp;
+
+				in >> xtemp >> ytemp >> scaletemp;
+				coins.push_back({ {xtemp, ytemp}, scaletemp });
+			}
 			else if (input == "healer") {
 				float xtemp, ytemp, scaletemp;
 
@@ -141,6 +149,9 @@ void ReadWrite::saveMap()
 	for (int i = 0; i < int(enemies.size()); i++) {
 		out << "enemy " << enemies[i].pos.x << " " << enemies[i].pos.y << " " << enemies[i].scale << std::endl;
 	}
+	for (int i = 0; i < int(coins.size()); i++) {
+		out << "coin " << coins[i].pos.x << " " << coins[i].pos.y << " " << coins[i].scale << std::endl;
+	}
 	for (int i = 0; i < int(healers.size()); i++) {
 		out << "healer " << healers[i].pos.x << " " << healers[i].pos.y << " " << healers[i].scale << std::endl;
 	}
@@ -171,6 +182,9 @@ void ReadWrite::uploadObj(const std::vector<sf::RectangleShape>& obj, const std:
 		}
 		else if (objType[i] == Mouse::enemyID) {
 			enemies.push_back({ { obj[i].getPosition().x, obj[i].getPosition().y }, obj[i].getScale().x });
+		}
+		else if (objType[i] == Mouse::coinID) {
+			coins.push_back({ { obj[i].getPosition().x, obj[i].getPosition().y }, obj[i].getScale().x });
 		}
 		else if (objType[i] == Mouse::healerID) {
 			healers.push_back({ { obj[i].getPosition().x, obj[i].getPosition().y }, obj[i].getScale().x });

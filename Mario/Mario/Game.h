@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Healer.h"
 #include "Brick.h"
+#include "Coin.h"
 
 class Game {
 private:
@@ -18,10 +19,11 @@ private:
 	Character mario;
 	Character luigi;
 
-	std::vector<Ground> grounds;
-	std::vector<Brick> bricks;
 	std::vector<Enemy> enemies;
 	std::vector<Healer> healers;
+	std::vector<Coin> coins;
+	std::vector<Brick> bricks;
+	std::vector<Ground> grounds;
 
 	const float gravity = 3500; // the global value of the gravity
 

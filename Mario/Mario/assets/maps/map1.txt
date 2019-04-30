@@ -7,7 +7,8 @@ enemy 670.08 498.6 4.5
 enemy 1340.16 491.4 4.5
 coin 823.68 486 4
 coin 969.6 495 4
+coin 1144.32 484.2 4
 healer 345.6 747 4
 !! type posx posy scale width
-brick 581.76 646.2 2 11
+brick 529.92 599.4 2 12
 ground 30.72 952.2 2 18

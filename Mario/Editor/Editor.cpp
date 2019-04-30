@@ -43,6 +43,17 @@ void Editor::loadMap()
 		objects.push_back(temp);
 		objectsType.push_back(Mouse::enemyID);
 	}
+	for (int i = 0; i < ReadWrite::getCoinsNum(); i++) {
+		sf::RectangleShape temp;
+		temp.setTexture(&Resources::coinT);
+		temp.setPosition({ ReadWrite::getCoin(i).pos.x, ReadWrite::getCoin(i).pos.y });
+		temp.setSize({ 8, 14 });
+		temp.setTextureRect({ 0,0, 8, 14 });
+		temp.setScale({ ReadWrite::getCoin(i).scale, ReadWrite::getCoin(i).scale });
+
+		objects.push_back(temp);
+		objectsType.push_back(Mouse::coinID);
+	}
 	for (int i = 0; i < ReadWrite::getHealersNum(); i++) {
 		sf::RectangleShape temp;
 		temp.setTexture(&Resources::good_mushT);
@@ -86,7 +97,11 @@ void Editor::saveMap()
 
 void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
 {
-	if (mouse.getPosition().y > 80) { // Eliminate UI from calculations
+	// Leave out UI
+	if (mouse.getPosition().y > 80) {
+
+		mouse.setDrawing(true);
+
 		if (event.type == event.MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 
 			// enable multi-ground and brick placing
@@ -153,6 +168,9 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 			}
 		}
 	}
+	else {
+		mouse.setDrawing(false);
+	}
 }
 
 void Editor::Update(sf::RenderWindow & window)
@@ -164,8 +182,12 @@ void Editor::Update(sf::RenderWindow & window)
 void Editor::Compose(sf::RenderWindow & window)
 {
 	window.draw(lengthMark);
+
 	for (unsigned i = 0; i < objects.size(); i++) {
 		window.draw(objects[i]);
 	}
-	window.draw(mouse);
+
+	if (mouse.getDrawing()) {
+		window.draw(mouse);
+	}
 }

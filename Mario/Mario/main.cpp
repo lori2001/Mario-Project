@@ -21,10 +21,19 @@ int main()
 	// creates and sets window's default sizes and name
 	sf::RenderWindow window{ sf::VideoMode{1000, 600}, "Mario", sf::Style::Titlebar | sf::Style::Close };
 
+	// load and set icon file
+	sf::Image icon;
+	icon.loadFromFile("icon.png");
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr()); // sets icon to sfml window
+
+	// load the rest of the files
 	Resources::loadFiles(window);
+
+	// play the themesong
 	Resources::themesongM.setLoop(true);
 	Resources::themesongM.play();
 
+	// start the game
 	LevelManager levelManager;
 	return levelManager.run(window);
 }

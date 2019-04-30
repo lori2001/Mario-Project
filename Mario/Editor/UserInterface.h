@@ -28,6 +28,7 @@ private:
 	UI::Button healer{ sf::Vector2f{16,16} };
 	UI::Button mario{ sf::Vector2f{13,16} };
 	UI::Button luigi{ sf::Vector2f{13,16} };
+	UI::Button coin{ sf::Vector2f{8,14} };
 	UI::Button eraser{ sf::Vector2f{56,56} };
 
 	sf::RectangleShape background{ sf::Vector2f{1920,80} };

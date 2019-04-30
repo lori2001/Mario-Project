@@ -39,6 +39,7 @@ private:
 	static std::vector<inOutObj> healers;
 	static std::vector<inOutObj> bricks;
 	static std::vector<inOutObj> grounds;
+	static std::vector<inOutObj> coins;
 
 	// resets variables whenever reading maps
 	static void resetVariables();
@@ -59,6 +60,11 @@ public:
 	static inOutObj getEnemy(int i) { return enemies[i]; }
 	// returns the number of enemies
 	static int getEnemiesNum() { return int(enemies.size()); }
+
+	// returns the position of a healer at a given index
+	static inOutObj getCoin(int i) { return coins[i]; }
+	// returns the number of healers
+	static int getCoinsNum() { return int(coins.size()); }
 
 	// returns the position of a healer at a given index
 	static inOutObj getHealer(int i) { return healers[i]; }

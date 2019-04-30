@@ -36,8 +36,6 @@ int Program::run(sf::RenderWindow &window)
 			window.setView(view);
 		}
 
-		userInterface.Update(view);
-
 		if (userInterface.opening)
 		{
 			editor.loadMap();
@@ -49,8 +47,9 @@ int Program::run(sf::RenderWindow &window)
 		}
 
 		editor.Update(window);
-
 		editor.Compose(window);
+		
+		userInterface.Update(view);
 		userInterface.Compose(window);
 
 		window.display();

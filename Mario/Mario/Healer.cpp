@@ -5,7 +5,7 @@ void Healer::initializeIn(const sf::Vector2f & position)
 	/*PHYSICS*/
 	gForce = 0;
 
-	/*ANIMATION*/
+	/*PROPERTIES*/
 	isAlive = true;
 
 	/*POSITIONING*/
@@ -65,7 +65,6 @@ void Healer::collision(Character& character)
 	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds())) {
 		if (character.heal()) { // small bugfix
 			isAlive = false;
-			Score::add(50);
 		}
 	}
 }

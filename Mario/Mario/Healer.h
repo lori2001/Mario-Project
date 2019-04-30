@@ -3,7 +3,6 @@
 #include "Resources.h"
 #include "Character.h"
 #include "Score.h"
-#include <math.h>
 
 class Healer : public sf::Drawable {
 private:
@@ -15,7 +14,7 @@ private:
 	float gForce; // gravity force applied at a given frame
 
 	/*PROPERTIES*/
-		bool isAlive; // false whenever enemy should get squeezed and erased (disables most functions too)
+	bool isAlive; // false whenever taken
 
 public:
 	Healer(const sf::Vector2f& position, const float scale = 4) {
@@ -24,7 +23,7 @@ public:
 	
 		initializeIn(position);
 	}
-	Healer() : Healer({0,0}) {}
+	Healer() : Healer({ 0,0 }) {}
 
 	// sets up (and resets) default values of enemy and places it in position
 	void initializeIn(const sf::Vector2f& position);

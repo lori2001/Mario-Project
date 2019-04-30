@@ -11,32 +11,28 @@ constexpr float WIDTH = 1920;
 constexpr float HEIGHT = 1080;
 
 class Resources {
+public:
+	// Load all files and display a loading screen while doing so
+	static void loadFiles(sf::RenderWindow & window);
 private:
-	static sf::Texture loadingscreenT;
-	static sf::Sprite loadingscreenS;
-	
 	template <class Loadable>
 	static void loadFile(Loadable &texture, const std::string & from);
-	//static void loadFile(sf::Music & music, const std::string & from);
 public:
-	static sf::Image icon; // will hold icon file
-
-	static sf::Texture menu_bgT;
+	static sf::Texture menu_bgT; // the background of the menu
 
 	static sf::Texture heartT;
 	static sf::Texture mario_smallT;
 	static sf::Texture luigi_smallT;
 	static sf::Texture enemy_mushT;
 	static sf::Texture good_mushT;
+	static sf::Texture coinT;
+
 	static sf::Texture groundT;
 	static sf::Texture brickT;
 
-	static sf::Music themesongM;
-
 	static sf::Font super_marioF;
 
-	// Load all files and display a loading screen while doing so
-	static void loadFiles(sf::RenderWindow & window);
+	static sf::Music themesongM;
 };
 
 /* These stay in the .h file as suggested by Visual Studio*/
@@ -46,9 +42,3 @@ inline void Resources::loadFile(Loadable & loadable, const std::string & from)
 	if (!loadable.loadFromFile(from))
 		std::cout << "error: could not load file from " << from << std::endl;
 }
-/*
-void Resources::loadFile(sf::Music & music, const std::string & from)
-{
-	if (!music.openFromFile(from))
-		std::cout << "error: could not load file from " << from << std::endl;
-}*/

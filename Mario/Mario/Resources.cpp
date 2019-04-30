@@ -1,8 +1,5 @@
 #include "Resources.h"
 
-sf::Texture Resources::loadingscreenT;
-sf::Sprite Resources::loadingscreenS;
-
 sf::Texture Resources::menu_bgT;
 
 sf::Texture Resources::heartT;
@@ -10,22 +7,25 @@ sf::Texture Resources::luigi_smallT;
 sf::Texture Resources::mario_smallT;
 sf::Texture Resources::enemy_mushT;
 sf::Texture Resources::good_mushT;
+sf::Texture Resources::coinT;
+
 sf::Texture Resources::groundT;
 sf::Texture Resources::brickT;
 
-sf::Music Resources::themesongM;
-
 sf::Font Resources::super_marioF;
 
-sf::Image Resources::icon;
+sf::Music Resources::themesongM;
 
 void Resources::loadFiles(sf::RenderWindow & window)
 {
+	sf::Texture loadingscreenT;
+	sf::Sprite loadingscreenS;
+
 	// loads loadingscreen
 	loadFile(loadingscreenT, "assets/images/loading.jpg");
 	loadingscreenS.setTexture(loadingscreenT);
 
-	// scales loading image to window's size
+	// scales loading image to window's size (because the view is not applied yet)
 	loadingscreenS.setScale(float(window.getSize().x) / float(loadingscreenT.getSize().x), float(window.getSize().y) / float(loadingscreenT.getSize().y));
 
 	// draws loadingscreen
@@ -34,8 +34,6 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	window.display();
 
 	// loads all files
-	loadFile(icon, "icon.png");
-
 	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
 
 	loadFile(heartT, "assets/images/heart.png");
@@ -43,16 +41,15 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(mario_smallT, "assets/images/mario_small.png");
 	loadFile(enemy_mushT, "assets/images/enemy_mush.png");
 	loadFile(good_mushT, "assets/images/good_mush.png");
+	loadFile(coinT, "assets/images/coin.png");
+
+	loadFile(groundT, "assets/images/ground.png");
+	loadFile(brickT, "assets/images/brick.png");
+
+	loadFile(super_marioF, "assets/fonts/super_mario.ttf");
 
 	// music files need another type of loading
 	if (!themesongM.openFromFile("assets/audio/theme.wav")) {
 		std::cout << "error: could not load file from assets/audio/theme.wav" << std::endl;
 	}
-
-	loadFile(brickT, "assets/images/brick.png");
-	// brickT.setRepeated(true);
-	loadFile(groundT, "assets/images/ground.png");
-	// groundT.setRepeated(true);
-
-	loadFile(super_marioF, "assets/fonts/super_mario.ttf");
 }

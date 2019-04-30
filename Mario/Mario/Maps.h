@@ -33,6 +33,7 @@ private:
 	static std::vector<inputObject> healers;
 	static std::vector<inputObject> bricks;
 	static std::vector<inputObject> grounds;
+	static std::vector<inputObject> coins;
 
 	// resets variables whenever reading maps
 	static void resetVariables();
@@ -68,6 +69,11 @@ public:
 	static inputObject getGround(int i) { return grounds[i]; }
 	// returns the number of grounds
 	static int getGroundsNum() { return int(grounds.size()); }
+
+	// returns the position of a coin at a given index (x,y - positions; z-size)
+	static inputObject getCoin(int i) { return coins[i]; }
+	// returns the number of grounds
+	static int getCoinsNum() { return int(coins.size()); }
 
 	static void readList();
 	static void readMap(int mapnumber);
