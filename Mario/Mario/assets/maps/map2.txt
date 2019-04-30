@@ -1,5 +1,5 @@
 !! type posx posy scale
-maplength 5073.72
+maplength 4822.8
 character1 339.84 889.2 6
 character2 211.2 867.6 6
 enemy 1293.96 880.2 4.5
@@ -14,4 +14,3 @@ ground 1.91998 993.6 2 23
 ground 2367.72 990 2 10
 ground 3276.72 648 2 9
 ground 4234.8 990 2 7
-ground 4737.72 855 2 4

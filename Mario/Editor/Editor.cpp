@@ -6,6 +6,8 @@ void Editor::loadMap()
 	objects.clear();
 	objectsType.clear();
 
+	lengthMark.setPosition({ ReadWrite::getMapLength(), 0 });
+
 	/* turns all loaded text in sprites on screen*/
 	if (ReadWrite::getCharacter1().pos.x != notfound && ReadWrite::getCharacter1().pos.y != notfound) {
 		sf::RectangleShape temp;

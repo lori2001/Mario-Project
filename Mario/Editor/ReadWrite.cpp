@@ -71,7 +71,7 @@ void ReadWrite::readMap()
 			if (input == "maplength") {
 				in >> mapLength;
 			}
-			if (input == "character1") {
+			else if (input == "character1") {
 				in >> character1.pos.x >> character1.pos.y >> character1.scale;
 			}
 			else if (input == "character2") {
@@ -129,8 +129,7 @@ void ReadWrite::saveMap()
 	out << "!! type posx posy scale" << std::endl; // these are comments for easier manual troubleshooting
 
 	// save the length of the map
-	out << "maplenght " << mapLength << std::endl;
-	std::cout << "maplenght " << mapLength << std::endl;
+	out << "maplength " << mapLength << std::endl;
 
 	if (character1.pos.x != notfound && character1.pos.y != notfound) {
 		out << "character1 " << character1.pos.x << " " << character1.pos.y << " " << character1.scale << std::endl;
@@ -146,7 +145,7 @@ void ReadWrite::saveMap()
 		out << "healer " << healers[i].pos.x << " " << healers[i].pos.y << " " << healers[i].scale << std::endl;
 	}
 
-	out << "!! type posx posy scale width" << std::endl; // these are comments for easier manual troubleshooting
+	out << "!! type posx posy scale width" << std::endl; // these are comments for easier manual troubleshootingdd
 
 	for (int i = 0; i < int(bricks.size()); i++) {
 		out << "brick " << bricks[i].pos.x << " " << bricks[i].pos.y << " " << bricks[i].scale << " " << bricks[i].size << std::endl;
