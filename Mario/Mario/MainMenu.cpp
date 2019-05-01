@@ -3,7 +3,7 @@
 void MainMenu::Setup(sf::RenderWindow & window)
 {
 	// play the themesong (stop other songs)
-	Resources::gameoverM.stop();
+	Resources::stopAllSongs();
 	Resources::themesongM.play();
 
 	startgame.setPosition({ WIDTH / 2 - startgame.getGlobalBounds().width / 2 , HEIGHT / 2 - 50 });

@@ -1,8 +1,9 @@
 #include "ReadWrite.h"
 
-float ReadWrite::mapLength = WIDTH;
+sf::Vector2f ReadWrite::mapLength = { WIDTH,HEIGHT };
 inOutObj ReadWrite::character1 = { {notfound, notfound} , 0 ,0 };
 inOutObj ReadWrite::character2 = { {notfound, notfound} , 0 ,0 };
+inOutObj ReadWrite::endpoint = { {notfound, notfound} , 0 ,0 };
 std::vector<inOutObj> ReadWrite::enemies;
 std::vector<inOutObj> ReadWrite::healers;
 std::vector<inOutObj> ReadWrite::bricks;
@@ -13,6 +14,7 @@ void ReadWrite::resetVariables()
 {
 	character1 = { {notfound, notfound} , 0 ,0 };
 	character2 = { {notfound, notfound} , 0 ,0 };
+	endpoint = { {notfound, notfound} , 0 ,0 };
 	enemies.clear();
 	healers.clear();
 	bricks.clear();
@@ -71,13 +73,16 @@ void ReadWrite::readMap()
 		if (respMessage == 1) // if response == good proceed
 		{
 			if (input == "maplength") {
-				in >> mapLength;
+				in >> mapLength.x;
 			}
 			else if (input == "character1") {
 				in >> character1.pos.x >> character1.pos.y >> character1.scale;
 			}
 			else if (input == "character2") {
 				in >> character2.pos.x >> character2.pos.y >> character2.scale;
+			}
+			else if (input == "endpoint") {
+				in >> endpoint.pos.x >> endpoint.pos.y >> endpoint.scale;
 			}
 			else if (input == "enemy") {
 				float xtemp, ytemp, scaletemp;
@@ -137,13 +142,20 @@ void ReadWrite::saveMap()
 	out << "!! type posx posy scale" << std::endl; // these are comments for easier manual troubleshooting
 
 	// save the length of the map
-	out << "maplength " << mapLength << std::endl;
+	out << "maplength " << mapLength.x << std::endl;
 
 	if (character1.pos.x != notfound && character1.pos.y != notfound) {
 		out << "character1 " << character1.pos.x << " " << character1.pos.y << " " << character1.scale << std::endl;
 	}
 	if (character2.pos.x != notfound && character2.pos.y != notfound) {
 		out << "character2 " << character2.pos.x << " " << character2.pos.y << " " << character2.scale << std::endl;
+	}
+
+	if (endpoint.pos.x != notfound && endpoint.pos.y != notfound) {
+		out << "endpoint " << endpoint.pos.x << " " << endpoint.pos.y << " " << endpoint.scale << std::endl;
+	}
+	else {
+		std::cout << "WARNING! Endpoint not found! There is no way to win the game!" << std::endl;
 	}
 
 	for (int i = 0; i < int(enemies.size()); i++) {
@@ -175,10 +187,16 @@ void ReadWrite::uploadObj(const std::vector<sf::RectangleShape>& obj, const std:
 			character1.pos.x = obj[i].getPosition().x;
 			character1.pos.y = obj[i].getPosition().y;
 			character1.scale = obj[i].getScale().x;
-		} else if (objType[i] == Mouse::luigiID) {
+		}
+		else if (objType[i] == Mouse::luigiID) {
 			character2.pos.x = obj[i].getPosition().x;
 			character2.pos.y = obj[i].getPosition().y;
 			character2.scale = obj[i].getScale().x;
+		}
+		else if (objType[i] == Mouse::endpointID) {
+			endpoint.pos.x = obj[i].getPosition().x;
+			endpoint.pos.y = obj[i].getPosition().y;
+			endpoint.scale = obj[i].getScale().x;
 		}
 		else if (objType[i] == Mouse::enemyID) {
 			enemies.push_back({ { obj[i].getPosition().x, obj[i].getPosition().y }, obj[i].getScale().x });
@@ -196,4 +214,17 @@ void ReadWrite::uploadObj(const std::vector<sf::RectangleShape>& obj, const std:
 			grounds.push_back({ { obj[i].getPosition().x, obj[i].getPosition().y }, obj[i].getScale().x, int(obj[i].getSize().x / Resources::groundT.getSize().x) });
 		}
 	}
+
+	// autoset endpoint to the last brick if not found
+	if (endpoint.pos.x == notfound || endpoint.pos.y == notfound) {
+		Mouse temp;
+		temp.setSelected(Mouse::endpointID);
+		temp.updateObject();
+
+		endpoint.pos.x = mapLength.x - temp.getGlobalBounds().width;
+		endpoint.pos.y = mapLength.y - temp.getGlobalBounds().height;
+		endpoint.scale = temp.getScale().x;
+	}
+	Mouse::setSelected(Mouse::groundID); // reset mouse to default selection
+
 }

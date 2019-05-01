@@ -1,129 +1,128 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Game">
+    <Filter Include="Code FIles">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Code FIles\Game">
       <UniqueIdentifier>{8da898af-29d8-4dc2-8ab9-e356da6dcd8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Resources">
+    <Filter Include="Code FIles\Game\Elements">
+      <UniqueIdentifier>{2acf7f11-f07d-4854-9239-424d56ec8a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code FIles\Resources">
       <UniqueIdentifier>{bc39c1dc-1da2-43f9-9c9b-e379a231704d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game">
-      <UniqueIdentifier>{62af764f-a989-4945-98db-0e93742bb919}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Resources">
-      <UniqueIdentifier>{83da03b6-a429-4c60-8ff7-0e2e7517b852}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menus">
-      <UniqueIdentifier>{e6cbf97b-57bf-4363-9762-5b78b9d2736f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menus">
+    <Filter Include="Code FIles\Menus">
       <UniqueIdentifier>{a5a260fd-db88-418b-b0d4-579fdb6ef340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code FIles\Menus\Elements">
+      <UniqueIdentifier>{641022b3-fc6c-470b-874b-689820c044da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Healer.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Menus</Filter>
+      <Filter>Code FIles\Menus\Elements</Filter>
     </ClCompile>
     <ClCompile Include="Endscreen.cpp">
-      <Filter>Source Files\Menus</Filter>
+      <Filter>Code FIles\Menus</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\Menus</Filter>
+      <Filter>Code FIles\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Game</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Code FIles\Game</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
-      <Filter>Source Files\Game</Filter>
+      <Filter>Code FIles\Game\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Maps.cpp">
-      <Filter>Source Files\Resources</Filter>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
-      <Filter>Source Files\Game</Filter>
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Endpoint.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Healer.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Maps.cpp">
+      <Filter>Code FIles\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Code FIles\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Code FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Code FIles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Code FIles\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Code FIles\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Code FIles\Game</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Healer.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Code FIles</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
-      <Filter>Header Files\Menus</Filter>
+      <Filter>Code FIles\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Endscreen.h">
-      <Filter>Header Files\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Code FIles\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Maps.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Code FIles\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Healer.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Endpoint.h">
+      <Filter>Code FIles\Game\Elements</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Code FIles\Menus\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

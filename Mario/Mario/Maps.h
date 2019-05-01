@@ -29,6 +29,7 @@ private:
 	static std::vector<std::string> maps;
 	static inputObject character1;
 	static inputObject character2;
+	static inputObject endpoint;
 	static std::vector<inputObject> enemies;
 	static std::vector<inputObject> healers;
 	static std::vector<inputObject> bricks;
@@ -49,6 +50,8 @@ public:
 	static inputObject getCharacter1() { return character1; }
 	// returns the position character2 should be initialized in
 	static inputObject getCharacter2() { return character2; }
+	// returns the position endpoint should be placed in
+	static inputObject getEndpoint() { return endpoint; }
 
 	// returns the position of an enemy at a given index
 	static inputObject getEnemy(int i) { return enemies[i]; }

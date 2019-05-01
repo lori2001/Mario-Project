@@ -32,9 +32,10 @@ public:
 	static void uploadObj(const std::vector<sf::RectangleShape> &obj, const std::vector<int> &objType);
 
 private:
-	static float mapLength;
+	static sf::Vector2f mapLength;
 	static inOutObj character1;
 	static inOutObj character2;
+	static inOutObj endpoint;
 	static std::vector<inOutObj> enemies;
 	static std::vector<inOutObj> healers;
 	static std::vector<inOutObj> bricks;
@@ -49,12 +50,15 @@ private:
 
 public:
 	// getters and setters for the length of the map
-	static float getMapLength() { return mapLength; };
-	static void setMapLength(float param) { mapLength = param; };
+	static sf::Vector2f getMapLength() { return mapLength; };
+	static void setMapLength(sf::Vector2f param) { mapLength = param; };
 
+	// returns the position character1 should be initialized in
 	static inOutObj getCharacter1() { return character1; }
 	// returns the position character2 should be initialized in
 	static inOutObj getCharacter2() { return character2; }
+	// returns the position endpoint should be put in
+	static inOutObj getEndpoint() { return endpoint; }
 
 	// returns the position of an enemy at a given index
 	static inOutObj getEnemy(int i) { return enemies[i]; }

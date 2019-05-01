@@ -1,99 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Resources">
-      <UniqueIdentifier>{8722b6aa-84fd-4d80-9297-ca1d8abe0d4b}</UniqueIdentifier>
+    <Filter Include="Code Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Resources">
+    <Filter Include="Code Files\Resources">
       <UniqueIdentifier>{27f21de5-c04e-4959-aeca-ebf92559d3d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\UserInterface">
-      <UniqueIdentifier>{8449593d-ebd6-4ee5-9d06-173730e7432b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\UserInterface">
+    <Filter Include="Code Files\UserInterface">
       <UniqueIdentifier>{1334205f-c343-4292-ab41-7b37ae1fd5b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Editor">
-      <UniqueIdentifier>{2bb7bd2b-a0ae-43dd-9e3b-729e6be464e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Editor">
+    <Filter Include="Code Files\Editor">
       <UniqueIdentifier>{7df5fb7c-c8df-43d5-b58a-de5c02fca80e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ReadWrite">
+    <Filter Include="Code Files\ReadWrite">
       <UniqueIdentifier>{f30e28fb-0de1-47c3-b76d-67480dff19c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ReadWrite">
-      <UniqueIdentifier>{ebd83c24-6b0b-476d-aff6-62f8675e4baf}</UniqueIdentifier>
+    <Filter Include="Code Files\UserInterface\Elements">
+      <UniqueIdentifier>{4db6503d-f5b1-4975-aa2c-5186964eeb3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Editor\Elements">
+      <UniqueIdentifier>{f0fe9cab-c5c9-4762-ade1-bcc83bf9c5a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Paths.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="UserInterface.cpp">
-      <Filter>Source Files\UserInterface</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\UserInterface</Filter>
-    </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Editor.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Source Files\Editor</Filter>
+      <Filter>Code Files\Editor</Filter>
     </ClCompile>
     <ClCompile Include="ReadWrite.cpp">
-      <Filter>Source Files\ReadWrite</Filter>
+      <Filter>Code Files\ReadWrite</Filter>
+    </ClCompile>
+    <ClCompile Include="Paths.cpp">
+      <Filter>Code Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Code Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>Code Files\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Code Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>Code Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Code Files\UserInterface\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Code Files\Editor\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Code Files\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Paths.h">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Code Files\Resources</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
+      <Filter>Code Files</Filter>
     </ClInclude>
     <ClInclude Include="UserInterface.h">
-      <Filter>Header Files\UserInterface</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\UserInterface</Filter>
+      <Filter>Code Files\UserInterface</Filter>
     </ClInclude>
     <ClInclude Include="Program.h">
-      <Filter>Header Files</Filter>
+      <Filter>Code Files</Filter>
     </ClInclude>
     <ClInclude Include="Editor.h">
-      <Filter>Header Files\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Header Files\Editor</Filter>
+      <Filter>Code Files\Editor</Filter>
     </ClInclude>
     <ClInclude Include="ReadWrite.h">
-      <Filter>Header Files\ReadWrite</Filter>
+      <Filter>Code Files\ReadWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Code Files\UserInterface\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Code Files\Editor\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

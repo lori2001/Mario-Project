@@ -11,7 +11,8 @@ public:
 	static constexpr int marioID = 4;
 	static constexpr int luigiID = 5;
 	static constexpr int coinID = 6;
-	static constexpr int eraserID = 7;
+	static constexpr int endpointID = 7;
+	static constexpr int eraserID = 8;
 
 	static void setSelected(int param) { selected = param; }
 	static int getSelected() { return selected; }

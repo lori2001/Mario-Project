@@ -26,6 +26,8 @@ public:
 	static sf::Texture enemy_mushT;
 	static sf::Texture good_mushT;
 	static sf::Texture coinT;
+	static sf::Texture castle_smallT;
+	static sf::Texture flagT;
 
 	static sf::Texture groundT;
 	static sf::Texture brickT;
@@ -39,7 +41,9 @@ public:
 	static sf::SoundBuffer kickSB;
 
 	static sf::Music themesongM;
+	static sf::Music stageClearM;
 	static sf::Music gameoverM;
+	static void stopAllSongs();
 };
 
 /* These stay in the .h file as suggested by Visual Studio*/
@@ -47,5 +51,5 @@ template<class Loadable>
 inline void Resources::loadFile(Loadable & loadable, const std::string & from)
 {
 	if (!loadable.loadFromFile(from))
-		std::cout << "error: could not load file from " << from << std::endl;
+		std::cout << "ERROR: could not load file from " << from << std::endl;
 }

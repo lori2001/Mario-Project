@@ -52,9 +52,9 @@ void Coin::animation(const float dt)
 	}
 }
 
-void Coin::collision(Character& character)
+void Coin::collision(const Character& character)
 {
-	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds())) {
+	if (isAlive && sprite.getGlobalBounds().intersects(character.getGlobalBounds()) && character.getlifeSignal()) {
 		sound.play();
 
 		isAlive = false;

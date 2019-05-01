@@ -29,6 +29,7 @@ public:
 	static sf::Texture enemy_mushT;
 	static sf::Texture good_mushT;
 	static sf::Texture coinT;
+	static sf::Texture castle_smallT;
 
 	static sf::Texture groundT;
 	static sf::Texture brickT;
@@ -41,6 +42,6 @@ template<class Loadable>
 inline void Resources::loadFile(Loadable & loadable, const std::string & from)
 {
 	if (!loadable.loadFromFile(from)) {
-		std::cout << "error: could not load file from " << from << std::endl;
+		std::cout << "ERROR: could not load file from " << from << std::endl;
 	}
 }

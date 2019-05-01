@@ -85,6 +85,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Endpoint.cpp" />
     <ClCompile Include="Endscreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Endpoint.h" />
     <ClInclude Include="Endscreen.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />

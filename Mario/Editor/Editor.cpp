@@ -6,7 +6,7 @@ void Editor::loadMap()
 	objects.clear();
 	objectsType.clear();
 
-	lengthMark.setPosition({ ReadWrite::getMapLength(), 0 });
+	lengthMark.setPosition({ ReadWrite::getMapLength().x, 0 });
 
 	/* turns all loaded text in sprites on screen*/
 	if (ReadWrite::getCharacter1().pos.x != notfound && ReadWrite::getCharacter1().pos.y != notfound) {
@@ -30,6 +30,17 @@ void Editor::loadMap()
 
 		objects.push_back(temp);
 		objectsType.push_back(Mouse::luigiID);
+	}
+	if (ReadWrite::getEndpoint().pos.x != notfound && ReadWrite::getEndpoint().pos.y != notfound) {
+		sf::RectangleShape temp;
+		temp.setTexture(&Resources::castle_smallT);
+		temp.setPosition({ ReadWrite::getEndpoint().pos.x, ReadWrite::getEndpoint().pos.y });
+		temp.setSize({ 177, 168 });
+		temp.setTextureRect({ 0,0, 177, 168 });
+		temp.setScale({ ReadWrite::getEndpoint().scale, ReadWrite::getEndpoint().scale });
+
+		objects.push_back(temp);
+		objectsType.push_back(Mouse::endpointID);
 	}
 
 	for (int i = 0; i < ReadWrite::getEnemiesNum(); i++) {
@@ -104,17 +115,19 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 
 		if (event.type == event.MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 
+			mouseLock = sf::Mouse::getPosition();
+
 			// enable multi-ground and brick placing
 			if (mouse.getSelected() == Mouse::groundID || mouse.getSelected() == Mouse::brickID) {
 				canLock = true;
-				mouseLock = sf::Mouse::getPosition();
 				viewPos = window.getView().getCenter().x;
 			}
 
 			for (unsigned i = 0; i < objects.size(); i++) {
-				// spawn only once (mario and luigi)
+				// spawn only once (mario, luigi and endpoint)
 				if ((mouse.getSelected() == Mouse::marioID && objectsType[i] == Mouse::marioID) ||
-					(mouse.getSelected() == Mouse::luigiID && objectsType[i] == Mouse::luigiID)) {
+					(mouse.getSelected() == Mouse::luigiID && objectsType[i] == Mouse::luigiID) ||
+					(mouse.getSelected() == Mouse::endpointID && objectsType[i] == Mouse::endpointID)) {
 					objects.erase(objects.begin() + i);
 					objectsType.erase(objectsType.begin() + i);
 					break;
@@ -128,16 +141,18 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 						
 						// move map length mark back to the last furthest object
 						float furthestRight = WIDTH;
+						float objTop = 0;
 
 						for (int i = 0; i < int(objects.size()); i++) {
 							float objRight = objects[i].getGlobalBounds().left + objects[i].getGlobalBounds().width;
 							if (furthestRight < objRight) {
 								furthestRight = objRight;
+								objTop = objects[i].getGlobalBounds().top;
 							}
 						}
 
-						ReadWrite::setMapLength(furthestRight);
-						lengthMark.setPosition({ ReadWrite::getMapLength(), 0 });
+						ReadWrite::setMapLength({ furthestRight, objTop });
+						lengthMark.setPosition({ ReadWrite::getMapLength().x, 0 });
 					}
 				}
 			}
@@ -174,11 +189,12 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 
 		if (event.type == event.MouseButtonReleased && mouse.getSelected() != Mouse::eraserID) {
 			float objRight = objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width;
+			float objTop = objects[objects.size() - 1].getGlobalBounds().top;
 
 			// if the last object placed is beyond the limits of the map, move the limits
-			if (objRight > ReadWrite::getMapLength()) {
-				ReadWrite::setMapLength(objRight);
-				lengthMark.setPosition({ ReadWrite::getMapLength(), 0 });
+			if (objRight > ReadWrite::getMapLength().x) {
+				ReadWrite::setMapLength({ objRight, objTop });
+				lengthMark.setPosition({ ReadWrite::getMapLength().x, 0 });
 			}
 		}
 	}
@@ -187,10 +203,33 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 	}
 }
 
-void Editor::Update(sf::RenderWindow & window)
+void Editor::Update(sf::RenderWindow & window, const float dt)
 {
 	mouse.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 	mouse.updateObject();
+
+	/*Nudge last placed object if needed*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		objects[objects.size() - 1].move({0,-25 * dt });
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		objects[objects.size() - 1].move({ 0,25 * dt });
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		objects[objects.size() - 1].move({ -25 * dt, 0 });
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		objects[objects.size() - 1].move({ 25 * dt, 0 });
+	}
+
+	/*Lock mouse on Y axis of the last object*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && objects.size() > 0) {
+		sf::Mouse::setPosition({ sf::Mouse::getPosition().x, mouseLock.y }); // locks mouse in the y axis
+	}
+	/*Lock mouse on X axis of the last object*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && objects.size() > 0) {
+		sf::Mouse::setPosition({ mouseLock.x, sf::Mouse::getPosition().y }); // locks mouse in the y axis
+	}
 }
 
 void Editor::Compose(sf::RenderWindow & window)

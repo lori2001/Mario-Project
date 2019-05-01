@@ -51,6 +51,12 @@ void Mouse::updateObject()
 			RectangleShape::setTextureRect({ 0, 0, 8, 14 });
 			scale = 4.0f;
 		}
+		else if (selected == endpointID) {
+			RectangleShape::setTexture(&Resources::castle_smallT);
+			RectangleShape::setSize(sf::Vector2f{ 177, 168 });
+			RectangleShape::setTextureRect({ 0, 0, 177, 168 });
+			scale = 4.0f;
+		}
 		else if (selected == eraserID) {
 			RectangleShape::setFillColor(sf::Color::Red);
 			RectangleShape::setSize(sf::Vector2f{ 70, 70 });

@@ -17,7 +17,7 @@ void Endscreen::Setup(sf::RenderWindow & window)
 	gameover.setPosition(WIDTH / 2 - gameover.getGlobalBounds().width / 2, 175);
 
 	// play gameover (stop other songs)
-	Resources::themesongM.stop();
+	Resources::stopAllSongs();
 	Resources::gameoverM.play();
 }
 

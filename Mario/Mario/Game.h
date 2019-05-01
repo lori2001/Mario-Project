@@ -11,6 +11,7 @@
 #include "Healer.h"
 #include "Brick.h"
 #include "Coin.h"
+#include "Endpoint.h"
 
 class Game {
 private:
@@ -18,6 +19,7 @@ private:
 
 	Character mario;
 	Character luigi;
+	Endpoint endpoint;
 
 	std::vector<Enemy> enemies;
 	std::vector<Healer> healers;
@@ -32,9 +34,11 @@ private:
 	float elapsedTime;
 
 	bool isActive;
+	bool isWon;
 public:
 	bool getisActive() const { return isActive; }
 	void setisActive(bool value) { isActive = value; }
+	bool getisWon() const { return isWon; }
 
 	void Setup(sf::RenderWindow &window);
 	// void handleEvents(const sf::Event &event);

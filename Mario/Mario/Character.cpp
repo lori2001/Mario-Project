@@ -71,7 +71,7 @@ void Character::movement(float dt, float gravity, sf::View& view)
 	}
 }
 
-void Character::changeCntrlKeys(const sf::Keyboard::Key & in_up, const sf::Keyboard::Key & in_down, const sf::Keyboard::Key & in_left, const sf::Keyboard::Key & in_right)
+void Character::setCntrlKeys(const sf::Keyboard::Key & in_up, const sf::Keyboard::Key & in_down, const sf::Keyboard::Key & in_left, const sf::Keyboard::Key & in_right)
 {
 	up = in_up;
 	down = in_down;

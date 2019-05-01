@@ -5,21 +5,30 @@ void Game::Setup(sf::RenderWindow & window)
 	score.equal(0); // reset score if needed
 	
 	/* Load in game info into actual game elements*/
-	luigi.changeCntrlKeys(sf::Keyboard::W,
+	mario.initializeIn(Maps::getCharacter1().pos, Maps::getCharacter1().scale);
+	mario.setCntrlKeys(sf::Keyboard::Up,
+		sf::Keyboard::Down,
+		sf::Keyboard::Left,
+		sf::Keyboard::Right);
+
+	if (Maps::getCharacter1().pos.x == notfound && Maps::getCharacter1().pos.y == notfound) {
+		mario.doNotDisplay();
+	}
+
+	luigi.initializeIn(Maps::getCharacter2().pos, Maps::getCharacter2().scale);
+	luigi.setCntrlKeys(sf::Keyboard::W,
 		sf::Keyboard::S,
 		sf::Keyboard::A,
 		sf::Keyboard::D);
 	luigi.changeTexture(Resources::luigi_smallT);
 	luigi.changeHeartsPos({ 20,60 });
 
-	mario.initializeIn(Maps::getCharacter1().pos, Maps::getCharacter1().scale);
-	luigi.initializeIn(Maps::getCharacter2().pos, Maps::getCharacter2().scale);
-
-	if (Maps::getCharacter1().pos.x == notfound && Maps::getCharacter1().pos.y == notfound) {
-		mario.doNotDisplay();
-	}
 	if (Maps::getCharacter2().pos.x == notfound && Maps::getCharacter2().pos.y == notfound) {
 		luigi.doNotDisplay();
+	}
+
+	if (Maps::getEndpoint().pos.x != notfound && Maps::getEndpoint().pos.y != notfound) {
+		endpoint.initializeIn(Maps::getEndpoint().pos, Maps::getEndpoint().scale);
 	}
 
 	enemies.clear();
@@ -55,9 +64,11 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 
 	//  character can move and be moved by the view unlike other elements
 	mario.movement(elapsedTime, gravity, view);
+	endpoint.detection(mario,elapsedTime);
 	mario.animation(elapsedTime);
 
 	luigi.movement(elapsedTime, gravity, view);
+	endpoint.detection(luigi, elapsedTime);
 	luigi.animation(elapsedTime);
 
 	for (int i = 0; i < int(grounds.size()); i++) {
@@ -105,6 +116,11 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 
 	// check if mario and luigi are still alive and deactivate game if they are not
 	if (!mario.getlifeSignal() && !luigi.getlifeSignal()) {
+		isWon = false;
+		isActive = false;
+	}
+	else if (endpoint.getGameWon()) {
+		isWon = true;
 		isActive = false;
 	}
 
@@ -130,6 +146,7 @@ void Game::Compose(sf::RenderWindow & window) const
 		window.draw(coins[i]);
 	}
 
+	window.draw(endpoint);
 	window.draw(mario);
 	window.draw(luigi);
 

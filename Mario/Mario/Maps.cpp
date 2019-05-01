@@ -4,6 +4,7 @@ float Maps::mapLength;
 std::vector<std::string> Maps::maps;
 inputObject Maps::character1 = { {notfound, notfound} , 0 ,0 };
 inputObject Maps::character2 = { {notfound, notfound} , 0 ,0 };
+inputObject Maps::endpoint = { {notfound, notfound} , 0 ,0 };
 std::vector<inputObject> Maps::enemies;
 std::vector<inputObject> Maps::healers;
 std::vector<inputObject> Maps::bricks;
@@ -15,6 +16,7 @@ void Maps::resetVariables()
 	mapLength = 0;
 	character1 = { {notfound, notfound} , 0 ,0 };
 	character2 = { {notfound, notfound} , 0 ,0 };
+	endpoint = { {notfound, notfound} , 0 ,0 };
 	enemies.clear();
 	healers.clear();
 	bricks.clear();
@@ -106,6 +108,9 @@ void Maps::readMap(int mapnumber)
 			}
 			else if (input == "character2") {
 				in >> character2.pos.x >> character2.pos.y >> character2.scale;
+			}
+			else if (input == "endpoint") {
+				in >> endpoint.pos.x >> endpoint.pos.y >> endpoint.scale;
 			}
 			else if (input == "enemy") {
 				float xtemp, ytemp, scaletemp;

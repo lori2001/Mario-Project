@@ -8,6 +8,8 @@ sf::Texture Resources::mario_smallT;
 sf::Texture Resources::enemy_mushT;
 sf::Texture Resources::good_mushT;
 sf::Texture Resources::coinT;
+sf::Texture Resources::castle_smallT;
+sf::Texture Resources::flagT;
 
 sf::Texture Resources::groundT;
 sf::Texture Resources::brickT;
@@ -21,6 +23,7 @@ sf::SoundBuffer Resources::stompSB;
 sf::SoundBuffer Resources::kickSB;
 
 sf::Music Resources::themesongM;
+sf::Music Resources::stageClearM;
 sf::Music Resources::gameoverM;
 
 void Resources::loadFiles(sf::RenderWindow & window)
@@ -49,6 +52,8 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	loadFile(enemy_mushT, "assets/images/enemy_mush.png");
 	loadFile(good_mushT, "assets/images/good_mush.png");
 	loadFile(coinT, "assets/images/coin.png");
+	loadFile(castle_smallT, "assets/images/castle_small.png");
+	loadFile(flagT, "assets/images/flag.png");
 
 	loadFile(groundT, "assets/images/ground.png");
 	loadFile(brickT, "assets/images/brick.png");
@@ -63,11 +68,21 @@ void Resources::loadFiles(sf::RenderWindow & window)
 
 	// music files need another type of loading
 	if (!themesongM.openFromFile("assets/audio/theme.wav")) {
-		std::cout << "error: could not load file from assets/audio/theme.wav" << std::endl;
+		std::cout << "ERROR: could not load file from assets/audio/theme.wav" << std::endl;
 	}
 	themesongM.setLoop(true);
 
 	if (!gameoverM.openFromFile("assets/audio/gameover.wav")) {
-		std::cout << "error: could not load file from assets/audio/gameover.wav" << std::endl;
+		std::cout << "ERROR: could not load file from assets/audio/gameover.wav" << std::endl;
 	}
+	if (!stageClearM.openFromFile("assets/audio/stage_clear.wav")) {
+		std::cout << "ERROR: could not load file from assets/audio/stage_clear.wav" << std::endl;
+	}
+}
+
+void Resources::stopAllSongs()
+{
+	themesongM.stop();
+	gameoverM.stop();
+	stageClearM.stop();
 }

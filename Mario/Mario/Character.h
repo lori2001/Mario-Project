@@ -32,7 +32,7 @@ private:
 		const sf::Vector2i animationSizes[7] = { {13,16}, {14,16}, {12,16}, {16,16}, {14,16}, {17,16}, {15,14} }; // contains the sizes for each frame of animation
 		sf::Vector2i animationPlace(const unsigned &index); // calculates the place of a texture in file
 	/*DEATH ANIMATION*/
-		bool isAlive; // used only for animation]
+		bool isAlive; // used only for animation
 		bool lifeSignal; // used to communicate death after all animations ended
 	/*INVULNERABLE ANIMATION*/
 		float invATimer; // invulnerability animation timer
@@ -40,10 +40,10 @@ private:
 		bool isVisible; // used to display invulnerability
 
 	/*CONTROLS*/
-		sf::Keyboard::Key up = sf::Keyboard::Up; // key used for jumping
-		sf::Keyboard::Key down = sf::Keyboard::Down; // key used for crouching
-		sf::Keyboard::Key left = sf::Keyboard::Left; // key used for moving left
-		sf::Keyboard::Key right = sf::Keyboard::Right; // key used for moving right
+		sf::Keyboard::Key up; // key used for jumping
+		sf::Keyboard::Key down; // key used for crouching
+		sf::Keyboard::Key left; // key used for moving left
+		sf::Keyboard::Key right; // key used for moving right
 
 	/*PROPERTIES*/
 		int lives; // lives remaining
@@ -85,8 +85,8 @@ public:
 	void initializeIn(const sf::Vector2f& position, const float scale);
 	// changes default texture used
 	void changeTexture(const sf::Texture& texture);
-	// changes the way the character gets controlled
-	void changeCntrlKeys(const sf::Keyboard::Key& in_up,
+	// !IMPORTANT! sets the way the character gets controlled
+	void setCntrlKeys(const sf::Keyboard::Key& in_up,
 		const sf::Keyboard::Key& in_down,
 		const sf::Keyboard::Key& in_left,
 		const sf::Keyboard::Key& in_right);
@@ -104,4 +104,20 @@ public:
 	sf::FloatRect getLastBounds() const { return lastBounds; }
 	// returns how many lives the character has
 	int getlifeSignal() const { return lifeSignal; }
+	// returns position of mario (top left corner)
+	sf::Vector2f getPosition() { return sprite.getPosition(); }
+	void setVisibility(bool param) { isVisible = param; }
+	// walks right with given speed
+	void walkRight(const float speed) { 
+		flipOrient = false;
+		lastBounds = sprite.getGlobalBounds();
+		sprite.move({speed,0});
+	}
+	// !!!WARNING values get lost once disabled!!!
+	void disableKeys() {
+		up = sf::Keyboard::Unknown;
+		down = sf::Keyboard::Unknown;
+		left = sf::Keyboard::Unknown;
+		right = sf::Keyboard::Unknown;
+	}
 };

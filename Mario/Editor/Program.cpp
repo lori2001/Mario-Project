@@ -25,7 +25,6 @@ int Program::run(sf::RenderWindow &window)
 		elapsedTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && view.getCenter().x > view.getSize().x / 2) {
 			view.move(-1500 * elapsedTime,0);
 
@@ -50,7 +49,7 @@ int Program::run(sf::RenderWindow &window)
 			userInterface.saveing = false;
 		}
 
-		editor.Update(window);
+		editor.Update(window, elapsedTime);
 		userInterface.Update(view);
 
 		window.clear(sf::Color(100, 100, 250)); // the background used in-game

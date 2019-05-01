@@ -41,7 +41,7 @@ public:
 	void animation(const float dt);
 
 	// check and act upon collision with character
-	void collision(Character& character);
+	void collision(const Character& character);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
