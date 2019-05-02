@@ -33,11 +33,10 @@ private:
 	sf::Clock clock;
 	float elapsedTime;
 
-	bool isActive;
+	bool isActive = false;
 	bool isWon;
 public:
 	bool getisActive() const { return isActive; }
-	void setisActive(bool value) { isActive = value; }
 	bool getisWon() const { return isWon; }
 
 	void Setup(sf::RenderWindow &window);

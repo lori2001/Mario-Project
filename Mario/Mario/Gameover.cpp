@@ -1,6 +1,6 @@
-#include "Endscreen.h"
+#include "Gameover.h"
 
-void Endscreen::Setup(sf::RenderWindow & window)
+void Gameover::Setup(sf::RenderWindow & window)
 {
 	goback.setPosition({ 100 ,900 });
 	exit.setPosition({ 1320 ,900 });
@@ -19,9 +19,11 @@ void Endscreen::Setup(sf::RenderWindow & window)
 	// play gameover (stop other songs)
 	Resources::stopAllSongs();
 	Resources::gameoverM.play();
+
+	isActive = true;
 }
 
-void Endscreen::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
+void Gameover::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
 {
 	mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window)); //gets mouse position relative to window
 
@@ -32,7 +34,7 @@ void Endscreen::handleEvents(const sf::RenderWindow & window, const sf::Event & 
 	exit.handleEvents(event);
 }
 
-void Endscreen::Update(sf::RenderWindow & window)
+void Gameover::Update(sf::RenderWindow & window)
 {
 	if (exit.activated()) {
 		window.close();
@@ -42,7 +44,7 @@ void Endscreen::Update(sf::RenderWindow & window)
 	}
 }
 
-void Endscreen::Compose(sf::RenderWindow & window)
+void Gameover::Compose(sf::RenderWindow & window)
 {
 	window.draw(gameover);
 	window.draw(goback);

@@ -24,6 +24,7 @@ sf::SoundBuffer Resources::kickSB;
 
 sf::Music Resources::themesongM;
 sf::Music Resources::stageClearM;
+sf::Music Resources::worldClearM;
 sf::Music Resources::gameoverM;
 
 void Resources::loadFiles(sf::RenderWindow & window)
@@ -78,11 +79,15 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	if (!stageClearM.openFromFile("assets/audio/stage_clear.wav")) {
 		std::cout << "ERROR: could not load file from assets/audio/stage_clear.wav" << std::endl;
 	}
+	if (!worldClearM.openFromFile("assets/audio/world_clear.wav")) {
+		std::cout << "ERROR: could not load file from assets/audio/world_clear.wav" << std::endl;
+	}
 }
 
 void Resources::stopAllSongs()
 {
 	themesongM.stop();
 	gameoverM.stop();
+	worldClearM.stop();
 	stageClearM.stop();
 }

@@ -4,7 +4,8 @@
 #include "MainMenu.h"
 #include "Game.h"
 #include "Maps.h"
-#include "Endscreen.h"
+#include "Gameover.h"
+#include "Gamewon.h"
 
 // Program creat pentru IBSA 2019 de Szoke Andras Lorand
 
@@ -14,7 +15,8 @@ private:
 
 	Game game;
 	MainMenu mainmenu;
-	Endscreen endscreen;
+	Gameover gameover;
+	Gamewon gamewon;
 public:
 	// replaces int main()
 	int run(sf::RenderWindow &window);

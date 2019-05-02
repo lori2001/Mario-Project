@@ -10,6 +10,9 @@ void MainMenu::Setup(sf::RenderWindow & window)
 	exitgame.setPosition({ WIDTH / 2 - startgame.getGlobalBounds().width / 2 , HEIGHT / 2 + 70 });
 	startgame.setCharacterSize(50);
 	exitgame.setCharacterSize(50);
+
+	// if menu is initialized, game didn't start yet
+	startGame = false;
 }
 
 void MainMenu::handleEvents(const sf::RenderWindow & window, const sf::Event & event)
@@ -26,7 +29,7 @@ void MainMenu::handleEvents(const sf::RenderWindow & window, const sf::Event & e
 void MainMenu::Update(sf::RenderWindow & window)
 {
 	if (startgame.activated()) {
-		isActive = false;
+		startGame = true;
 	}
 	if (exitgame.activated()) {
 		window.close();

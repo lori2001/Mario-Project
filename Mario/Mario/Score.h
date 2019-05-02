@@ -5,6 +5,7 @@
 class Score : public sf::Text{
 private:
 	static sf::String basestr;
+	static int totalScore;
 	static int score;
 public:
 
@@ -13,6 +14,13 @@ public:
 		Text::setCharacterSize(35);
 		Text::setString(basestr + std::to_string(score));
 	}
+
+	// sets total score to 0
+	static void resetTotal();
+	// add current score to total
+	static void addScoreToTotal();
+	// get total score (for entire world)
+	static int getTotal();
 	
 	static void add(const int param);
 	static void subs(const int param);

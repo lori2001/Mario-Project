@@ -2,6 +2,7 @@
 
 float Maps::mapLength;
 std::vector<std::string> Maps::maps;
+unsigned Maps::selectedmap;
 inputObject Maps::character1 = { {notfound, notfound} , 0 ,0 };
 inputObject Maps::character2 = { {notfound, notfound} , 0 ,0 };
 inputObject Maps::endpoint = { {notfound, notfound} , 0 ,0 };
@@ -86,13 +87,14 @@ void Maps::readList()
 
 void Maps::readMap(int mapnumber)
 {
-	std::ifstream in("assets/maps/" + maps[mapnumber]);
+	selectedmap = mapnumber;
+	std::ifstream in("assets/maps/" + maps[selectedmap]);
 	std::string input;
-	int iterator = 1;
 
 	resetVariables();
 
 	/* organizes information in dedicated vectors */
+	int iterator = 1;
 	while (in >> input) {
 
 		// clear input and check against ignore conditions
@@ -147,7 +149,7 @@ void Maps::readMap(int mapnumber)
 			else respMessage = 0;
 		}
 		else if (respMessage == 0) { // if response == error, warn
-			std::cout << "WARNING! path: assets/maps/" + maps[mapnumber] << " line: " << iterator << " contains WRONG input." << std::endl;
+			std::cout << "WARNING! path: assets/maps/" + maps[selectedmap] << " line: " << iterator << " contains WRONG input." << std::endl;
 			// iterator expects spaces wherever the editor does
 		}
 

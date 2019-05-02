@@ -11,10 +11,9 @@ private:
 	UI::Button startgame{ Resources::super_marioF, "Start Game", {600, 75} };
 	UI::Button exitgame{ Resources::super_marioF, "Exit", {600, 75}};
 
-	bool isActive;
+	bool startGame;
 public:
-	bool getisActive() const { return isActive; }
-	void setisActive(bool value) { isActive = value; }
+	bool getStartGame() const { return startGame; }
 
 	void Setup(sf::RenderWindow &window);
 	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);

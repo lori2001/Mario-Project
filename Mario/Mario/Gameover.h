@@ -4,7 +4,7 @@
 #include "Resources.h"
 #include "Button.h"
 
-class Endscreen {
+class Gameover {
 private:
 	sf::Vector2f mouse; // holds position of the mouse
 	sf::Text gameover{"GAME OVER", Resources::super_marioF, 200};
@@ -14,10 +14,9 @@ private:
 
 	Score score;
 
-	bool isActive;
+	bool isActive = false;
 public:
 	bool getisActive() const { return isActive; }
-	void setisActive(bool value) { isActive = value; }
 
 	void Setup(sf::RenderWindow &window);
 	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);

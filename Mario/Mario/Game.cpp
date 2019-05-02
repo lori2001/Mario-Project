@@ -54,6 +54,9 @@ void Game::Setup(sf::RenderWindow & window)
 
 	// eliminates potential bugs on trashware
 	clock.restart();
+
+	// if game is initialized, it is played
+	isActive = true;
 }
 
 void Game::Update(const sf::RenderWindow & window, sf::View &view)
@@ -118,10 +121,12 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 	if (!mario.getlifeSignal() && !luigi.getlifeSignal()) {
 		isWon = false;
 		isActive = false;
+		Score::resetTotal();
 	}
 	else if (endpoint.getGameWon()) {
 		isWon = true;
 		isActive = false;
+		Score::addScoreToTotal();
 	}
 
 	score.updateString();

@@ -42,6 +42,7 @@ public:
 
 	static sf::Music themesongM;
 	static sf::Music stageClearM;
+	static sf::Music worldClearM;
 	static sf::Music gameoverM;
 	static void stopAllSongs();
 };

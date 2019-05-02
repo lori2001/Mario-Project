@@ -27,6 +27,7 @@ class Maps
 private:
 	static float mapLength;
 	static std::vector<std::string> maps;
+	static unsigned selectedmap; // the map currently selected
 	static inputObject character1;
 	static inputObject character2;
 	static inputObject endpoint;
@@ -45,6 +46,12 @@ private:
 public:
 	// returns the length of the map
 	static float getMapLength() { return mapLength;  }
+
+	// returns the number of maps read in
+	static unsigned getMapsNum() { return maps.size(); }
+
+	// returns the index of the map currently selected
+	static unsigned getSelectedMap() { return selectedmap; }
 
 	// returns the position character1 should be initialized in
 	static inputObject getCharacter1() { return character1; }

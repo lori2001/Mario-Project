@@ -9,14 +9,11 @@ int LevelManager::run(sf::RenderWindow &window)
 	//window.setFramerateLimit(20);
 
 	// setup positions/sizes/etc.
+	// make mainmenu the first screen to see
 	mainmenu.Setup(window);
 
 	Maps::readList();
 	Maps::readMap(0);
-
-	// initially go to menu and disable game
-	mainmenu.setisActive(true);
-	game.setisActive(false);
 
 	while (window.isOpen())
 	{
@@ -24,11 +21,14 @@ int LevelManager::run(sf::RenderWindow &window)
 
 		while (window.pollEvent(event))
 		{
-			if (mainmenu.getisActive()) {
+			if (!mainmenu.getStartGame()) {
 				mainmenu.handleEvents(window, event);
 			}
-			else if (endscreen.getisActive()) {
-				endscreen.handleEvents(window, event);
+			else if (gameover.getisActive()) {
+				gameover.handleEvents(window, event);
+			}
+			else if (gamewon.getisActive()) {
+				gamewon.handleEvents(window, event);
 			}
 
 			if (event.type == sf::Event::Closed)
@@ -37,44 +37,68 @@ int LevelManager::run(sf::RenderWindow &window)
 
 		window.clear(sf::Color(92, 148, 252)); // the background used in-game
 
-		if (mainmenu.getisActive()) {
-			// contains frame-by-frame logic
+		// if game didn't start yet, show mainmenu
+		if (!mainmenu.getStartGame()) {
 			mainmenu.Update(window);
-			// contains drawing commands
 			mainmenu.Compose(window);
 
-			if (!mainmenu.getisActive()) {
-				game.setisActive(true);
-				game.Setup(window);
+			// if game is started
+			if (mainmenu.getStartGame()) {
+				game.Setup(window); // setup(start) game
 			}
 		}
-		else if (game.getisActive()) {
-			// contains frame-by-frame logic
+		else if (game.getisActive()) { // if game is playing
+			// contains game logic
 			game.Update(window, view);
-			// contains drawing commands
+			// contains game drawing
 			game.Compose(window);
 
-			// move viewport whenever needed
+			// update viewport whenever needed
 			window.setView(view);
 
-			if (!game.getisActive()) {
-				endscreen.setisActive(true);
-				endscreen.Setup(window);
+			if (!game.getisActive() && game.getisWon()) // if ended and won
+			{
+				if (Maps::getSelectedMap() + 1 < Maps::getMapsNum()) {
+					gamewon.Setup(window, false);
+				}
+				else {
+					Maps::readMap(0); // reset map to first one
+					gamewon.Setup(window, true);
+				}
 
 				// reset viewport position
 				view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
 				window.setView(view);
 			}
-		}
-		else if(endscreen.getisActive()) {
-			// contains frame-by-frame logic
-			endscreen.Update(window);
-			// contains drawing commands
-			endscreen.Compose(window);
+			else if (!game.getisActive()) { // if ended but not won
+				gameover.Setup(window);
 
-			if (!endscreen.getisActive()) {
-				mainmenu.setisActive(true);
+				// reset viewport position
+				view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
+				window.setView(view);
+			}
+		
+		}
+		else if(gameover.getisActive()) { // game over screen
+			gameover.Update(window);
+			gameover.Compose(window);
+
+			// if gameover is disabled but still in game
+			if (!gameover.getisActive()) {
 				mainmenu.Setup(window);
+			}
+		}
+		else if (gamewon.getisActive()) { // game won screen
+			gamewon.Update(window);
+			gamewon.Compose(window);
+
+			if (!gamewon.getisActive() && !gamewon.getContinue()) {
+				mainmenu.Setup(window); // go back to menu
+			}
+			else if (!gamewon.getisActive()) {
+				Maps::readMap(Maps::getSelectedMap() + 1); // read the next map
+				game.Setup(window); // go to game (should go to next map)
+				Resources::themesongM.play(); // play theme song again
 			}
 		}
 

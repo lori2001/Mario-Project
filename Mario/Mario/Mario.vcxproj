@@ -86,9 +86,10 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Endpoint.cpp" />
-    <ClCompile Include="Endscreen.cpp" />
+    <ClCompile Include="Gameover.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gamewon.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Healer.cpp" />
     <ClCompile Include="LevelManager.cpp" />
@@ -104,9 +105,10 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Endpoint.h" />
-    <ClInclude Include="Endscreen.h" />
+    <ClInclude Include="Gameover.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Gamewon.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Healer.h" />
     <ClInclude Include="LevelManager.h" />
