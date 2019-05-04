@@ -16,7 +16,6 @@ private:
 	std::vector<sf::RectangleShape> objects;
 
 	/*random number generator in uniform distribution*/
-	std::random_device                  rand_dev;
 	std::mt19937                        generator;
 	std::uniform_int_distribution<int>  distribution;
 

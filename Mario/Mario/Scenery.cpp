@@ -32,6 +32,7 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 		}
 	}
 
+	std::random_device rand_dev;
 	generator = std::mt19937(rand_dev());
 
 	// reseed uniform distribution for clouds
@@ -62,14 +63,15 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 	int bushType2 = bushNum - bushType1;
 
 	bool hills = bool(rand() % 2 == 0); // reandomize whether hills or trees will be used
+
 	// big hills or trees
 	for (int i = 0; i < HoTType1; i++) {
-
 		int posXGround = distribution(generator); // the index of ground it will be placed on
 
-		int groundCount = 0;
+		int groundCount = -1; // don't try this at home :P
 		for (int gi = 0; gi < int(usedGrounds.size()); gi++) { // go through each ground object
 			for (int rown = 0; rown < grounds[usedGrounds[gi]].getRowSize(); rown++) {
+				groundCount++;
 				if (groundCount == posXGround) {
 					if(hills) objects.push_back(newObject(0));
 					else objects.push_back(newObject(2));
@@ -78,20 +80,27 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 					const float posY = grounds[usedGrounds[gi]].getGlobalBounds(rown).top - objects[objects.size() - 1].getGlobalBounds().height;
 					objects[objects.size() - 1].setPosition({ posX, posY });
 
+					if (objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width >
+					grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).left
+					+ grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).width) {
+						objects.erase(objects.begin() + objects.size() - 1); // erase misplaced scenery ( im lazy to fix it :D
+					}
+
 					break;
 				}
-				groundCount++;
 			}
+			if (groundCount == posXGround) break;
 		}
 	}
+	
 	// small hills or trees
 	for (int i = HoTType2; i < HoTNum; i++) {
-
 		int posXGround = distribution(generator); // the index of ground it will be placed on
 
-		int groundCount = 0;
+		int groundCount = -1; // don't try this at home :P
 		for (int gi = 0; gi < int(usedGrounds.size()); gi++) { // go through each ground object
 			for (int rown = 0; rown < grounds[usedGrounds[gi]].getRowSize(); rown++) {
+				groundCount++;
 				if (groundCount == posXGround) {
 					if (hills) objects.push_back(newObject(1));
 					else objects.push_back(newObject(3));
@@ -100,21 +109,27 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 					const float posY = grounds[usedGrounds[gi]].getGlobalBounds(rown).top - objects[objects.size() - 1].getGlobalBounds().height;
 					objects[objects.size() - 1].setPosition({ posX, posY });
 
+					if (objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width >
+					grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).left
+					+ grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).width) {
+						objects.erase(objects.begin() + objects.size() - 1); // erase misplaced scenery ( im lazy to fix it :D
+					}
+
 					break;
 				}
-				groundCount++;
 			}
+			if (groundCount == posXGround) break;
 		}
 	}
 
 	// big bushes
 	for (int i = 0; i < bushType1; i++) {
-
 		int posXGround = distribution(generator); // the index of ground it will be placed on
 
-		int groundCount = 0;
+		int groundCount = -1; // don't try this at home :P
 		for (int gi = 0; gi < int(usedGrounds.size()); gi++) { // go through each ground object
 			for (int rown = 0; rown < grounds[usedGrounds[gi]].getRowSize(); rown++) {
+				groundCount++;
 				if (groundCount == posXGround) {
 					objects.push_back(newObject(6));
 
@@ -122,20 +137,27 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 					const float posY = grounds[usedGrounds[gi]].getGlobalBounds(rown).top - objects[objects.size() - 1].getGlobalBounds().height;
 					objects[objects.size() - 1].setPosition({ posX, posY });
 
+					if (objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width >
+						grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).left
+						+ grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).width) {
+						objects.erase(objects.begin() + objects.size() - 1); // erase misplaced scenery ( im lazy to fix it :D
+					}
+
 					break;
 				}
-				groundCount++;
 			}
+			if (groundCount == posXGround) break;
 		}
 	}
+
 	// small bushes
 	for (int i = bushType1; i < bushNum; i++) {
-
 		int posXGround = distribution(generator); // the index of ground it will be placed on
 
-		int groundCount = 0;
+		int groundCount = -1; // don't try this at home :P
 		for (int gi = 0; gi < int(usedGrounds.size()); gi++) { // go through each ground object
 			for (int rown = 0; rown < grounds[usedGrounds[gi]].getRowSize(); rown++) {
+				groundCount++;
 				if (groundCount == posXGround) {
 					objects.push_back(newObject(7));
 
@@ -143,10 +165,16 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 					const float posY = grounds[usedGrounds[gi]].getGlobalBounds(rown).top - objects[objects.size() - 1].getGlobalBounds().height;
 					objects[objects.size() - 1].setPosition({ posX, posY });
 
+					if (objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width >
+						grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).left
+						+ grounds[usedGrounds[gi]].getGlobalBounds(grounds[usedGrounds[gi]].getRowSize() - 1).width) {
+						objects.erase(objects.begin() + objects.size() - 1); // erase misplaced scenery ( im lazy to fix it :D
+					}
+
 					break;
 				}
-				groundCount++;
 			}
+			if (groundCount == posXGround) break;
 		}
 	}
 }
