@@ -12,10 +12,13 @@
 #include "Brick.h"
 #include "Coin.h"
 #include "Endpoint.h"
+#include "Scenery.h"
 
 class Game {
 private:
 	Score score;
+	
+	Scenery scenery;
 
 	Character mario;
 	Character luigi;
@@ -33,14 +36,15 @@ private:
 	sf::Clock clock;
 	float elapsedTime;
 
-	bool isActive = false;
-	bool isWon;
+	// these signal the current state of the game to other "screens"
+	bool isActive = false; // if the map is finished (either win or loose)
+	bool isWon; // if the map is won is true
 public:
 	bool getisActive() const { return isActive; }
 	bool getisWon() const { return isWon; }
 
-	void Setup(sf::RenderWindow &window);
+	void Setup();
 	// void handleEvents(const sf::Event &event);
-	void Update(const sf::RenderWindow &window, sf::View &view);
+	void Update(sf::View &view);
 	void Compose(sf::RenderWindow &window) const;
 };

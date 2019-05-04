@@ -1,10 +1,10 @@
 #include "Game.h"
 
-void Game::Setup(sf::RenderWindow & window)
+void Game::Setup()
 {
-	score.equal(0); // reset score if needed
+	score.setScore(0); // reset score if needed
 	
-	/* Load in game info into actual game elements*/
+	/* Load from file START*/
 	mario.initializeIn(Maps::getCharacter1().pos, Maps::getCharacter1().scale);
 	mario.setCntrlKeys(sf::Keyboard::Up,
 		sf::Keyboard::Down,
@@ -51,39 +51,47 @@ void Game::Setup(sf::RenderWindow & window)
 	for (int i = 0; i < Maps::getGroundsNum(); i++) {
 		grounds.push_back(Ground{ Maps::getGround(i).pos, Maps::getGround(i).scale, Maps::getGround(i).size });
 	}
+	/* Load from file END*/
 
-	// eliminates potential bugs on trashware
-	clock.restart();
+	// randomly generate background scenery
+	scenery.generate(grounds);
 
 	// if game is initialized, it is played
 	isActive = true;
+
+	// eliminates potential bugs on trashware
+	clock.restart();
 }
 
-void Game::Update(const sf::RenderWindow & window, sf::View &view)
+void Game::Update(sf::View &view)
 {
 	// Resets clock and stopwatches timer each frame
 	elapsedTime = clock.getElapsedTime().asSeconds();
 	clock.restart();
 
-	//  character can move and be moved by the view unlike other elements
+	// character can move and be moved by the view unlike other elements
 	mario.movement(elapsedTime, gravity, view);
-	endpoint.detection(mario,elapsedTime);
-	mario.animation(elapsedTime);
+	endpoint.detection(mario,elapsedTime); // endpoint detects if its reached
+	mario.animation(elapsedTime); // character animations play
 
+	// same for character2
 	luigi.movement(elapsedTime, gravity, view);
 	endpoint.detection(luigi, elapsedTime);
 	luigi.animation(elapsedTime);
 
+	// check ground-character collisions
 	for (int i = 0; i < int(grounds.size()); i++) {
 		mario.collision(grounds[i]);
 		luigi.collision(grounds[i]);
 	}
+	// check brick-character collisions
 	for (int i = 0; i < int(bricks.size()); i++) {
 		mario.collision(bricks[i]);
 		luigi.collision(bricks[i]);
 		bricks[i].animation(elapsedTime);
 	}
 
+	// enemy interactions
 	for (int i = 0; i < int(enemies.size()); i++) {
 		enemies[i].movement(elapsedTime, gravity);
 		enemies[i].animation(elapsedTime);
@@ -98,6 +106,7 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 		}
 	}
 
+	// healer interactions
 	for (int i = 0; i < int(healers.size()); i++) {
 		healers[i].movement(elapsedTime, gravity);
 		healers[i].collision(mario);
@@ -111,6 +120,7 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 		}
 	}
 
+	// coin interactions
 	for (int i = 0; i < int(coins.size()); i++) {
 		coins[i].animation(elapsedTime);
 		coins[i].collision(mario);
@@ -118,15 +128,15 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 	}
 
 	// check if mario and luigi are still alive and deactivate game if they are not
-	if (!mario.getlifeSignal() && !luigi.getlifeSignal()) {
+	if (!mario.getlifeSignal() && !luigi.getlifeSignal() && !endpoint.getWillWin()) {
 		isWon = false;
 		isActive = false;
-		Score::resetTotal();
+		Score::setTotal(0);
 	}
-	else if (endpoint.getGameWon()) {
+	else if (endpoint.getGameWon()) { // check if game is won and deactivate in a different way if yes
 		isWon = true;
 		isActive = false;
-		Score::addScoreToTotal();
+		Score::changeTotal(Score::getScore());
 	}
 
 	score.updateString();
@@ -135,11 +145,17 @@ void Game::Update(const sf::RenderWindow & window, sf::View &view)
 
 void Game::Compose(sf::RenderWindow & window) const
 {
+	window.draw(scenery);
+	window.draw(endpoint);
+
 	for (int i = 0; i < int(grounds.size()); i++) {
 		window.draw(grounds[i]);
 	}
 	for (int i = 0; i < int(bricks.size()); i++) {
 		window.draw(bricks[i]);
+	}
+	for (int i = 0; i < int(coins.size()); i++) {
+		window.draw(coins[i]);
 	}
 	for (int i = 0; i < int(enemies.size()); i++) {
 		window.draw(enemies[i]);
@@ -147,11 +163,7 @@ void Game::Compose(sf::RenderWindow & window) const
 	for (int i = 0; i < int(healers.size()); i++) {
 		window.draw(healers[i]);
 	}
-	for (int i = 0; i < int(coins.size()); i++) {
-		window.draw(coins[i]);
-	}
 
-	window.draw(endpoint);
 	window.draw(mario);
 	window.draw(luigi);
 

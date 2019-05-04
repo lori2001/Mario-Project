@@ -1,6 +1,6 @@
 #include "ReadWrite.h"
 
-sf::Vector2f ReadWrite::mapLength = { WIDTH,HEIGHT };
+sf::Vector2f ReadWrite::mapLength = { 0,0 };
 inOutObj ReadWrite::character1 = { {notfound, notfound} , 0 ,0 };
 inOutObj ReadWrite::character2 = { {notfound, notfound} , 0 ,0 };
 inOutObj ReadWrite::endpoint = { {notfound, notfound} , 0 ,0 };

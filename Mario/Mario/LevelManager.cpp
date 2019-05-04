@@ -10,7 +10,7 @@ int LevelManager::run(sf::RenderWindow &window)
 
 	// setup positions/sizes/etc.
 	// make mainmenu the first screen to see
-	mainmenu.Setup(window);
+	mainmenu.Setup();
 
 	Maps::readList();
 	Maps::readMap(0);
@@ -44,12 +44,12 @@ int LevelManager::run(sf::RenderWindow &window)
 
 			// if game is started
 			if (mainmenu.getStartGame()) {
-				game.Setup(window); // setup(start) game
+				game.Setup(); // setup(start) game
 			}
 		}
 		else if (game.getisActive()) { // if game is playing
 			// contains game logic
-			game.Update(window, view);
+			game.Update(view);
 			// contains game drawing
 			game.Compose(window);
 
@@ -59,11 +59,11 @@ int LevelManager::run(sf::RenderWindow &window)
 			if (!game.getisActive() && game.getisWon()) // if ended and won
 			{
 				if (Maps::getSelectedMap() + 1 < Maps::getMapsNum()) {
-					gamewon.Setup(window, false);
+					gamewon.Setup(false); // false bc not fully won
 				}
 				else {
 					Maps::readMap(0); // reset map to first one
-					gamewon.Setup(window, true);
+					gamewon.Setup(true); // true because the entire game has been finished
 				}
 
 				// reset viewport position
@@ -71,7 +71,7 @@ int LevelManager::run(sf::RenderWindow &window)
 				window.setView(view);
 			}
 			else if (!game.getisActive()) { // if ended but not won
-				gameover.Setup(window);
+				gameover.Setup();
 
 				// reset viewport position
 				view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
@@ -79,26 +79,26 @@ int LevelManager::run(sf::RenderWindow &window)
 			}
 		
 		}
+		else if (gamewon.getisActive()) { // game won screen
+			gamewon.Update();
+			gamewon.Compose(window);
+
+			if (!gamewon.getisActive() && !gamewon.getContinue()) {
+				mainmenu.Setup(); // go back to menu
+			}
+			else if (!gamewon.getisActive()) {
+				Maps::readMap(Maps::getSelectedMap() + 1); // read the next map
+				game.Setup(); // go to game (should go to next map)
+				Resources::themesongM.play(); // play theme song again
+			}
+		}
 		else if(gameover.getisActive()) { // game over screen
 			gameover.Update(window);
 			gameover.Compose(window);
 
 			// if gameover is disabled but still in game
 			if (!gameover.getisActive()) {
-				mainmenu.Setup(window);
-			}
-		}
-		else if (gamewon.getisActive()) { // game won screen
-			gamewon.Update(window);
-			gamewon.Compose(window);
-
-			if (!gamewon.getisActive() && !gamewon.getContinue()) {
-				mainmenu.Setup(window); // go back to menu
-			}
-			else if (!gamewon.getisActive()) {
-				Maps::readMap(Maps::getSelectedMap() + 1); // read the next map
-				game.Setup(window); // go to game (should go to next map)
-				Resources::themesongM.play(); // play theme song again
+				mainmenu.Setup();
 			}
 		}
 

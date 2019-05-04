@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 
-void MainMenu::Setup(sf::RenderWindow & window)
+void MainMenu::Setup()
 {
 	// play the themesong (stop other songs)
 	Resources::stopAllSongs();

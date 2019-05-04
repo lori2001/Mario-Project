@@ -18,7 +18,7 @@ private:
 public:
 	bool getisActive() const { return isActive; }
 
-	void Setup(sf::RenderWindow &window);
+	void Setup();
 	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);
 	void Update(sf::RenderWindow &window);
 	void Compose(sf::RenderWindow &window);

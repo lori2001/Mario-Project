@@ -1,6 +1,7 @@
 #include "Resources.h"
 
 sf::Texture Resources::menu_bgT;
+sf::Texture Resources::sceneryT;
 
 sf::Texture Resources::heartT;
 sf::Texture Resources::luigi_smallT;
@@ -46,6 +47,7 @@ void Resources::loadFiles(sf::RenderWindow & window)
 
 	// loads all files
 	loadFile(menu_bgT, "assets/images/menu_bg.jpg");
+	loadFile(sceneryT, "assets/images/scenery.png");
 
 	loadFile(heartT, "assets/images/heart.png");
 	loadFile(luigi_smallT, "assets/images/luigi_small.png");

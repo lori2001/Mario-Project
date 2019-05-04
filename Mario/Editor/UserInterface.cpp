@@ -11,10 +11,10 @@ void UserInterface::Setup()
 	save.setScale({ 0.1f,0.1f });
 
 	ground.setTexture(Resources::groundT);
-	ground.setScale({ 1.4f,1.4f });
+	ground.setScale({ 3.5f,3.5f });
 
 	brick.setTexture(Resources::brickT);
-	brick.setScale({ 1.4f,1.4f });
+	brick.setScale({ 3.5,3.5f });
 
 	enemy.setTexture(Resources::enemy_mushT);
 	enemy.setScale({ 3.5f,3.5f });

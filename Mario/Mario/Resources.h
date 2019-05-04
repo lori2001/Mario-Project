@@ -19,6 +19,7 @@ private:
 	static void loadFile(Loadable &texture, const std::string & from);
 public:
 	static sf::Texture menu_bgT; // the background of the menu
+	static sf::Texture sceneryT;
 
 	static sf::Texture heartT;
 	static sf::Texture mario_smallT;

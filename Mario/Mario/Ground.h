@@ -45,6 +45,6 @@ public:
 	void animation(const float dt);
 
 	// getters
-	sf::FloatRect getGlobalBounds(const int i) { return shapes[i].getGlobalBounds(); }
-	int getRowSize() { return int(shapes.size()); }
+	sf::FloatRect getGlobalBounds(const int i) const { return shapes[i].getGlobalBounds(); }
+	int getRowSize() const { return int(shapes.size()); }
 };

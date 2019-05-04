@@ -15,7 +15,7 @@ private:
 public:
 	bool getStartGame() const { return startGame; }
 
-	void Setup(sf::RenderWindow &window);
+	void Setup();
 	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);
 	void Update(sf::RenderWindow &window);
 	void Compose(sf::RenderWindow &window);

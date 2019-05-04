@@ -31,7 +31,7 @@ void Character::movement(float dt, float gravity, sf::View& view)
 			// play sound
 			jumpSound.play();
 			
-			jumpVelocity = -1550; // the speed at which jumping occurs
+			jumpVelocity = -260 * sprite.getScale().x; // the force with which jumping occurs
 			jumpToggle = false; // block jumping until reallowed
 			isJumping = true; // signal that character is jumping
 		}

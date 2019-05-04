@@ -21,6 +21,9 @@ public:
 	void setDrawing(bool param) { drawing = param; }
 	bool getDrawing() const { return drawing; }
 
+	// matematically adds given parameter to scale
+	void changeScale(float offset);
+
 	void updateObject();
 private:
 	static int selected;

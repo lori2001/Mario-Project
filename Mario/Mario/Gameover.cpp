@@ -1,6 +1,6 @@
 #include "Gameover.h"
 
-void Gameover::Setup(sf::RenderWindow & window)
+void Gameover::Setup()
 {
 	goback.setPosition({ 100 ,900 });
 	exit.setPosition({ 1320 ,900 });

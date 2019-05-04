@@ -140,7 +140,7 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 						objectsType.erase(objectsType.begin() + i);
 						
 						// move map length mark back to the last furthest object
-						float furthestRight = WIDTH;
+						float furthestRight = 0;
 						float objTop = 0;
 
 						for (int i = 0; i < int(objects.size()); i++) {
@@ -165,18 +165,24 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 		}
 
 		// multi ground and brick placing when holding mouse button
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && canLock) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && canLock && objects.size() > 0) {
 			sf::Mouse::setPosition({ sf::Mouse::getPosition().x, mouseLock.y }); // locks mouse in the y axis
+			
+			// holds the position of the object in vector that is going to be modified
+			const unsigned objPos = objects.size() - 1;
 
-			const unsigned objPos = objects.size() - 1; // holds the position of the object in vector that is going to be modified
+			// if the view gets move while placing that adds up to the size
+			const float viewOffset = (window.getView().getCenter().x - viewPos) / objects[objPos].getScale().x;
+			// mouse pos relative to staring point
+			const float relativeMouse = (sf::Mouse::getPosition().x - mouseLock.x) / objects[objPos].getScale().x * (WIDTH / window.getSize().x);
 
-			float viewOffset = (window.getView().getCenter().x - viewPos) / objects[objPos].getScale().x; // if the view gets move while placing that adds up to the size
-			float newXSize = viewOffset + float(sf::Mouse::getPosition().x - mouseLock.x);
+			// calculates the new size the ground element should have
+			float newXSize = viewOffset + relativeMouse;
 
 			// applies calculations 
 			if (mouse.getSelected() == Mouse::groundID || mouse.getSelected() == Mouse::brickID) {
 				if (objects[objPos].getSize().x < newXSize) {
-					newXSize = float(int(newXSize / Resources::groundT.getSize().x + 1) * objects[objPos].getTexture()->getSize().x);
+					newXSize = float(int(newXSize / objects[objPos].getTexture()->getSize().x + 1) * objects[objPos].getTexture()->getSize().x);
 
 					objects[objPos].setSize({ newXSize, objects[objPos].getSize().y });
 					objects[objPos].setTextureRect({ 0,0,int(objects[objPos].getSize().x), int(objects[objPos].getSize().y) });
@@ -197,6 +203,18 @@ void Editor::handleEvents(const sf::RenderWindow & window, const sf::Event & eve
 				lengthMark.setPosition({ ReadWrite::getMapLength().x, 0 });
 			}
 		}
+
+		if (event.type == sf::Event::MouseWheelMoved) {
+			if (event.mouseWheel.delta > 0) {
+				mouse.changeScale(0.1f);
+			}
+			else if (event.mouseWheel.delta < 0) {
+				mouse.changeScale(-0.1f);
+			}
+			else {
+				std::cout << "WARNING: mouse wheel movement seems odd! value is:" << event.mouseWheel.delta << std::endl;
+			}
+		}
 	}
 	else {
 		mouse.setDrawing(false);
@@ -210,16 +228,54 @@ void Editor::Update(sf::RenderWindow & window, const float dt)
 
 	/*Nudge last placed object if needed*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		objects[objects.size() - 1].move({0,-25 * dt });
+		float objTop = objects[objects.size() - 1].getGlobalBounds().top;
+		objects[objects.size() - 1].move({ 0,-25 * dt });
+
+		// moves map's "last height" if necessary 
+		if (objTop == ReadWrite::getMapLength().y) {
+			objTop = objects[objects.size() - 1].getGlobalBounds().top;
+
+			// set new position
+			ReadWrite::setMapLength({ ReadWrite::getMapLength().x, objTop });
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		float objTop = objects[objects.size() - 1].getGlobalBounds().top;
 		objects[objects.size() - 1].move({ 0,25 * dt });
+
+		// moves map's "last height" if necessary 
+		if (objTop == ReadWrite::getMapLength().y) {
+			objTop = objects[objects.size() - 1].getGlobalBounds().top;
+
+			// set new position
+			ReadWrite::setMapLength({ ReadWrite::getMapLength().x, objTop });
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		float objRight = objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width;
 		objects[objects.size() - 1].move({ -25 * dt, 0 });
+
+		// moves map's length if necessary
+		if (objRight == ReadWrite::getMapLength().x) {
+			// recalculate objRight
+			objRight = objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width;
+			// set new position
+			ReadWrite::setMapLength({ objRight, ReadWrite::getMapLength().y });
+			lengthMark.setPosition({ ReadWrite::getMapLength().x, 0 });
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		float objRight = objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width;
 		objects[objects.size() - 1].move({ 25 * dt, 0 });
+
+		// moves map's length if necessary
+		if (objRight == ReadWrite::getMapLength().x) {
+			// recalculate objRight
+			objRight = objects[objects.size() - 1].getGlobalBounds().left + objects[objects.size() - 1].getGlobalBounds().width;
+			// set new position
+			ReadWrite::setMapLength({ objRight, ReadWrite::getMapLength().y });
+			lengthMark.setPosition({ ReadWrite::getMapLength().x, 0 });
+		}
 	}
 
 	/*Lock mouse on Y axis of the last object*/
@@ -230,11 +286,14 @@ void Editor::Update(sf::RenderWindow & window, const float dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && objects.size() > 0) {
 		sf::Mouse::setPosition({ mouseLock.x, sf::Mouse::getPosition().y }); // locks mouse in the y axis
 	}
+
+	groundMark.setSize({ ReadWrite::getMapLength().x, 2});
 }
 
 void Editor::Compose(sf::RenderWindow & window)
 {
 	window.draw(lengthMark);
+	window.draw(groundMark);
 
 	for (unsigned i = 0; i < objects.size(); i++) {
 		window.draw(objects[i]);

@@ -1,6 +1,6 @@
 #include "Gamewon.h"
 
-void Gamewon::Setup(sf::RenderWindow & window, const bool worldWon)
+void Gamewon::Setup(const bool worldWon)
 {
 	goBack.setPosition({ 100 ,900 });
 	goOn.setPosition({ 1320 ,900 });
@@ -10,7 +10,7 @@ void Gamewon::Setup(sf::RenderWindow & window, const bool worldWon)
 	goBack.setTextColor(sf::Color::Black);
 	goOn.setTextColor(sf::Color::Black);
 
-	score.updateString();
+	score.setBaseStr("Score: ");
 	score.setCharacterSize(100);
 
 	gameWon.setCharacterSize(180);
@@ -24,7 +24,8 @@ void Gamewon::Setup(sf::RenderWindow & window, const bool worldWon)
 		// play music
 		Resources::worldClearM.play();
 		// display the total score throughout the world
-		Score::equal(Score::getTotal());
+		Score::setScore(Score::getTotal());
+		score.setBaseStr("Total: ");
 		gameWon.setCharacterSize(200);
 
 		// just make sure go on button can't be reached
@@ -33,6 +34,8 @@ void Gamewon::Setup(sf::RenderWindow & window, const bool worldWon)
 
 		// place in middle instead
 		goBack.setPosition({ WIDTH / 2 - goBack.getGlobalBounds().width / 2 ,900 });
+
+		Score::setTotal(0); // reset total score
 	}
 
 	// these have to be set anyway
@@ -53,7 +56,7 @@ void Gamewon::handleEvents(const sf::RenderWindow & window, const sf::Event & ev
 	goOn.handleEvents(event);
 }
 
-void Gamewon::Update(sf::RenderWindow & window)
+void Gamewon::Update()
 {
 	if (goOn.activated()) {
 		isActive = false;

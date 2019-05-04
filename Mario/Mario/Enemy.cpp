@@ -95,7 +95,7 @@ void Enemy::collision(Ground & object)
 				else {
 					// gets triggered whenever the ground moves below the entity and not vice-versa
 					isFalling = true;
-					Score::add(75); // gives points
+					Score::changeScore(75); // gives points
 				}
 			}
 		}
@@ -147,7 +147,7 @@ void Enemy::collision(Character& character)
 		{
 			animationTimer = 0; // makes sure animations will be nailed
 			isSqueezed = true; // squeezes enemy
-			Score::add(100); // gives score points
+			Score::changeScore(100); // gives score points
 			character.jump(800); // makes character jump
 		}
 		else // in any other situation

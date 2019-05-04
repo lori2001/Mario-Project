@@ -98,6 +98,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Maps.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="Scenery.cpp" />
     <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +118,7 @@
     <ClInclude Include="Maps.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="Scenery.h" />
     <ClInclude Include="Score.h" />
   </ItemGroup>
   <ItemGroup>

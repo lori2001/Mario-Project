@@ -58,7 +58,7 @@ void Coin::collision(const Character& character)
 		sound.play();
 
 		isAlive = false;
-		Score::add(50);
+		Score::changeScore(50);
 	}
 }
 

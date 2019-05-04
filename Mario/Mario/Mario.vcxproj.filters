@@ -35,9 +35,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Code FIles\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>Code FIles\Game\Elements</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Code FIles\Game\Elements</Filter>
     </ClCompile>
@@ -59,9 +56,6 @@
     <ClCompile Include="Healer.cpp">
       <Filter>Code FIles\Game\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Maps.cpp">
-      <Filter>Code FIles\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Code FIles\Resources</Filter>
     </ClCompile>
@@ -76,6 +70,15 @@
     </ClCompile>
     <ClCompile Include="Gamewon.cpp">
       <Filter>Code FIles\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenery.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Maps.cpp">
+      <Filter>Code FIles\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Code FIles\Game\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +96,6 @@
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Code FIles\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Maps.h">
-      <Filter>Code FIles\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Code FIles\Game\Elements</Filter>
@@ -129,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="Gamewon.h">
       <Filter>Code FIles\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenery.h">
+      <Filter>Code FIles\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Maps.h">
+      <Filter>Code FIles\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

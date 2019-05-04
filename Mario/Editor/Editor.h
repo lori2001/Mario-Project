@@ -10,7 +10,11 @@ public:
 		lengthMark.setSize({2, WIDTH});
 		lengthMark.setOrigin({ 1, 0 });
 		lengthMark.setFillColor(sf::Color::Red);
-		lengthMark.setPosition(WIDTH, 0);
+		lengthMark.setPosition(0, 0);
+
+		groundMark.setFillColor(sf::Color::Green);
+		groundMark.setOrigin({ 0, 1 });
+		groundMark.setPosition({0,  HEIGHT - (HEIGHT / 8) });
 	}
 
 	void loadMap();
@@ -25,6 +29,7 @@ private:
 	float viewPos = 0; // makes placing ground while moving view possible
 	sf::Vector2i mouseLock; // holds mouse position for position locking
 
+	sf::RectangleShape groundMark;
 	sf::RectangleShape lengthMark;
 	std::vector<sf::RectangleShape> objects;
 	std::vector<int> objectsType;

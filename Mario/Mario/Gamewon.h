@@ -20,8 +20,8 @@ public:
 	bool getisActive() const { return isActive; }
 	bool getContinue() { return cont; }
 
-	void Setup(sf::RenderWindow &window,const bool worldWon);
+	void Setup(const bool worldWon);
 	void handleEvents(const sf::RenderWindow &window, const sf::Event &event);
-	void Update(sf::RenderWindow &window);
+	void Update();
 	void Compose(sf::RenderWindow &window);
 };

@@ -55,7 +55,7 @@ void Endpoint::detection(Character & character, const float dt)
 		float percentage = ((castle.getGlobalBounds().height - animPos.y + castle.getGlobalBounds().top) / castle.getGlobalBounds().height);
 
 		// add score calculated
-		Score::add(int(200 * percentage));
+		Score::changeScore(int(200 * percentage));
 
 		// disable character keys
 		character.disableKeys();

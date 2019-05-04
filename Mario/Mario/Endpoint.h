@@ -40,5 +40,6 @@ public:
 	sf::FloatRect getGlobalBounds() { return castle.getGlobalBounds(); }
 
 	// returns true whenever game is won
+	bool getWillWin() { return animationTrigger; }
 	bool getGameWon() { return gameWon; }
 };
