@@ -11,16 +11,16 @@ void UserInterface::Setup()
 	save.setScale({ 0.1f,0.1f });
 
 	ground.setTexture(Resources::groundT);
-	ground.setScale({ 3.5f,3.5f });
+	ground.setScale({ 1.75f,1.75f });
 
 	brick.setTexture(Resources::brickT);
-	brick.setScale({ 3.5,3.5f });
+	brick.setScale({ 1.75f,1.75f });
 
 	enemy.setTexture(Resources::enemy_mushT);
 	enemy.setScale({ 3.5f,3.5f });
 
 	healer.setTexture(Resources::good_mushT);
-	healer.setScale({ 3.5f,3.5f });
+	healer.setScale({ 1.75f,1.75f });
 
 	mario.setTexture(Resources::mario_smallT);
 	mario.setScale({ 3.7f,3.7f });

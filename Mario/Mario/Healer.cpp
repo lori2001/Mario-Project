@@ -10,9 +10,6 @@ void Healer::initializeIn(const sf::Vector2f & position)
 
 	/*POSITIONING*/
 	sprite.setPosition(position);
-
-	/*FRAME TYPE*/
-	sprite.setTextureRect({ 0, 0, 16, 16 });
 }
 
 void Healer::movement(const float & dt, const float & gravity)

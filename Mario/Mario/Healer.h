@@ -20,6 +20,7 @@ public:
 	Healer(const sf::Vector2f& position, const float scale = 4) {
 		sprite.setTexture(Resources::good_mushT);
 		sprite.setScale({ scale, scale });
+		sprite.setTextureRect({ 0, 0, int(Resources::good_mushT.getSize().x), int(Resources::good_mushT.getSize().y) });
 	
 		initializeIn(position);
 	}

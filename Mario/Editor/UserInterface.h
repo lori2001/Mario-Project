@@ -25,7 +25,7 @@ private:
 	UI::Button ground{ sf::Vector2f{Resources::groundT.getSize()} };
 	UI::Button brick{ sf::Vector2f{Resources::brickT.getSize()} };
 	UI::Button enemy{ sf::Vector2f{16,16} };
-	UI::Button healer{ sf::Vector2f{16,16} };
+	UI::Button healer{ sf::Vector2f{Resources::good_mushT.getSize()} };
 	UI::Button mario{ sf::Vector2f{13,16} };
 	UI::Button luigi{ sf::Vector2f{13,16} };
 	UI::Button coin{ sf::Vector2f{8,14} };

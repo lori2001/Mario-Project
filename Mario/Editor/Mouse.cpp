@@ -20,11 +20,13 @@ void Mouse::updateObject()
 			RectangleShape::setTexture(&Resources::groundT);
 			RectangleShape::setSize(sf::Vector2f{ Resources::groundT.getSize() });
 			RectangleShape::setTextureRect({ 0, 0, int(Resources::groundT.getSize().x) , int(Resources::groundT.getSize().y) });
+			scale = 2.25f;
 		}
 		else if (selected == brickID) {
 			RectangleShape::setTexture(&Resources::brickT);
 			RectangleShape::setSize(sf::Vector2f{ Resources::brickT.getSize() });
 			RectangleShape::setTextureRect({ 0, 0, int(Resources::brickT.getSize().x) , int(Resources::brickT.getSize().y) });
+			scale = 2.25f;
 		}
 		else if (selected == enemyID) {
 			RectangleShape::setTexture(&Resources::enemy_mushT);
@@ -33,8 +35,9 @@ void Mouse::updateObject()
 		}
 		else if (selected == healerID) {
 			RectangleShape::setTexture(&Resources::good_mushT);
-			RectangleShape::setSize(sf::Vector2f{ 16, 16 });
-			RectangleShape::setTextureRect({ 0, 0, 16, 16 });
+			RectangleShape::setSize(sf::Vector2f{ Resources::good_mushT.getSize() });
+			RectangleShape::setTextureRect({ 0, 0, int(Resources::good_mushT.getSize().x), int(Resources::good_mushT.getSize().y) });
+			scale = 2.25f;
 		}
 		else if (selected == marioID) {
 			RectangleShape::setTexture(&Resources::mario_smallT);
