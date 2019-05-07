@@ -12,15 +12,8 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 	objects.clear(); // clear all previous generations
 	srand(unsigned(time(NULL))); // reseed random number
 
-	int scalar = int(Maps::getMapLength() / WIDTH); // the scale at which things have to be generated
-	if (scalar <= 0) scalar = 1;
-
-	int HoTNum = rand() % (2 * scalar) + (3 * scalar); // number of hills or trees
-	int cloudNum = rand() % (2 * scalar) + (4 * scalar); // number of clouds
-	int bushNum = rand() % (2 * scalar) + (4 * scalar); // number of bushes
-
 	std::vector<int> usedGrounds;
-	int groundsNum = 0;
+	int groundsNum = 0; // number of ground entities(one object contains more entities)
 
 	// count how many ground objects there are
 	for (int i = 0; i < int(grounds.size()); i++) {
@@ -31,6 +24,13 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 			}
 		}
 	}
+
+	int scalar = int(Maps::getMapLength() / WIDTH); // the scale at which things have to be generated
+	if (scalar <= 0) scalar = 1;
+
+	int HoTNum = rand() % (2 * scalar) + (3 * scalar); // number of hills or trees
+	int cloudNum = rand() % (2 * scalar) + (4 * scalar); // number of clouds
+	int bushNum = rand() % (2 * scalar) + (4 * scalar); // number of bushes
 
 	std::random_device rand_dev;
 	generator = std::mt19937(rand_dev());
@@ -53,7 +53,7 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 	}
 
 	// reseed uniform distribution for ground-based objects
-	distribution = std::uniform_int_distribution<int>(1, groundsNum - 14);
+	distribution = std::uniform_int_distribution<int>(1, groundsNum);
 
 	// hill or tree type 1 and 2
 	int HoTType1 = HoTNum - (rand() % HoTNum);
