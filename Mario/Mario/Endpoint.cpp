@@ -17,6 +17,7 @@ void Endpoint::initializeIn(const sf::Vector2f & position, const float scale)
 	/*PROPERTIES*/
 	animationTrigger = false;
 	gameWon = false;
+	nonSoundWin = 0;
 
 	/*SCALE*/
 	castle.setScale({ scale, scale });
@@ -38,7 +39,9 @@ void Endpoint::initializeIn(const sf::Vector2f & position, const float scale)
 
 void Endpoint::detection(Character & character, const float dt)
 {
-	if (animBounds.intersects(character.getGlobalBounds()) && !animationTrigger) {
+	if (animBounds.intersects(character.getGlobalBounds()) &&
+		character.getGlobalBounds().left + character.getGlobalBounds().width / 2 >= animBounds.left &&
+		!animationTrigger) {
 		// play winning song
 		Resources::stopAllSongs();
 		Resources::stageClearM.play();
@@ -73,8 +76,11 @@ void Endpoint::detection(Character & character, const float dt)
 			// makes it look like character enters the door
 			character.setVisibility(false);
 
-			// ends game after music finishes playing
-			if (Resources::stageClearM.getStatus() != sf::Music::Playing) {
+			nonSoundWin += dt; // add up time into emergency stopper
+
+			// ends game after music finishes playing or 6 seconds pass after the end of the game
+			if (Resources::stageClearM.getStatus() != sf::Music::Playing || nonSoundWin >= 6) {
+				nonSoundWin = 0;
 				gameWon = true;
 			}
 		}

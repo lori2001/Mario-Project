@@ -7,7 +7,8 @@ void Enemy::initializeIn(const sf::Vector2f & position)
 
 	/*AI*/
 	srand(unsigned(time(NULL))); // reseeds random number
-	direction = bool(rand() % 2); // starts in random direction
+	// direction = bool(rand() % 2); // starts in random direction
+	direction = true; // always starts left first
 	dirTimer = 0;
 
 	/*ANIMATION*/
@@ -32,7 +33,7 @@ void Enemy::movement(const float dt, const float gravity)
 		if(!isFalling)
 		{
 			lastBounds = sprite.getGlobalBounds();
-			int speed = rand() % 25 + 175; // adds a bit of random offset
+			int speed = /*rand() % 40 +*/ 175; // adds a bit of random offset
 
 			if (direction) { // left movement
 				sprite.move(-speed * dt, 0);

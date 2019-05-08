@@ -29,7 +29,8 @@ private:
 
 	/*PROPERTIES*/
 	bool animationTrigger; // triggers animation and signals the (happy)ending of the game
-	bool gameWon;
+	bool gameWon; // if true goes out to gameWon menu
+	float nonSoundWin; // acts as an emergency exit in case there is no audio card in the PC
 
 	/*ANIMATION*/
 	sf::Vector2f animPos; // the position which has to be reached by the flag

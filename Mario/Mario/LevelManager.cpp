@@ -99,6 +99,7 @@ int LevelManager::run(sf::RenderWindow &window)
 			// if gameover is disabled but still in game
 			if (!gameover.getisActive()) {
 				mainmenu.Setup();
+				Maps::readMap(0); // reset map
 			}
 		}
 

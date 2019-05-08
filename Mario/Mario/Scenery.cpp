@@ -14,6 +14,7 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 
 	std::vector<int> usedGrounds;
 	int groundsNum = 0; // number of ground entities(one object contains more entities)
+	float groundSurface = 0; // the total surface area of the grounds
 
 	// count how many ground objects there are
 	for (int i = 0; i < int(grounds.size()); i++) {
@@ -21,28 +22,30 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 			usedGrounds.push_back(i);
 			for (int rown = 0; rown < grounds[i].getRowSize(); rown++) {
 				groundsNum++;
+				groundSurface += grounds[i].getGlobalBounds(rown).width;
 			}
 		}
 	}
 
-	int scalar = int(Maps::getMapLength() / WIDTH); // the scale at which things have to be generated
+	int scalar = int(groundSurface / WIDTH); // the scale at which things have to be generated
 	if (scalar <= 0) scalar = 1;
 
-	int HoTNum = rand() % (2 * scalar) + (3 * scalar); // number of hills or trees
+	int HoTNum = rand() % (2 * scalar) + (4 * scalar); // number of hills or trees
 	int cloudNum = rand() % (2 * scalar) + (4 * scalar); // number of clouds
-	int bushNum = rand() % (2 * scalar) + (4 * scalar); // number of bushes
+	int bushNum = rand() % (2 * scalar) + (5 * scalar); // number of bushes
 
 	std::random_device rand_dev;
 	generator = std::mt19937(rand_dev());
 
 	// reseed uniform distribution for clouds
 	distribution = std::uniform_int_distribution<int>(10, int(Maps::getMapLength()));
+	std::uniform_int_distribution<int> Ydist{ 10, int(Maps::getMapLength()) };
 
 	// clouds
 	for (int i = 0; i < cloudNum; i++) {
 
 		float posX = float(distribution(generator)); // the index of ground it will be placed on
-		float posY = float(rand() % int(HEIGHT - 450) + 50); // the index of ground it will be placed on
+		float posY = float(Ydist(generator) % int(HEIGHT - 450) + 50); // the index of ground it will be placed on
 
 		if (rand() % 2)
 			objects.push_back(newObject(4));
@@ -181,9 +184,11 @@ void Scenery::generate(const std::vector<Ground>& grounds)
 
 sf::RectangleShape Scenery::newObject(int type)
 {
+	float addScale = float(rand() % 15) / 10; // additional scale from 0.0f to 1.5f inclusive
+
 	sf::RectangleShape temp;
 	temp.setTexture(&Resources::sceneryT);
-	temp.setScale({ 5.0f, 5.0f });
+	temp.setScale({ 4.0f + addScale, 4.0f + addScale });
 	temp.setSize(sf::Vector2f{ sprites[type] });
 	temp.setTextureRect({ animationPlace(type).x, 0, sprites[type].x, sprites[type].y });
 
