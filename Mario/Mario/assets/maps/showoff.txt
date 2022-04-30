@@ -1,0 +1,21 @@
+!! type posx posy scale
+maplength 3492.21
+character1 122.88 851.4 5
+endpoint 2693.48 187.2 4.5
+enemy 1178.88 851.4 4.5
+enemy 2166.79 774 4.5
+enemy 1140.48 405 4.5
+coin 474.24 847.8 4.5
+coin 581.76 756 4.5
+coin 681.6 664.2 4.5
+coin 906.24 405 4.5
+coin 1011.84 405 4.5
+coin 1299.84 405 4.5
+coin 1428.48 405 4.5
+!! type posx posy scale width
+brick 576 851.4 2.25 1
+brick 672 759.6 2.25 1
+brick 848.64 496.8 2.25 9
+ground 40.32 948.6 2.25 25
+ground 1838.85 874.8 2.25 11
+ground 2628.21 950.4 2.25 12

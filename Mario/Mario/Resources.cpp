@@ -84,6 +84,12 @@ void Resources::loadFiles(sf::RenderWindow & window)
 	if (!worldClearM.openFromFile("assets/audio/world_clear.wav")) {
 		std::cout << "ERROR: could not load file from assets/audio/world_clear.wav" << std::endl;
 	}
+
+	/*Lehalkitas*/
+	themesongM.setVolume(10);
+	stageClearM.setVolume(10);
+	worldClearM.setVolume(10);
+	gameoverM.setVolume(10);
 }
 
 void Resources::stopAllSongs()

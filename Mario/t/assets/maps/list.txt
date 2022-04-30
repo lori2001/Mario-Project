@@ -1,0 +1,12 @@
+!! These are comments
+!! You can create your own maps in the editor but you have to add their filename MANUALLY to this list
+!! This system was invented by Szoke Lorand for IBSA 2019 :D
+!! ALL Maps have to be completed in order to win the game
+map6.txt
+showoff.txt
+test2.txt
+map0.txt
+test.txt
+map0.txt
+map1.txt
+!! map2.txt
